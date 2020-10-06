@@ -1,6 +1,6 @@
 NAME = minishell
 CC = gcc
-C_FLAGS = -Wall -Werror
+C_FLAGS = -Wall -Werror -Wextra
 
 ERROR_PATH = ms_error/
 ERROR_FILES = 
