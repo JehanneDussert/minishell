@@ -14,6 +14,8 @@
 # define MINISHELL_H
 
 # include "structures.h"
+# include "libft.h"
+# include "../../get_next_line/get_next_line.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
