@@ -43,7 +43,7 @@ int     main()
     int     x;
     char    *tmp;
 
-    x == 1; //x is the variable that will mean the program will end
+    x = 1; //x is the variable that will mean the program will end
     //welcome message to begin the program.
     //boucle w prompt?
     welcomer();
