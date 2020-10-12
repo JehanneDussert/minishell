@@ -3,96 +3,79 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/01 18:27:53 by ede-banv          #+#    #+#             */
-/*   Updated: 2019/11/14 22:47:19 by ede-banv         ###   ########.fr       */
+/*   Created: 2019/10/31 14:54:08 by jdussert          #+#    #+#             */
+/*   Updated: 2020/10/12 16:43:44 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	*ft_calloc(size_t count, size_t size)
 {
-	int		i;
-	int		j;
-	int		len;
-	char	*tab;
+	unsigned char	*tab;
+	size_t			i;
 
-	if (!s1 || !s2)
-		return (NULL);
 	i = 0;
-	j = 0;
-	len = ft_strlen((char *)s2) + ft_strlen((char *)s1);
-	if (!(tab = malloc(sizeof(char *) * (len + 1))))
+	if (size == 0 && count == 0)
+	{
+		size = 1;
+		count = 1;
+	}
+	if (!(tab = (unsigned char *)malloc(size * count)))
 		return (NULL);
-	while (s1[i])
-		tab[j++] = s1[i++];
-	i = 0;
-	while (s2[i])
-		tab[j++] = s2[i++];
-	tab[j] = '\0';
+	while (i < count * size)
+	{
+		tab[i] = '\0';
+		i++;
+	}
 	return (tab);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	i;
+	int		i;
 	char	*res;
 
+	if (!s1 || !s2)
+		return (NULL);
+	if (!(res = malloc(ft_strlen((char *)s1) + ft_strlen((char *)s2) + 1)))
+		return (NULL);
 	i = 0;
-	if (!s)
-		return (NULL);
-	if (!(res = malloc(sizeof(*res) * (len + 1))))
-		return (NULL);
-	if (start < (unsigned int)ft_strlen((char *)s))
+	while (*s1)
 	{
-		while (i < len && s[start])
-			res[i++] = s[start++];
+		res[i] = *s1;
+		s1++;
+		i++;
+	}
+	while (*s2)
+	{
+		res[i] = *s2;
+		s2++;
+		i++;
 	}
 	res[i] = '\0';
 	return (res);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	int i;
+	char		*dst;
+	size_t		i;
+	size_t		s_len;
 
 	i = 0;
-	while (s[i])
+	if (s)
 	{
-		if (s[i] == c)
-			return ((char *)&s[i]);
-		i++;
+		s_len = ft_strlen((char *)s);
+		if ((dst = (char *)ft_calloc(len + 1, sizeof(*dst))) == NULL)
+			return (NULL);
+		if (start < s_len)
+			while (i < len && s[start])
+				dst[i++] = s[start++];
+		return (dst);
 	}
-	if (s[i] == c)
-		return ((char *)&s[i]);
-	return (NULL);
-}
-
-int		ft_strlen(char *str)
-{
-	int i;
-
-	if (!str)
-		return (0);
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-char	*ft_noleak(char **stock, char **buf)
-{
-	char *tmp;
-
-	if (!(tmp = ft_strjoin(*stock, *buf)))
+	else
 		return (NULL);
-	free(*stock);
-	*stock = NULL;
-	if (!(*stock = ft_substr(tmp, 0, ft_strlen(tmp))))
-		return (NULL);
-	free(tmp);
-	tmp = NULL;
-	return (*stock);
 }
