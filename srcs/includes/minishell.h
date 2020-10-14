@@ -41,5 +41,6 @@ void	ft_command_exec(char *comm);
 **UTILS FCTS
 */
 void	skipspace(char **line);
+char	**ft_skip_quote(char *str, char *charset);
 
 #endif

@@ -41,7 +41,11 @@ void    ft_command_exec(char *comm)
     int i;
 
     i = 0;
-    //faire deuxieme split par whitespace pour savoir tout ce qui est dans la commande
+    //compter les pipes?
+    //faire premier split par pipes
+    //checker s'il y avait des pipes: changer variable?
+    //split par whitespace
+    //gerer commande par commande selon le premier token
 
 }
 
@@ -56,9 +60,11 @@ char    *ft_read()
     n = 1;
     count = 0;
     i = 0;
-    while ((n = get_next_line(1, &line)) == 1)
+    if ((n = get_next_line(1, &line)) == 1)
     {
-        buf = ft_split(line, ';'); //faire split special qui va pas split si le caractere est entre des quotes et qui prend un charset de caracteres de split
+        if (!check_double(line, ";|")) //fonction qui checke les erreurs de ma ligne
+            //erreur
+        buf = ft_split_quote(line, ";");
         if (buf)
             ft_count_commands(&count, buf);
         else
