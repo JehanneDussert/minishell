@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_errors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/14 14:57:08 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/16 17:40:20 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 //-; en debut de commande
 //-chevrons en fin de commande
 //-chevrons qui sont sep par ws)
+
+// fonction pour gerer error pipe + ;
+
 int		is_charset(char c, char *charset)
 {
 	int	i;
