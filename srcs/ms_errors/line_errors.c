@@ -1,0 +1,56 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   line_errors.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
+/*   Updated: 2020/10/14 14:57:08 by ede-banv         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/minishell.h"
+
+//ecrire fonction qui va checker les erreurs de la ligne en debut de ft read, avant meme de split
+//erreurs a checker:
+//-double ; ou | (DONE: check_double)
+//-| en debut ou fin de commande
+//-; en debut de commande
+//-chevrons en fin de commande
+//-chevrons qui sont sep par ws)
+int		is_charset(char c, char *charset)
+{
+	int	i;
+
+	i = 0;
+	while (charset[i])
+	{
+		if (c == charset[i])
+			return (1);
+	}
+	return (0);
+}
+
+int		check_double(char *str, char *charset)
+{
+	int	i;
+	int	c;
+
+	i = 0;
+	while (str[i])
+	{
+		c = 0;
+		if (is_charset(str[i], charset))
+		{
+			c++;
+			i++;
+		}
+		while (ft_iswhitespace(str[i]))
+			i++;
+		if (c == 1 && is_charset(str[i], charset))
+			return (0);
+		i++;
+	}
+	return (1);
+}

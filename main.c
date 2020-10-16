@@ -25,34 +25,64 @@ void    welcomer() //font from http://patorjk.com/software/taag/#p=display&h=1&v
     ft_putchar_fd('\n', 1);
 }
 
-char    **ft_read()
+void    ft_count_commands(int *count, char **buf)
+{
+    int i;
+
+    i = 0;
+    while (buf[i++])
+    {
+        *count += 1;
+    }
+}
+
+void    ft_command_exec(char *comm)
+{
+    int i;
+
+    i = 0;
+    (void)i;
+    (void)comm;
+    //compter les pipes?
+    //faire premier split par pipes
+    //checker s'il y avait des pipes: changer variable?
+    //split par whitespace
+    //gerer commande par commande selon le premier token
+
+}
+
+char    *ft_read()
 {
     char    *line;
-    char    **comd;
     int     n;
+    char    **buf;
+    int     count;
     int     i;
 
     n = 1;
+    count = 0;
     i = 0;
-    while ((n = get_next_line(1, &line)) == 1)
+    if ((n = get_next_line(1, &line)) == 1)
     {
-        // Peut etre : prevoir 1 struct qui permette de compter le nb de cmd 
-        // + sous struct[nb_cmd] avec la comd et le pipe s'il existe
-        comd = ft_split(line, ';'); 
-        // il faut prevoir le cas ou il y a des "" par ex : echo ";" 
-        while (comd[i])
+        if (!check_double(line, ";|")) //fonction qui checke les erreurs de ma ligne
+            //erreur
+        buf = ft_split_quote(line, ";");
+        if (buf)
+            ft_count_commands(&count, buf);
+        else
+            //message d'erreur
+        while (i != count)
         {
-            printf("this is command %d - %s\n", i, comd[i]);
-            i++;
+            ft_command_exec(buf[i++]);
         }
     }
-    return(comd);
+    return(*buf);
 }
 
 int     main()
 {
     int     x;
-    char    **tmp;
+    char    *tmp;
 
     x = 1; //x is the variable that will mean the program will end
     //welcome message to begin the program.

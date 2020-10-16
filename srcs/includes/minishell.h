@@ -27,4 +27,22 @@
 # include <string.h>
 # include <errno.h>
 
+
+/*
+**MAIN FCTS
+*/
+int		main();
+void	welcomer();
+char	*ft_read();
+void	ft_count_commands(int *count, char **buf);
+void	ft_command_exec(char *comm);
+
+/*
+**UTILS FCTS
+*/
+void	skipspace(char **line);
+char	**ft_skip_quote(char *str, char *charset);
+char	**ft_split_quote(char *str, char *charset);
+int		check_double(char *str, char *charset);
+
 #endif
