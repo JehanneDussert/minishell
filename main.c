@@ -65,7 +65,7 @@ char    *ft_read()
     if ((n = get_next_line(1, &line)) == 1)
     {
         if (!check_double(line, ";|")) //fonction qui checke les erreurs de ma ligne
-            //erreur
+            //erreur, fonction ft_error a return
         buf = ft_split_quote(line, ";");
         if (buf)
             ft_count_commands(&count, buf);
@@ -76,10 +76,11 @@ char    *ft_read()
             ft_command_exec(buf[i++]);
         }
     }
+    // pour le compilo j'ai add ce return en attendant
     return(*buf);
 }
 
-int     main()
+int     main(void)
 {
     int     x;
     char    *tmp;
