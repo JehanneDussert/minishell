@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   skips.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:10:35 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/14 14:51:48 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/16 15:44:44 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 void	skipspace(char **line)
 {

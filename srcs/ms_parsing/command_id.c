@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   command_id.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/13 16:49:23 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/16 15:44:08 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 char	*command_id(char **comm)
 {
-
+	return(*comm);
 }
