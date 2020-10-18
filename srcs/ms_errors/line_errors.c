@@ -22,6 +22,22 @@
 
 // fonction pour gerer error pipe + ;
 
+int		ft_check_pipes_commas(char *str)
+{
+	char *tmp;
+	int	len;
+	int	res;
+
+	res = 1;
+	tmp = ft_strtrim(str, " ");
+	len = ft_strlen(tmp);
+	if (tmp[0] == ';' || tmp[0] == '|' || tmp[len] == '|')
+		res = 0;
+	free(tmp);
+	tmp = NULL;
+	return (res);
+}
+
 int		is_charset(char c, char *charset)
 {
 	int	i;
