@@ -35,7 +35,7 @@ void    ft_count_commands(int *count, char **buf)
         *count += 1;
     }
 }
-
+/*
 void    ft_command_exec(char *comm)
 {
     int     i;
@@ -53,7 +53,7 @@ void    ft_command_exec(char *comm)
     }
     //free les splits par pipe
 }
-
+*/
 char    *ft_read()
 {
     char    *line;
@@ -77,7 +77,7 @@ char    *ft_read()
             //message d'erreur
         while (i != count)
         {
-            ft_command_exec(buf[i++]);
+            //ft_command_exec(buf[i++]);
         }
     }
     //free buf et line

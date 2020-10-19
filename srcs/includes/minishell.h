@@ -54,5 +54,10 @@ int		ft_check_errors_line(char *line);
 // This function will free line + send a msg error :
 int     ft_syntax_error(char *str, char *error);
 
+/*
+**MS_PARSING
+*/
+char	*command_id(char **comm);
+
 
 #endif

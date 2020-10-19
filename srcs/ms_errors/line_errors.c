@@ -32,7 +32,7 @@ int		ft_syntax_error_ps(char *str)
 
 	res = 1;
 	tmp = ft_strtrim(str, " ");
-	len = ft_strlen(tmp);
+	len = ft_strlen(tmp) - 1;
 	if (tmp[0] == ';' || tmp[0] == '|' || tmp[len] == '|')
 		res = 0;
 	free(tmp);
@@ -84,6 +84,7 @@ int		check_double(char *str, char *charset)
 	int	c;
 
 	i = 0;
+	ft_putstr_fd("3", 1);
 	while (str[i])
 	{
 		c = 0;
@@ -98,14 +99,18 @@ int		check_double(char *str, char *charset)
 			return (0);
 		i++;
 	}
+	ft_putstr_fd("here", 1);
 	return (1);
 }
 
 int		ft_check_errors_line(char *line)
 {
-	if (!check_double(line, ";|"))
+	/*if (check_double(line, ";|") == 0)
+	{
+		ft_putstr_fd("1", 1);
 		return(ft_syntax_error(line, "double"));
-	if (!ft_syntax_error_ps(line))
+	}*/
+	if (ft_syntax_error_ps(line) == 0)
 		return(ft_syntax_error(line, "ps"));
 	return(1);
 }
