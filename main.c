@@ -36,7 +36,7 @@ void    ft_count_commands(int *count, char **buf)
     }
 }
 
-void    ft_command_exec(char *comm)
+void    ft_command_exec(char *comm, t_exit *exit)
 {
     int     i;
     char    *commands;
@@ -44,11 +44,11 @@ void    ft_command_exec(char *comm)
     i = 0;
     if (!(commands = ft_split_quote(comm, "|")))
         ;//error
-    if (!(command_id(ft_split_quote(commands[i++], "\t\n\r\v \f"))))
+    if (!(command_id(ft_split_quote(commands[i++], "\t\n\r\v \f"), exit)))
         ;//error
     while (commands[i])
     {
-        if (!(pipes_id(ft_split_quote(commands[i++], "\t\n\r\v \f"))))
+        if (!(pipes_id(ft_split_quote(commands[i++], "\t\n\r\v \f"), exit)))
             ;//error
     }
     //free les splits par pipe
@@ -57,16 +57,17 @@ void    ft_command_exec(char *comm)
 char    *ft_read()
 {
     char    *line;
-    int     n;
     char    **buf;
     int     count;
     int     i;
+    t_exit  exit;
 
-    n = 1;
     count = 0;
     i = 0;
     buf = NULL;
-    if ((n = get_next_line(1, &line)) == 1)
+    exit.e = 0;
+    exit.d = 0;
+    if ((get_next_line(1, &line)) == 1)
     {
         ft_check_errors_line(line); //fonction qui checke les erreurs de ma ligne      
         buf = ft_split_quote(line, ";");
@@ -76,10 +77,12 @@ char    *ft_read()
             //message d'erreur
         while (i != count)
         {
-            ft_command_exec(buf[i++]);
+            ft_command_exec(buf[i++], &exit);
         }
     }
     //free buf et line
+    if (exit.e == 1 || exit.d == 1)
+        return (NULL);
     return(*buf);
 }
 
