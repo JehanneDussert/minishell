@@ -32,7 +32,7 @@ int		ft_syntax_error_ps(char *str)
 
 	res = 1;
 	tmp = ft_strtrim(str, " ");
-	len = ft_strlen(tmp);
+	len = ft_strlen(tmp) - 1;
 	if (tmp[0] == ';' || tmp[0] == '|' || tmp[len] == '|')
 		res = 0;
 	free(tmp);
@@ -74,6 +74,7 @@ int		is_charset(char c, char *charset)
 	{
 		if (c == charset[i])
 			return (1);
+		i++;
 	}
 	return (0);
 }
@@ -107,5 +108,7 @@ int		ft_check_errors_line(char *line)
 		return(ft_syntax_error(line, "double"));
 	if (!ft_syntax_error_ps(line))
 		return(ft_syntax_error(line, "ps"));
+	if (!check_chevrons(line))
+		return(ft_syntax_error(line, "chevrons"));
 	return(1);
 }
