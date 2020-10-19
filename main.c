@@ -39,20 +39,30 @@ void    ft_count_commands(int *count, char **buf)
 void    ft_command_exec(char *comm, t_exit *exit)
 {
     int     i;
-    char    *commands;
+    char    **commands;
+    t_cmd   *cmd;
+    int     count;
 
     i = 0;
     if (!(commands = ft_split_quote(comm, "|")))
         ;//error
-    if (!(command_id(ft_split_quote(commands[i++], "\t\n\r\v \f"), exit)))
+    if (!commands[1] && !(command_id(ft_split_quote(commands[i++], "\t\n\r\v \f"), exit)))
         ;//error
-    while (commands[i])
+    ft_count_commands(&count, commands);//compter le nb de commandes
+    if (!(cmd = malloc(sizeof(t_cmd) * (count + 1))))//creer le t_cmd * de bonne taille
+        ;//error
+    cmd[count].cmd = NULL;
+    //fork de minishell pr le pipe
+    while (cmd[i].cmd)
     {
-        if (!(pipes_id(ft_split_quote(commands[i++], "\t\n\r\v \f"), exit)))
+        if (!(cmd[i].cmd = ft_split_quote(commands[i], "\t\n\r\v \f")))
             ;//error
+        ft_free(commands[i]);
+//        pipes_id(&cmd, exit, i);
+        i++;
     }
-    //free les splits par pipe
-    free_read(&commands, NULL);
+    pipes_id(&cmd, exit);
+    free(commands);
 }
 
 char    *ft_read()

@@ -41,7 +41,7 @@ void	ft_command_exec(char *comm, t_exit *exit);
 **PARSING FCTS
 */
 char	*command_id(char **comm, t_exit *exit);
-char	*pipes_id(char **comm, t_exit *exit);
+char	*pipes_id(t_cmd **cmd, t_exit *exit);
 
 /*
 **MS_ERRORS

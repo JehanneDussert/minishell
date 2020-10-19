@@ -13,6 +13,12 @@
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
+typedef struct  s_cmd
+{
+    int     pipe[2];
+    char    **cmd;
+}               t_cmd;
+
 typedef struct  s_exit
 {
     int e;
