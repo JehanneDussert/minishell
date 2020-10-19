@@ -40,14 +40,19 @@ void	ft_command_exec(char *comm);
 /*
 **UTILS FCTS
 */
-void	skipspace(char **line);
+int 	skipspace(char *line, int *i);
 char	**ft_skip_quote(char *str, char *charset);
 char	**ft_split_quote(char *str, char *charset);
+void	if_in_quote(int *d, int *s, int *i, char *str);
 
 /*
 **MS_ERRORS
 */
 int     ft_syntax_error_ps(char *str);
 int		check_double(char *str, char *charset);
+int		ft_check_errors_line(char *line);
+// This function will free line + send a msg error :
+int     ft_syntax_error(char *str, char *error);
+
 
 #endif

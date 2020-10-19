@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_errors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/16 17:40:20 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/19 11:50:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 //ecrire fonction qui va checker les erreurs de la ligne en debut de ft read, avant meme de split
 //erreurs a checker:
 //-double ; ou | (DONE: check_double)
-//-| en debut ou fin de commande
-//-; en debut de commande
+//-| en debut ou fin de commande (DONE: ft_synta_error_ps)
+//-; en debut de commande (DONE: ft_synta_error_ps)
 //-chevrons en fin de commande
 //-chevrons qui sont sep par ws)
 
@@ -38,6 +38,31 @@ int		ft_syntax_error_ps(char *str)
 	free(tmp);
 	tmp = NULL;
 	return (res);
+}
+
+int		check_chevrons(char *str)
+{
+	int	i;
+	int	s;
+	int	d;
+
+	i = 0;
+	s = 0;
+	d = 0;
+	while (str[i])
+	{
+		if_in_quote(&d, &s, &i, str);
+		if ((s == 0 && d == 0) && str[i] == '>')
+			i++;
+		if ((s == 0 && d == 0) && str[i] != '>')
+			return (0);
+		else
+			i++;
+		if (s == 0 && d == 0 && skipspace(str, &i) && (str[i] == ';' || str[i] == '|'))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 int		is_charset(char c, char *charset)
@@ -74,4 +99,13 @@ int		check_double(char *str, char *charset)
 		i++;
 	}
 	return (1);
+}
+
+int		ft_check_errors_line(char *line)
+{
+	if (!check_double(line, ";|"))
+		return(ft_syntax_error(line, "double"));
+	if (!ft_syntax_error_ps(line))
+		return(ft_syntax_error(line, "ps"));
+	return(1);
 }

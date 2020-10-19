@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   skips.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 15:10:35 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/16 15:44:44 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/19 11:42:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	skipspace(char **line)
+int		skipspace(char *line, int *i)
 {
-	while (**line == ' ')
+	while (line[*i] == ' ')
 	{
-		(*line)++;
+		(*i)++;
 	}
+	return (1);
 }
