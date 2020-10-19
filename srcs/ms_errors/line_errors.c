@@ -104,8 +104,8 @@ int		check_double(char *str, char *charset)
 int		ft_check_errors_line(char *line)
 {
 	if (!check_double(line, ";|"))
-		return(ft_error(line, "double"));
+		return(ft_syntax_error(line, "double"));
 	if (!ft_syntax_error_ps(line))
-		return(ft_error(line, "ps"));
+		return(ft_syntax_error(line, "ps"));
 	return(1);
 }

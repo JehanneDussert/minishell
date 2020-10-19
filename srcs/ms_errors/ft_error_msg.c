@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-int	ft_error(char *str, char *error)
+int	ft_syntax_error(char *str, char *error)
 {
     free(str);
     str = NULL;
