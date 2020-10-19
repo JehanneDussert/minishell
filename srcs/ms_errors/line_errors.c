@@ -74,6 +74,7 @@ int		is_charset(char c, char *charset)
 	{
 		if (c == charset[i])
 			return (1);
+		i++;
 	}
 	return (0);
 }
@@ -84,7 +85,6 @@ int		check_double(char *str, char *charset)
 	int	c;
 
 	i = 0;
-	ft_putstr_fd("3", 1);
 	while (str[i])
 	{
 		c = 0;
@@ -99,18 +99,16 @@ int		check_double(char *str, char *charset)
 			return (0);
 		i++;
 	}
-	ft_putstr_fd("here", 1);
 	return (1);
 }
 
 int		ft_check_errors_line(char *line)
 {
-	/*if (check_double(line, ";|") == 0)
-	{
-		ft_putstr_fd("1", 1);
+	if (!check_double(line, ";|"))
 		return(ft_syntax_error(line, "double"));
-	}*/
-	if (ft_syntax_error_ps(line) == 0)
+	if (!ft_syntax_error_ps(line))
 		return(ft_syntax_error(line, "ps"));
+	if (!check_chevrons(line))
+		return(ft_syntax_error(line, "chevrons"));
 	return(1);
 }
