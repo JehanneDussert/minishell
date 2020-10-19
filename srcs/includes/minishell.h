@@ -40,15 +40,12 @@ void	ft_command_exec(char *comm);
 /*
 **UTILS FCTS
 */
-<<<<<<< HEAD
 char	*command_id(char **comm, t_exit *exit);
 char	*pipes_id(t_cmd **cmd, t_exit *exit);
-=======
 int 	skipspace(char *line, int *i);
 char	**ft_skip_quote(char *str, char *charset);
 char	**ft_split_quote(char *str, char *charset);
 void	if_in_quote(int *d, int *s, int *i, char *str);
->>>>>>> 4a1baf897c96c97fdddfdb47ff2d89bd3e51d4cb
 
 /*
 **MS_ERRORS

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/19 15:19:34 by marvin           ###   ########.fr       */
+/*   Updated: 2020/10/19 15:35:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,13 @@ char	*pipes_id(t_cmd **cmd, t_exit *exit)
 {
     //cette fonction va se servir de command id donc cest dans comand id que le debut de l'excecution des commandes va se faire
     //si ca se sert de comm_id
+
+    //boucle
+    //  pipe
+    //  dup2
+    //  fork (pid dans pid de cmd)
+    //  command_id
+    //boucle
+    //  wait_pid qui attend le pid du fils de chaque fork
     return ("done");
 }
