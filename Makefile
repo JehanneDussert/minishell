@@ -11,9 +11,14 @@ GNL_PATH = get_next_line/
 GNL_FILES = get_next_line.c get_next_line_utils.c
 GNL_SRCS = ${addprefix ${GNL_PATH}, ${GNL_FILES}}
 
-SRCS = main.c srcs/ms_errors/line_errors.c srcs/ms_parsing/command_id.c \
-	srcs/ms_utils/skips.c srcs/ms_utils/split_quote.c \
-		${GNL_SRCS}
+SRCS_MS_ERRORS = srcs/ms_errors/line_errors.c
+
+SRCS_MS_PARSING = srcs/ms_parsing/command_id.c
+
+SRCS_MS_UTILS = srcs/ms_utils/skips.c srcs/ms_utils/split_quote.c
+
+SRCS = main.c \
+		${GNL_SRCS} ${SRCS_MS_ERRORS} ${SRCS_MS_PARSING} ${SRCS_MS_UTILS}
 
 SRCS_LIBFT = ft_memset.c ft_bzero.c ft_strlen.c ft_toupper.c ft_tolower.c \
 			ft_strchr.c ft_strrchr.c ft_strncmp.c ft_strlcpy.c ft_strlcat.c \

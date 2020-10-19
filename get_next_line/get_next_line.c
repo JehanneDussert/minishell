@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-int		ft_free(char **buf, char **stock, int i)
+int		ft_free_gnl(char **buf, char **stock, int i)
 {
 	if (*buf)
 	{
@@ -67,15 +67,15 @@ int		ft_stock(char **line, char **stock, char **buf)
 		while ((*stock)[i] != '\n' && (*stock)[i])
 			i++;
 		if (!(*line = ft_substr(*stock, 0, i)))
-			return (ft_free(buf, stock, -1));
+			return (ft_free_gnl(buf, stock, -1));
 		if (!(*stock = ft_restock(stock, i + 1)))
-			return (ft_free(buf, stock, -1));
-		return (ft_free(buf, stock, 1));
+			return (ft_free_gnl(buf, stock, -1));
+		return (ft_free_gnl(buf, stock, 1));
 	}
 	return (0);
 }
 
-int		ft_read(int fd, char **buf, char **stock, char **line)
+int		ft_read_gnl(int fd, char **buf, char **stock, char **line)
 {
 	int red;
 
@@ -85,20 +85,20 @@ int		ft_read(int fd, char **buf, char **stock, char **line)
 		if (!*stock)
 		{
 			if (!(*stock = ft_substr(*buf, 0, BUFFER_SIZE)))
-				return (ft_free(buf, stock, -1));
+				return (ft_free_gnl(buf, stock, -1));
 		}
 		else if (!(*stock = ft_noleak(stock, buf)))
-			return (ft_free(buf, stock, -1));
+			return (ft_free_gnl(buf, stock, -1));
 		if (red == 0)
 		{
 			if (!(*line = ft_substr(*stock, 0, ft_strlen(*stock))))
-				return (ft_free(buf, stock, -1));
-			return (ft_free(buf, stock, 0));
+				return (ft_free_gnl(buf, stock, -1));
+			return (ft_free_gnl(buf, stock, 0));
 		}
 		if (ft_strchr(*stock, '\n'))
 			return (ft_stock(line, stock, buf));
 	}
-	return (ft_free(buf, stock, -6));
+	return (ft_free_gnl(buf, stock, -6));
 }
 
 int		get_next_line(int fd, char **line)
@@ -113,5 +113,5 @@ int		get_next_line(int fd, char **line)
 		return (-1);
 	if ((s = ft_stock(line, &stock, &buf)) != 0)
 		return (s);
-	return (ft_read(fd, &buf, &stock, line));
+	return (ft_read_gnl(fd, &buf, &stock, line));
 }
