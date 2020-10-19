@@ -64,8 +64,7 @@ char    *ft_read()
     buf = NULL;
     if ((n = get_next_line(1, &line)) == 1)
     {
-        if (!check_double(line, ";|")) //fonction qui checke les erreurs de ma ligne
-            //erreur
+        ft_check_errors_line(line); //fonction qui checke les erreurs de ma ligne      
         buf = ft_split_quote(line, ";");
         if (buf)
             ft_count_commands(&count, buf);
