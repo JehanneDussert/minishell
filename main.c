@@ -46,7 +46,7 @@ void    ft_command_exec(char *comm, t_exit *exit)
     i = 0;
     if (!(commands = ft_split_quote(comm, "|")))
         ;//error
-    if (!commands[1] && !(command_id(ft_split_quote(commands[i], "\t\n\r\v \f"), exit))) //free le split ds command_id?
+    if (!commands[1] && !(command_id((ft_split_quote(commands[i], "\t\n\r\v \f")), exit))) //free le split ds command_id?
         ;//error
     ft_count_commands(&count, commands);//compter le nb de commandes
     if (!(cmd = malloc(sizeof(t_cmd) * (count + 1))))//creer le t_cmd * de bonne taille
