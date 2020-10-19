@@ -22,7 +22,7 @@ void    welcomer() //font from http://patorjk.com/software/taag/#p=display&h=1&v
     ft_putstr_fd("##     ##  ##  ##  ####  ##        ## ##     ## ##       ##       ##\n", 1);
     ft_putstr_fd("##     ##  ##  ##   ###  ##  ##    ## ##     ## ##       ##       ##\n", 1);
     ft_putstr_fd("##     ## #### ##    ## ####  ######  ##     ## ######## ######## ########\n", 1);
-    ft_putchar_fd("\n", 1);
+    ft_putchar_fd('\n', 1);
 }
 
 void    ft_count_commands(int *count, char **buf)
@@ -41,6 +41,7 @@ void    ft_command_exec(char *comm)
     int i;
 
     i = 0;
+    (void)comm;
     //compter les pipes?
     //faire premier split par pipes
     //checker s'il y avait des pipes: changer variable?
@@ -60,6 +61,7 @@ char    *ft_read()
     n = 1;
     count = 0;
     i = 0;
+    buf = NULL;
     if ((n = get_next_line(1, &line)) == 1)
     {
         if (!check_double(line, ";|")) //fonction qui checke les erreurs de ma ligne
@@ -74,6 +76,7 @@ char    *ft_read()
             ft_command_exec(buf[i++]);
         }
     }
+    return(*buf);
 }
 
 int     main()
@@ -81,7 +84,7 @@ int     main()
     int     x;
     char    *tmp;
 
-    x == 1; //x is the variable that will mean the program will end
+    x = 1; //x is the variable that will mean the program will end
     //welcome message to begin the program.
     //boucle w prompt?
     welcomer();
