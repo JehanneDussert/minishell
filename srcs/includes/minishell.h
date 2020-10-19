@@ -40,9 +40,10 @@ void	ft_command_exec(char *comm);
 /*
 **UTILS FCTS
 */
-void	skipspace(char **line);
+int 	skipspace(char *line, int *i);
 char	**ft_skip_quote(char *str, char *charset);
 char	**ft_split_quote(char *str, char *charset);
+void	if_in_quote(int *d, int *s, int *i, char *str);
 
 /*
 **MS_ERRORS
