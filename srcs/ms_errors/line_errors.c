@@ -17,8 +17,10 @@
 //-double ; ou | (DONE: check_double)
 //-| en debut ou fin de commande (DONE: ft_synta_error_ps)
 //-; en debut de commande (DONE: ft_synta_error_ps)
-//-chevrons en fin de commande
-//-chevrons qui sont sep par ws)
+//-2 chevrons en fin de commande (DONE : check_chevrons)
+//-2 chevrons qui sont sep par ws) (DONE : check_chevrons)
+//- <, > doivent marcher
+//- check si les quotes sont fermes
 
 /*
 ** Ps : pipe + semi colon
