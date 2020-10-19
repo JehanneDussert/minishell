@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/19 17:25:13 by marvin           ###   ########.fr       */
+/*   Updated: 2020/10/19 17:58:09 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,14 @@ char	*pipes_id(t_cmd **cmd, t_exit *exit)
     while (cmd[i]->cmd)
     {
         pipe(&cmd[i]->pipe);
-        dup2(cmd[i]->pipe[1], 1);
         cmd[i]->pid = fork();
-        command_id(cmd[i]->cmd, exit);
+        if (cmd[i]->pid == 0)
+        {
+            dup2(cmd[i]->pipe[1], 1);
+            command_id(cmd[i]->cmd, exit);
+        }
+        else if (cmd[i]->pid == -1)
+            ;//erreur de fork 
         i++;
     }
     i = 0;
