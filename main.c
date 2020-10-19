@@ -61,7 +61,7 @@ void    ft_command_exec(char *comm, t_exit *exit)
         i++;
     }
     pipes_id(&cmd, exit);
-    //free les cmd dans t_cmd
+    //free les cmd dans t_cmd ou command_id
     free(commands);
 }
 
@@ -83,7 +83,6 @@ char    *ft_read()
         if (!(ft_check_errors_line(line)))
         {
             free_read(&buf, &line);
-            //message d'erreur
             return ("done");
         }
         buf = ft_split_quote(line, ";");
