@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_errors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/16 17:40:20 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/19 10:59:50 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 //ecrire fonction qui va checker les erreurs de la ligne en debut de ft read, avant meme de split
 //erreurs a checker:
 //-double ; ou | (DONE: check_double)
-//-| en debut ou fin de commande
-//-; en debut de commande
+//-| en debut ou fin de commande (DONE: ft_synta_error_ps)
+//-; en debut de commande (DONE: ft_synta_error_ps)
 //-chevrons en fin de commande
 //-chevrons qui sont sep par ws)
 
