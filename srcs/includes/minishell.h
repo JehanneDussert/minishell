@@ -54,7 +54,11 @@ int     ft_syntax_error_ps(char *str);
 int		check_double(char *str, char *charset);
 int		ft_check_errors_line(char *line);
 // This function will free line + send a msg error :
+/*
+** Error msg :
+*/
 int     ft_syntax_error(char *str, char *error);
+int	    ft_malloc_error(void);
 
 /*
 **MS_PARSING
