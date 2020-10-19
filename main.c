@@ -52,6 +52,7 @@ void    ft_command_exec(char *comm, t_exit *exit)
             ;//error
     }
     //free les splits par pipe
+    free_read(&commands, NULL);
 }
 
 char    *ft_read()
@@ -69,8 +70,12 @@ char    *ft_read()
     exit.d = 0;
     if ((get_next_line(1, &line)) == 1)
     {
-        // rajouter un if check error == 0 -> on sort
-        ft_check_errors_line(line); //fonction qui checke les erreurs de ma ligne      
+        if (!(ft_check_errors_line(line)))
+        {
+            free_read(&buf, &line);
+            //message d'erreur
+            return ("done");
+        }
         buf = ft_split_quote(line, ";");
         if (buf)
             ft_count_commands(&count, buf);
@@ -81,11 +86,11 @@ char    *ft_read()
             ft_command_exec(buf[i++], &exit);
         }
     }
-    //free buf et line
+    free_read(&buf, &line);
     if (exit.e == 1 || exit.d == 1)
         return (NULL);
-    return(*buf);
-}
+    return("done");
+}//il reste 3 lignes
 
 int     main()
 {
