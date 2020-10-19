@@ -106,7 +106,7 @@ int		check_double(char *str, char *charset)
 	return (1);
 }
 
-int		check_errors_line(char *line)
+int		ft_check_errors_line(char *line)
 {
 	if (!check_double(line, ";|"))
 		return(ft_error(line, "double"));

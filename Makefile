@@ -11,7 +11,7 @@ GNL_PATH = get_next_line/
 GNL_FILES = get_next_line.c get_next_line_utils.c
 GNL_SRCS = ${addprefix ${GNL_PATH}, ${GNL_FILES}}
 
-SRCS_MS_ERRORS = srcs/ms_errors/line_errors.c
+SRCS_MS_ERRORS = srcs/ms_errors/line_errors.c srcs/ms_errors/ft_error_msg.c
 
 SRCS_MS_PARSING = srcs/ms_parsing/command_id.c
 

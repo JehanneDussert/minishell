@@ -50,5 +50,9 @@ void	if_in_quote(int *d, int *s, int *i, char *str);
 */
 int     ft_syntax_error_ps(char *str);
 int		check_double(char *str, char *charset);
+int		ft_check_errors_line(char *line);
+// This function will free line + send a msg error :
+int     ft_error(char *str, char *error);
+
 
 #endif
