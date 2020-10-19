@@ -54,11 +54,11 @@ int		check_chevrons(char *str)
 		if_in_quote(&d, &s, &i, str);
 		if ((s == 0 && d == 0) && str[i] == '>')
 			i++;
-		if ((s == 0 && d == 0) && str[i] != '>')
+		if ((s == 0 && d == 0) && i > 0 && str[i - 1] == '>' && str[i] != '>')
 			return (0);
 		else
 			i++;
-		if (s == 0 && d == 0 && skipspace(str, &i) && (str[i] == ';' || str[i] == '|'))
+		if (s == 0 && d == 0 && i > 0 && str[i - 1] == '>' && skipspace(str, &i) && (str[i] == ';' || str[i] == '|' || str[i] == '\0'))
 			return (0);
 		i++;
 	}
@@ -84,10 +84,12 @@ int		check_double(char *str, char *charset)
 	int	i;
 	int	c;
 
-	i = 0;
-	while (str[i])
+	i = -1;
+	while (str[++i])
 	{
 		c = 0;
+		if (!is_charset(str[i], charset))
+			continue ;
 		if (is_charset(str[i], charset))
 		{
 			c++;
@@ -97,7 +99,6 @@ int		check_double(char *str, char *charset)
 			i++;
 		if (c == 1 && is_charset(str[i], charset))
 			return (0);
-		i++;
 	}
 	return (1);
 }
@@ -106,9 +107,9 @@ int		ft_check_errors_line(char *line)
 {
 	if (!check_double(line, ";|"))
 		return(ft_syntax_error(line, "double"));
-	if (!ft_syntax_error_ps(line))
+	else if (!ft_syntax_error_ps(line))
 		return(ft_syntax_error(line, "ps"));
-	if (!check_chevrons(line))
+	else if (!check_chevrons(line))
 		return(ft_syntax_error(line, "chevrons"));
 	return(1);
 }
