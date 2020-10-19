@@ -69,6 +69,7 @@ char    *ft_read()
     exit.d = 0;
     if ((get_next_line(1, &line)) == 1)
     {
+        // rajouter un if check error == 0 -> on sort
         ft_check_errors_line(line); //fonction qui checke les erreurs de ma ligne      
         buf = ft_split_quote(line, ";");
         if (buf)
