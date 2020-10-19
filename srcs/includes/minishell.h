@@ -43,6 +43,11 @@ void	ft_command_exec(char *comm);
 void	skipspace(char **line);
 char	**ft_skip_quote(char *str, char *charset);
 char	**ft_split_quote(char *str, char *charset);
+
+/*
+**MS_ERRORS
+*/
+int     ft_syntax_error_ps(char *str);
 int		check_double(char *str, char *charset);
 
 #endif

@@ -62,9 +62,11 @@ char    *ft_read()
     n = 1;
     count = 0;
     i = 0;
+    buf = NULL;
     if ((n = get_next_line(1, &line)) == 1)
     {
-        if (!check_double(line, ";|")) //fonction qui checke les erreurs de ma ligne
+        if (!check_double(line, ";|") || !ft_check_pipes_commas(line)) //fonction qui checke les erreurs de ma ligne
+            printf("error msg\n");
             //erreur, fonction ft_error a return
         buf = ft_split_quote(line, ";");
         if (buf)

@@ -20,9 +20,11 @@
 //-chevrons en fin de commande
 //-chevrons qui sont sep par ws)
 
-// fonction pour gerer error pipe + ;
+/*
+** Ps : pipe + semi colon
+*/
 
-int		ft_check_pipes_commas(char *str)
+int		ft_syntax_error_ps(char *str)
 {
 	char *tmp;
 	int	len;
