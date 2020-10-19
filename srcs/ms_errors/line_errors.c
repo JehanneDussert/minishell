@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/19 10:59:50 by marvin           ###   ########.fr       */
+/*   Updated: 2020/10/19 11:43:17 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,36 @@ int		ft_syntax_error_ps(char *str)
 	free(tmp);
 	tmp = NULL;
 	return (res);
+}
+
+int		check_chevrons(char *str)
+{
+	int	i;
+	int	c;
+	int	s;
+	int	d;
+
+	i = 0;
+	c = 0;
+	s = 0;
+	d = 0;
+	while (str[i])
+	{
+		if_in_quote(&d, &s, &i, str);
+		if ((s == 0 && d == 0) && str[i] == '>')
+		{
+			c++;
+			i++;
+		}
+		if ((s == 0 && d == 0) && str[i] != '>')
+			return (0);
+		else
+			i++;
+		if (s == 0 && d == 0 && skipspace(str, &i) && (str[i] == ';' || str[i] == '|'))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 int		is_charset(char c, char *charset)
