@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/19 11:43:17 by marvin           ###   ########.fr       */
+/*   Updated: 2020/10/19 11:50:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,17 @@ int		ft_syntax_error_ps(char *str)
 int		check_chevrons(char *str)
 {
 	int	i;
-	int	c;
 	int	s;
 	int	d;
 
 	i = 0;
-	c = 0;
 	s = 0;
 	d = 0;
 	while (str[i])
 	{
 		if_in_quote(&d, &s, &i, str);
 		if ((s == 0 && d == 0) && str[i] == '>')
-		{
-			c++;
 			i++;
-		}
 		if ((s == 0 && d == 0) && str[i] != '>')
 			return (0);
 		else
