@@ -38,16 +38,20 @@ void    ft_count_commands(int *count, char **buf)
 
 void    ft_command_exec(char *comm)
 {
-    int i;
+    int     i;
+    char    *commands;
 
     i = 0;
-    (void)comm;
-    //compter les pipes?
-    //faire premier split par pipes
-    //checker s'il y avait des pipes: changer variable?
-    //split par whitespace
-    //gerer commande par commande selon le premier token
-
+    if (!(commands = ft_split_quote(comm, "|")))
+        ;//error
+    if (!(command_id(ft_split_quote(commands[i++], "\t\n\r\v \f"))))
+        ;//error
+    while (commands[i])
+    {
+        if (!(pipes_id(ft_split_quote(commands[i++], "\t\n\r\v \f"))))
+            ;//error
+    }
+    //free les splits par pipe
 }
 
 char    *ft_read()
@@ -75,6 +79,7 @@ char    *ft_read()
             ft_command_exec(buf[i++]);
         }
     }
+    //free buf et line
     return(*buf);
 }
 
