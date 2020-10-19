@@ -13,4 +13,10 @@
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
+typedef struct  s_exit
+{
+    int e;
+    int d;
+}               t_exit;
+
 #endif
