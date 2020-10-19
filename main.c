@@ -46,7 +46,7 @@ void    ft_command_exec(char *comm, t_exit *exit)
     i = 0;
     if (!(commands = ft_split_quote(comm, "|")))
         ;//error
-    if (!commands[1] && !(command_id(ft_split_quote(commands[i++], "\t\n\r\v \f"), exit)))
+    if (!commands[1] && !(command_id(ft_split_quote(commands[i], "\t\n\r\v \f"), exit))) //free le split ds command_id?
         ;//error
     ft_count_commands(&count, commands);//compter le nb de commandes
     if (!(cmd = malloc(sizeof(t_cmd) * (count + 1))))//creer le t_cmd * de bonne taille
@@ -58,10 +58,10 @@ void    ft_command_exec(char *comm, t_exit *exit)
         if (!(cmd[i].cmd = ft_split_quote(commands[i], "\t\n\r\v \f")))
             ;//error
         ft_free(commands[i]);
-//        pipes_id(&cmd, exit, i);
         i++;
     }
     pipes_id(&cmd, exit);
+    //free les cmd dans t_cmd
     free(commands);
 }
 
@@ -109,7 +109,6 @@ int     main()
 
     x = 1; //x is the variable that will mean the program will end
     //welcome message to begin the program.
-    //boucle w prompt?
     welcomer();
     while (x != 0) //x = 0 means the program closed
     {
@@ -118,5 +117,6 @@ int     main()
         if (tmp == NULL)
             x = 0;
     }
+    //bye bye message
     return (1);
 }
