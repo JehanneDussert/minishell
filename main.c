@@ -69,7 +69,15 @@ char    *ft_read()
     if ((n = get_next_line(1, &line)) == 1)
     {
         // rajouter un if check error == 0 -> on sort
-        ft_check_errors_line(line); //fonction qui checke les erreurs de ma ligne      
+        if (!(ft_check_errors_line(line)))
+        {
+            //message d'erreur
+            ft_putstr_fd("\n", 1);
+            ft_putstr_fd("done", 1);
+            ft_putstr_fd("\n", 1);
+            return ("done");
+        }
+        //ft_check_errors_line(line); //fonction qui checke les erreurs de ma ligne      
         buf = ft_split_quote(line, ";");
         if (buf)
             ft_count_commands(&count, buf);
