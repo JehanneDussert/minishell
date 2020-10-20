@@ -68,6 +68,7 @@ char	*command_id(char **comm, t_exit *exit);;
 void	ft_echo(char **comm);
 void	cd_id(char **cmd);
 void	pwd_id();
+void	ft_unset(char **comm);
 
 /*
 **FREE
