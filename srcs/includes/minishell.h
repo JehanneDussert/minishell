@@ -58,7 +58,7 @@ int		ft_check_errors_line(char *line);
 */
 int     ft_syntax_error(char *str, char *error);
 int	    ft_malloc_error(void);
-void	error_msg(char *bin, char *message)
+void	error_msg(char *bin, char *message);
 
 /*
 **MS_PARSING

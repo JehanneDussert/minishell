@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:27:08 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 14:48:56 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/20 15:19:53 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,15 @@ char *cd_id(char **cmd)
 	int		i;
 
 	count = 0;
+	(void)i;
 	ft_count_commands(&count, cmd);
 	if (count == 1)
 	{
-		cd_chdir();//go to home (variable d'env)
+		//cd_chdir();//go to home (variable d'env)
 	}
 	else if (count > 1)
 	{
 		cd_chdir(cmd[1]);
 	}
+	return("done");
 }
