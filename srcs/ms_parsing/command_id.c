@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 13:47:29 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/20 14:00:50 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*command_id(char **comm, t_exit *exit)//puisque je fais read
     //identifier la commande selon le 1er token
     //builtin
     if (!ft_strncmp(comm[0], "echo", 4))
-        ;//fct vers echo
+        ft_echo(comm);
     else if (!ft_strncmp(comm[0], "cd", 2))
         ;//fct vrs cd
     else if (!ft_strncmp(comm[0], "pwd", 3))
