@@ -6,11 +6,14 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:18:45 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 17:45:39 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/20 17:54:31 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+// Une fois qu'on aura les variables d'environnement, echo doit
+// etre capable de les afficher
 
 void	ft_echo_n(char *comm, char **opt)
 {

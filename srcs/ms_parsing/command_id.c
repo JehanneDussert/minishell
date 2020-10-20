@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_id.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 17:00:42 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/20 17:56:39 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*command_id(char **comm, t_exit *exit)//puisque je fais read
     else if (!ft_strcmp(comm[0], "export"))
         ;//fct vrs export
     else if (!ft_strcmp(comm[0], "unset"))
-        ;//fct vrs unset
+        ft_unset(comm);//fct vrs unset
     else if (!ft_strcmp(comm[0], "env"))
         ;//fct vrs env
     else if (!ft_strcmp(comm[0], "exit"))
