@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 13:46:48 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/20 14:10:00 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ int		ft_check_errors_line(char *line)
 		return(ft_syntax_error(line, "double"));
 	else if (!ft_syntax_error_ps(line))
 		return(ft_syntax_error(line, "ps"));
-	else if (!check_chevrons(line))
-		return(ft_syntax_error(line, "chevrons"));
+	// segfault here
+	//else if (!check_chevrons(line))
+	//	return(ft_syntax_error(line, "chevrons"));
 	return(1);
 }
