@@ -6,7 +6,7 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 11:38:50 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/20 13:26:54 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 char	*command_id(char **comm, t_exit *exit)//puisque je fais read
 {
     //identifier la commande selon le 1er token
+    //builtin
     if (!ft_strncmp(comm[0], "echo", 4))
         ;//fct vers echo
     else if (!ft_strncmp(comm[0], "cd", 2))
@@ -29,10 +30,8 @@ char	*command_id(char **comm, t_exit *exit)//puisque je fais read
         ;//fct vrs env
     else if (!ft_strncmp(comm[0], "exit", 4))
         exit->e = 1;
-    else if (!ft_strncmp(comm[0], "./", 2))
-        ;//fct vrs execution de binaire
-    //chevrons aussi
-    //cntrl stuff?
+    //else on regarde pour binaire a excecuter (s'il y a un / dans le 1er mot)
+    //s'il y a pas de / on cherche dans PATH
     //si on free comm ici est-ce que ca marcher avec pipe?
     return("done");
 }
@@ -59,9 +58,14 @@ char	*pipes_id(t_cmd **cmd, t_exit *exit)
         if (cmd[i]->pid == 0)
         {
             if (i != 0)
+            {
                 dup2(cmd[i - 1]->pipe[0], 0);
-            dup2(cmd[i]->pipe[1], 1);
+                close(cmd[i - 1]->pipe[1]);
+            }
+            if (cmd[i + 1]->cmd)
+                dup2(cmd[i]->pipe[1], 1);
             command_id(cmd[i]->cmd, exit);
+            close(cmd[i - 1]->pipe[0]);
         }
         else if (cmd[i]->pid == -1)
             ;//erreur de fork
@@ -71,8 +75,8 @@ char	*pipes_id(t_cmd **cmd, t_exit *exit)
     while (cmd[i]->cmd)
     {
         waitpid(cmd[i]->pid, &status, 0);//a voir la redaction
-        close(cmd[i]->pipe[0]);
-        close(cmd[i]->pipe[1]);
+        //close(cmd[i]->pipe[0]);
+        //close(cmd[i]->pipe[1]);
         //voir comment gerer les bails de pipes
         i++;
     }
