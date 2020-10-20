@@ -14,6 +14,7 @@
 # define STRUCTURES_H
 
 # include "minishell.h"
+# include <sys/types.h>
 
 typedef struct  s_cmd
 {

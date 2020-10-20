@@ -36,7 +36,7 @@ int		main();
 void	welcomer();
 char	*ft_read();
 void	ft_count_commands(int *count, char **buf);
-void	ft_command_exec(char *comm);
+void	ft_command_exec(char *comm, t_exit *exit);
 
 /*
 **UTILS FCTS
