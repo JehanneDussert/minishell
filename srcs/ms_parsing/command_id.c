@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_id.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 13:26:54 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/20 13:47:29 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*pipes_id(t_cmd **cmd, t_exit *exit)
     //  wait_pid qui attend le pid du fils de chaque fork
     while (cmd[i]->cmd)
     {
-        pipe(&cmd[i]->pipe);
+        pipe(cmd[i]->pipe);
         cmd[i]->pid = fork();
         if (cmd[i]->pid == 0)
         {

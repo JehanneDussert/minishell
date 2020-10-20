@@ -26,7 +26,6 @@
 # include <dirent.h>
 # include <string.h>
 # include <errno.h>
-# include <sys/types.h>
 
 
 /*
@@ -36,7 +35,7 @@ int		main();
 void	welcomer();
 char	*ft_read();
 void	ft_count_commands(int *count, char **buf);
-void	ft_command_exec(char *comm);
+void	ft_command_exec(char *comm, t_exit *exit);
 
 /*
 **UTILS FCTS
@@ -66,5 +65,9 @@ int	    ft_malloc_error(void);
 */
 //char	*command_id(char **comm);
 
+/*
+**FREE
+*/
+void	free_read(char ***buf, char **line);
 
 #endif

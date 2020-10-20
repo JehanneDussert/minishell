@@ -57,7 +57,7 @@ void    ft_command_exec(char *comm, t_exit *exit)
     {
         if (!(cmd[i].cmd = ft_split_quote(commands[i], "\t\n\r\v \f")))
             ;//error
-        ft_free(commands[i]);
+        ft_free((void *)commands[i]);
         i++;
     }
     pipes_id(&cmd, exit);
