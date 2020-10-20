@@ -6,7 +6,7 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 16:36:11 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/20 16:49:34 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ char	*pipes_id(t_cmd **cmd, t_exit *exit)
     while (cmd[i]->cmd)
     {
         waitpid(cmd[i]->pid, &status, 0);//a voir la redaction
-        //close(cmd[i]->pipe[0]);
-        //close(cmd[i]->pipe[1]);
+        close(cmd[i]->pipe[0]);
+        close(cmd[i]->pipe[1]);
         //voir comment gerer les bails de pipes
         i++;
     }
