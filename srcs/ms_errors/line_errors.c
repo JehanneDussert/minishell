@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_errors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/19 11:50:03 by marvin           ###   ########.fr       */
+/*   Updated: 2020/10/20 11:03:58 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ int		ft_syntax_error_ps(char *str)
 	len = ft_strlen(tmp) - 1;
 	if (tmp[0] == ';' || tmp[0] == '|' || tmp[len] == '|')
 		res = 0;
-	free(tmp);
-	tmp = NULL;
+	ft_free(&tmp);
 	return (res);
 }
 
