@@ -6,19 +6,11 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:18:45 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 15:05:58 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/20 15:07:05 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-// la comm[0] sera le echo
-    /* 
-        deux cas :
-        - on a des ""
-        - sans ""
-        + prevoir option -n : on effectue pas le saut de ligne final
-    */
 
 void	ft_echo_croch(char *comm)
 {
