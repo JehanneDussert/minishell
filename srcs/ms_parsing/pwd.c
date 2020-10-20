@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 15:18:43 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 16:33:46 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/20 16:58:31 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	pwd_id(char **cmd)
+void	pwd_id()
 {
 	char	*buf;
 

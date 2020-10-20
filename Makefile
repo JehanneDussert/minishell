@@ -23,8 +23,12 @@ MS_UTILS_PATH = ms_utils/
 MS_UTILS_FILES = skips.c split_quote.c
 SRCS_MS_UTILS = ${addprefix ${MS_UTILS_PATH}, ${MS_UTILS_FILES}}
 
+SRCS_PATH = srcs/
+SRCS_FILES = ${SRCS_MS_ERRORS} ${SRCS_MS_PARSING} ${SRCS_MS_UTILS}
+SRCS_MS = ${addprefix ${SRCS_PATH}, ${SRCS_FILES}}
+
 SRCS = main.c \
-		${GNL_SRCS} ${SRCS_MS_ERRORS} ${SRCS_MS_PARSING} ${SRCS_MS_UTILS}
+		${GNL_SRCS} ${SRCS_MS}
 
 SRCS_LIBFT = ft_memset.c ft_bzero.c ft_strlen.c ft_toupper.c ft_tolower.c \
 			ft_strchr.c ft_strrchr.c ft_strncmp.c ft_strlcpy.c ft_strlcat.c \
