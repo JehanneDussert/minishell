@@ -57,7 +57,7 @@ void    ft_command_exec(char *comm, t_exit *exit)
     {
         if (!(cmd[i].cmd = ft_split_quote(commands[i], "\t\n\r\v \f")))
             ;//error
-        ft_free(commands[i]);
+        ft_free((void *)commands[i]);
         i++;
     }
     pipes_id(&cmd, exit);
@@ -76,26 +76,25 @@ char    *ft_read()
     count = 0;
     i = 0;
     buf = NULL;
+    line = NULL;
     exit.e = 0;
     exit.d = 0;
     if ((get_next_line(1, &line)) == 1)
     {
         if (!(ft_check_errors_line(line)))
         {
-            free_read(&buf, &line);
+            //free_read(&buf, &line);
             return ("done");
         }
         buf = ft_split_quote(line, ";");
         if (buf)
             ft_count_commands(&count, buf);
-        else
+        //else
             //message d'erreur
         while (i != count)
-        {
             ft_command_exec(buf[i++], &exit);
-        }
     }
-    free_read(&buf, &line);
+    //free_read(&buf, &line);
     if (exit.e == 1 || exit.d == 1)
         return (NULL);
     return("done");

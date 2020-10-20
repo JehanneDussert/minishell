@@ -6,7 +6,7 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 14:41:34 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/20 15:10:41 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ char	*command_id(char **comm, t_exit *exit)//puisque je fais read
 {
     //identifier la commande selon le 1er token
     //builtin
-    if (!ft_strcmp(comm[0], "echo"))
-        ;//fct vers echo
-    else if (!ft_strcmp(comm[0], "cd"))
+    if (!ft_strncmp(comm[0], "echo", 4))
+        ft_echo(comm);
+    else if (!ft_strncmp(comm[0], "cd", 2))
         ;//fct vrs cd
     else if (!ft_strcmp(comm[0], "pwd"))
         ;//fct vrs pwd
@@ -53,7 +53,7 @@ char	*pipes_id(t_cmd **cmd, t_exit *exit)
     //  wait_pid qui attend le pid du fils de chaque fork
     while (cmd[i]->cmd)
     {
-        pipe(&cmd[i]->pipe);
+        pipe(cmd[i]->pipe);
         cmd[i]->pid = fork();
         if (cmd[i]->pid == 0)
         {

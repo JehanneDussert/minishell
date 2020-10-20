@@ -15,14 +15,14 @@
 void	free_read(char ***buf, char **line)
 {
 	if (*line)
-		ft_free(line);
+		ft_free((void *)line);
 	if (*buf)
 	{
 		while (**buf)
 		{
-			ft_free(**buf);
+			ft_free((void *)buf);
 			(**buf)++;
 		}
-		ft_free(*buf);
+		ft_free((void *)buf);
 	}
 }
