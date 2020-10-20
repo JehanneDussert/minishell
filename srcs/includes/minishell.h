@@ -66,5 +66,9 @@ int	    ft_malloc_error(void);
 */
 //char	*command_id(char **comm);
 
+/*
+**FREE
+*/
+void	free_read(char ***buf, char **line);
 
 #endif

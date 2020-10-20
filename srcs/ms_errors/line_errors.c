@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 11:03:58 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/20 13:46:48 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		ft_syntax_error_ps(char *str)
 	len = ft_strlen(tmp) - 1;
 	if (tmp[0] == ';' || tmp[0] == '|' || tmp[len] == '|')
 		res = 0;
-	ft_free(&tmp);
+	ft_free((void *)&tmp);
 	return (res);
 }
 
