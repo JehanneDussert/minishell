@@ -66,6 +66,7 @@ void	error_msg(char *bin, char *message)
 char	*command_id(char **comm, t_exit *exit);;
 void	ft_echo(char **comm);
 void	cd_id(char **comm);
+void	pwd_id(char **cmd);
 
 /*
 **FREE
