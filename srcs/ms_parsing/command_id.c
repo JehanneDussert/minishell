@@ -6,7 +6,7 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 13:26:54 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/20 14:41:34 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@ char	*command_id(char **comm, t_exit *exit)//puisque je fais read
 {
     //identifier la commande selon le 1er token
     //builtin
-    if (!ft_strncmp(comm[0], "echo", 4))
+    if (!ft_strcmp(comm[0], "echo"))
         ;//fct vers echo
-    else if (!ft_strncmp(comm[0], "cd", 2))
+    else if (!ft_strcmp(comm[0], "cd"))
         ;//fct vrs cd
-    else if (!ft_strncmp(comm[0], "pwd", 3))
+    else if (!ft_strcmp(comm[0], "pwd"))
         ;//fct vrs pwd
-    else if (!ft_strncmp(comm[0], "export", 6))
+    else if (!ft_strcmp(comm[0], "export"))
         ;//fct vrs export
-    else if (!ft_strncmp(comm[0], "unset", 5))
+    else if (!ft_strcmp(comm[0], "unset"))
         ;//fct vrs unset
-    else if (!ft_strncmp(comm[0], "env", 3))
+    else if (!ft_strcmp(comm[0], "env"))
         ;//fct vrs env
-    else if (!ft_strncmp(comm[0], "exit", 4))
+    else if (!ft_strcmp(comm[0], "exit"))
         exit->e = 1;
     //else on regarde pour binaire a excecuter (s'il y a un / dans le 1er mot)
     //s'il y a pas de / on cherche dans PATH

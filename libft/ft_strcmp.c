@@ -1,40 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/20 13:27:08 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 14:48:56 by ede-banv         ###   ########.fr       */
+/*   Created: 2020/10/20 14:26:39 by ede-banv          #+#    #+#             */
+/*   Updated: 2020/10/20 14:36:32 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-
-void	cd_chdir(char *path)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	if (chdir(path) == -1)
-	{
-		error_msg("cd", strerror(errno));
-		errno = 0;
-		//il fo catch l'erreur et changer le bail de $?
-	}
-}
+	int i;
 
-char *cd_id(char **cmd)
-{
-	int		count;
-	int		i;
-
-	count = 0;
-	ft_count_commands(&count, cmd);
-	if (count == 1)
+	i = 0;
+	while (s1[i] == s2[i])
 	{
-		cd_chdir();//go to home (variable d'env)
+		if (s1[i] == '\0')
+			return (0);
+		i++;
 	}
-	else if (count > 1)
-	{
-		cd_chdir(cmd[1]);
-	}
+	return ((unsigned)s1[i] - (unsigned)s2[i]);
 }

@@ -1,18 +1,29 @@
 #include "../includes/minishell.h"
 
+void	error_msg(char *bin, char *message)
+{
+	ft_putstr_fd("Minishell: ", 2);
+	if (bin)
+	{
+		ft_putstr_fd(bin, 2);
+		ft_putstr_fd(": ", 2);
+	}
+	ft_putendl_fd(message, 2);
+}
+
 int	ft_syntax_error(char *str, char *error)
 {
-	if (ft_strncmp(error, "double", 6) == 0)
-		ft_putstr_fd("Syntax error near unexpected token : double tokens.", 1);
-	else if (ft_strncmp(error, "ps", 2) == 0)
-		ft_putstr_fd("Syntax error near unexpected token : pipe or semi error.", 1);
-	else if (ft_strncmp(error, "chevrons", 8) == 0)
-		ft_putstr_fd("Syntax error near unexpected token : chevrons error.", 1);
+	if (ft_strcmp(error, "double") == 0)
+		error_msg(NULL, "syntax error near unexpected token : double separator tokens.");
+	else if (ft_strcmp(error, "ps") == 0)
+		error_msg(NULL, "syntax error near unexpected token : pipe or semi-colon error.");
+	else if (ft_strcmp(error, "chevrons") == 0)
+		error_msg(NULL, "syntax error near unexpected token : chevrons syntax error.");
     return(0);
 }
 
 int	ft_malloc_error(void)
 {
-	ft_putstr_fd("Memory allocation error.", 1);
+	error_msg(NULL, "memory allocation error.");
 	return(0);
 }
