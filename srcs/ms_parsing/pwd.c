@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 15:18:43 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 16:58:31 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/20 17:02:46 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,5 @@ void	pwd_id()
 		errno = 0;
 		//changer la variable $?
 	}
+	ft_putendl_fd(buf, 1);
 }
