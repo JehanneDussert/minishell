@@ -33,6 +33,7 @@
 */
 int		main();
 void	welcomer();
+void	byebye();
 char	*ft_read();
 void	ft_count_commands(int *count, char **buf);
 void	ft_command_exec(char *comm, t_exit *exit);

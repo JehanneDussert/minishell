@@ -20,7 +20,7 @@ MS_PARSING_FILES = command_id.c echo.c cd.c pwd.c
 SRCS_MS_PARSING = ${addprefix ${MS_PARSING_PATH}, ${MS_PARSING_FILES}}
 
 MS_UTILS_PATH = ms_utils/
-MS_UTILS_FILES = skips.c split_quote.c
+MS_UTILS_FILES = skips.c split_quote.c welcome_bye.c
 SRCS_MS_UTILS = ${addprefix ${MS_UTILS_PATH}, ${MS_UTILS_FILES}}
 
 SRCS_PATH = srcs/

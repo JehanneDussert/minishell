@@ -12,19 +12,6 @@
 
 #include "srcs/includes/minishell.h"
 
-void    welcomer() //font from http://patorjk.com/software/taag/#p=display&h=1&v=1&f=Banner3&t=Minishell
-{
-    ft_putstr_fd("Welcome to our\n", 1);
-    ft_putstr_fd("##     ## #### ##    ## ####  ######  ##     ## ######## ##       ##\n", 1);
-    ft_putstr_fd("###   ###  ##  ###   ##  ##  ##    ## ##     ## ##       ##       ##\n", 1);
-    ft_putstr_fd("#### ####  ##  ####  ##  ##  ##       ##     ## ##       ##       ##\n", 1);
-    ft_putstr_fd("## ### ##  ##  ## ## ##  ##   ######  ######### ######   ##       ##\n", 1);
-    ft_putstr_fd("##     ##  ##  ##  ####  ##        ## ##     ## ##       ##       ##\n", 1);
-    ft_putstr_fd("##     ##  ##  ##   ###  ##  ##    ## ##     ## ##       ##       ##\n", 1);
-    ft_putstr_fd("##     ## #### ##    ## ####  ######  ##     ## ######## ######## ########\n", 1);
-    ft_putchar_fd('\n', 1);
-}
-
 void    ft_count_commands(int *count, char **buf)
 {
     int i;
@@ -115,6 +102,6 @@ int     main()
         if (tmp == NULL)
             x = 0;
     }
-    //bye bye message
+    byebye();
     return (1);
 }
