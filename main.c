@@ -35,49 +35,56 @@ void    ft_count_commands(int *count, char **buf)
         *count += 1;
     }
 }
-/*
-void    ft_command_exec(char *comm)
+
+void    ft_command_exec(char *comm, t_exit *exit)
 {
     int     i;
-    char    *commands;
+    char    **commands;
+    t_cmd   *cmd;
+    int     count;
 
     i = 0;
     if (!(commands = ft_split_quote(comm, "|")))
         ;//error
-    if (!(command_id(ft_split_quote(commands[i++], "\t\n\r\v \f"))))
+    if (!commands[1] && !(command_id((ft_split_quote(commands[i], "\t\n\r\v \f")), exit))) //free le split ds command_id?
         ;//error
-    while (commands[i])
+    ft_count_commands(&count, commands);//compter le nb de commandes
+    if (!(cmd = malloc(sizeof(t_cmd) * (count + 1))))//creer le t_cmd * de bonne taille
+        ;//error
+    cmd[count].cmd = NULL;
+    //fork de minishell pr le pipe
+    while (cmd[i].cmd)
     {
-        if (!(pipes_id(ft_split_quote(commands[i++], "\t\n\r\v \f"))))
+        if (!(cmd[i].cmd = ft_split_quote(commands[i], "\t\n\r\v \f")))
             ;//error
+        ft_free(commands[i]);
+        i++;
     }
-    //free les splits par pipe
+    pipes_id(&cmd, exit);
+    //free les cmd dans t_cmd ou command_id
+    free(commands);
 }
-*/
+
 char    *ft_read()
 {
     char    *line;
-    int     n;
     char    **buf;
     int     count;
     int     i;
+    t_exit  exit;
 
-    n = 1;
     count = 0;
     i = 0;
     buf = NULL;
-    if ((n = get_next_line(1, &line)) == 1)
+    exit.e = 0;
+    exit.d = 0;
+    if ((get_next_line(1, &line)) == 1)
     {
-        // rajouter un if check error == 0 -> on sort
         if (!(ft_check_errors_line(line)))
         {
-            //message d'erreur
-            ft_putstr_fd("\n", 1);
-            ft_putstr_fd("done", 1);
-            ft_putstr_fd("\n", 1);
+            free_read(&buf, &line);
             return ("done");
         }
-        //ft_check_errors_line(line); //fonction qui checke les erreurs de ma ligne      
         buf = ft_split_quote(line, ";");
         if (buf)
             ft_count_commands(&count, buf);
@@ -85,12 +92,14 @@ char    *ft_read()
             //message d'erreur
         while (i != count)
         {
-            //ft_command_exec(buf[i++]);
+            ft_command_exec(buf[i++], &exit);
         }
     }
-    //free buf et line
-    return(*buf);
-}
+    free_read(&buf, &line);
+    if (exit.e == 1 || exit.d == 1)
+        return (NULL);
+    return("done");
+}//il reste 3 lignes
 
 int     main()
 {
@@ -99,7 +108,6 @@ int     main()
 
     x = 1; //x is the variable that will mean the program will end
     //welcome message to begin the program.
-    //boucle w prompt?
     welcomer();
     while (x != 0) //x = 0 means the program closed
     {
@@ -108,5 +116,6 @@ int     main()
         if (tmp == NULL)
             x = 0;
     }
+    //bye bye message
     return (1);
 }

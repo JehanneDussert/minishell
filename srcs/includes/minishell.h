@@ -26,6 +26,7 @@
 # include <dirent.h>
 # include <string.h>
 # include <errno.h>
+# include <sys/types.h>
 
 
 /*
@@ -40,6 +41,8 @@ void	ft_command_exec(char *comm);
 /*
 **UTILS FCTS
 */
+char	*command_id(char **comm, t_exit *exit);
+char	*pipes_id(t_cmd **cmd, t_exit *exit);
 int 	skipspace(char *line, int *i);
 char	**ft_skip_quote(char *str, char *charset);
 char	**ft_split_quote(char *str, char *charset);
@@ -52,12 +55,16 @@ int     ft_syntax_error_ps(char *str);
 int		check_double(char *str, char *charset);
 int		ft_check_errors_line(char *line);
 // This function will free line + send a msg error :
+/*
+** Error msg :
+*/
 int     ft_syntax_error(char *str, char *error);
+int	    ft_malloc_error(void);
 
 /*
 **MS_PARSING
 */
-char	*command_id(char **comm);
+//char	*command_id(char **comm);
 
 
 #endif
