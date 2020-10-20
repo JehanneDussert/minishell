@@ -26,6 +26,7 @@
 # include <dirent.h>
 # include <string.h>
 # include <errno.h>
+# include <sys/types.h>
 
 
 /*
@@ -63,7 +64,7 @@ int	    ft_malloc_error(void);
 /*
 **MS_PARSING
 */
-char	*command_id(char **comm);
+//char	*command_id(char **comm);
 
 
 #endif
