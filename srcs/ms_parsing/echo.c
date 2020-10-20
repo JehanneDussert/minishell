@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:18:45 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 15:41:03 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/20 15:42:16 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ void	ft_echo_n(char *comm, char **opt)
 	while (comm[i])
 	{
 		if (comm[i] != 'n')
-		{
-			printf("comm :%c %d\n", comm[i], i);//ft_strcmp(&comm[i], "n"));
 			return ;
-		}
 		i++;
 	}
 	*opt = "-n";
