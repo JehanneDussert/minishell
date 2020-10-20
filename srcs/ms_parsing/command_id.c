@@ -6,7 +6,7 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 15:14:07 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/20 15:18:38 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ char	*command_id(char **comm, t_exit *exit)//puisque je fais read
 {
     //identifier la commande selon le 1er token
     //builtin
-    if (!ft_strcmp(comm[0], "echo", 4))
+    if (!ft_strcmp(comm[0], "echo"))
         ft_echo(comm);
-    else if (!ft_strcmp(comm[0], "cd", 2))
+    else if (!ft_strcmp(comm[0], "cd"))
         cd_id(comm);//fct vrs cd
     else if (!ft_strcmp(comm[0], "pwd"))
         ;//fct vrs pwd
