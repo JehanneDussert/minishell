@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 16:34:39 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/20 16:49:26 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		ft_quote_error(char *str)
 	c = 0;
 	while (str[i])
 	{
-		if (str[i] == '"')
+		if (str[i] == '"' && (i == 0 || str[i - 1] != 92))
 			q++;
 		else if (str[i] == 39 && q % 2 != 0)
 			c += 2;
