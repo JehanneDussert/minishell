@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 15:11:25 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 15:19:10 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/20 16:17:26 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	ft_syntax_error(char *str, char *error)
 		error_msg(NULL, "syntax error near unexpected token : pipe or semi-colon error.");
 	else if (ft_strcmp(error, "chevrons") == 0)
 		error_msg(NULL, "syntax error near unexpected token : chevrons syntax error.");
+	else if (ft_strcmp(error, "quote") == 0)
+		error_msg(NULL, "syntax error near unexpected token : quote error.");
     return(0);
 }
 
