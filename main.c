@@ -23,11 +23,10 @@ void    ft_count_commands(int *count, char **buf)
     }
 }
 
-void    ft_command_exec(char *comm, t_exit *exit)
+void    ft_command_exec(char *comm, t_all *all)
 {
     int     i;
     char    **commands;
-    t_cmd   *cmd;
     int     count;
 
     i = 0;
@@ -36,36 +35,33 @@ void    ft_command_exec(char *comm, t_exit *exit)
     if (!commands[1] && !(command_id((ft_split_quote(commands[i], "\t\n\r\v \f")), exit))) //free le split ds command_id?
         ;//error
     ft_count_commands(&count, commands);//compter le nb de commandes
-    if (!(cmd = malloc(sizeof(t_cmd) * (count + 1))))//creer le t_cmd * de bonne taille
+    if (!(all->cmd = malloc(sizeof(t_cmd) * (count + 1))))//creer le t_cmd * de bonne taille
         ;//error
-    cmd[count].cmd = NULL;
+    all->cmd[count].cmd = NULL;
     //fork de minishell pr le pipe
-    while (cmd[i].cmd)
+    while (all->cmd[i].cmd)
     {
-        if (!(cmd[i].cmd = ft_split_quote(commands[i], "\t\n\r\v \f")))
+        if (!(all->cmd[i].cmd = ft_split_quote(commands[i], "\t\n\r\v \f")))
             ;//error
         ft_free((void *)commands[i]);
         i++;
     }
-    pipes_id(&cmd, exit);
+    pipes_id(all);
     //free les cmd dans t_cmd ou command_id
     free(commands);
 }
 
-char    *ft_read(//mettre structure all)
+char    *ft_read(t_all *all)
 {
     char    *line;
     char    **buf;
     int     count;
     int     i;
-    t_exit  exit;
 
     count = 0;
     i = 0;
     buf = NULL;
     line = NULL;
-    exit.e = 0;
-    exit.d = 0;
     if ((get_next_line(1, &line)) == 1)
     {
         if (!(ft_check_errors_line(line)))
@@ -79,10 +75,10 @@ char    *ft_read(//mettre structure all)
         //else
             //message d'erreur
         while (i != count)
-            ft_command_exec(buf[i++], &exit);
+            ft_command_exec(buf[i++], all);
     }
     //free_read(&buf, &line);
-    if (exit.e == 1 || exit.d == 1)
+    if (all->exit->e == 1 || all->exit->d == 1)
         return (NULL);
     return("done");
 }//il reste 3 lignes
@@ -91,14 +87,15 @@ int     main(void)
 {
     int     x;
     char    *tmp;
-    //struture all avec exit et la liste chainee (changer cmd)
+    t_all   all;
+
     x = 1; //x is the variable that will mean the program will end
-    //welcome message to begin the program.
     welcomer();
+    ft_init_all(&all);
     while (x != 0) //x = 0 means the program closed
     {
         ft_putstr_fd("~:", 1);
-        tmp = ft_read();//fct qui read et dispatche (grosse fct) return NULL si exit ou ctrl d on empty line
+        tmp = ft_read(&all);
         if (tmp == NULL)
             x = 0;
     }
