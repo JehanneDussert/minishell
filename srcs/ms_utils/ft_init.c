@@ -1,25 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/19 16:39:05 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/21 11:22:54 by ede-banv         ###   ########.fr       */
+/*   Created: 2020/10/21 11:17:46 by ede-banv          #+#    #+#             */
+/*   Updated: 2020/10/21 12:25:25 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minishell.h"
 
-void	ft_lstadd_back(t_list **alst, t_list *new)
+
+
+void	create_list(t_all *all)
 {
-	if (new == NULL || alst == NULL)
-		return ;
-	if (*alst == NULL)
+	int	i;
+	t_lst	*tmp;
+	char	*w1;
+	char	*w2;
+	extern char	**environ;
+
+	i = 0;
+
+	while(environ[i])
 	{
-		*alst = new;
-		return ;
+		if(!(tmp = ft_lstnew(environ[i], ft_strlen(environ[i]))))
+			;//erreur malloc
+		ft_lstadd_back(&all->alst, tmp);
+		i++;
 	}
-	ft_lstlast(*alst)->next = new;
+}
+
+void	ft_init_all(t_all *all)
+{
+	if (!(all->exit = ft_calloc(sizeof(t_exit), 1)))
+		;
+	create_list(all);
 }

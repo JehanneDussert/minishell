@@ -6,13 +6,13 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/21 11:06:32 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/21 11:51:26 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*command_id(char **comm, t_exit *exit)//puisque je fais read
+char	*command_id(char **comm, t_all *all)//puisque je fais read
 {
     //identifier la commande selon le 1er token
     //builtin
@@ -29,14 +29,14 @@ char	*command_id(char **comm, t_exit *exit)//puisque je fais read
     else if (!ft_strcmp(comm[0], "env"))
         ;//fct vrs env
     else if (!ft_strcmp(comm[0], "exit"))
-        exit->e = 1;
+        all->exit->e = 1;
     //else on regarde pour binaire a excecuter (s'il y a un / dans le 1er mot)
     //s'il y a pas de / on cherche dans PATH
     //si on free comm ici est-ce que ca marcher avec pipe?
     return("done");
 }
 
-char	*pipes_id(t_cmd **cmd, t_exit *ex)
+char	*pipes_id(t_all *all)
 {
     int i;
     int status;
@@ -51,36 +51,36 @@ char	*pipes_id(t_cmd **cmd, t_exit *ex)
     //  command_id
     //boucle
     //  wait_pid qui attend le pid du fils de chaque fork
-    while (cmd[i]->cmd)
+    while (all->cmd[i].cmd)
     {
-        pipe(cmd[i]->pipe);
-        cmd[i]->pid = fork();
-        if (cmd[i]->pid == 0)
+        pipe(all->cmd[i].pipe);
+        all->cmd[i].pid = fork();
+        if (all->cmd[i].pid == 0)
         {
             if (i != 0)
             {
-                dup2(cmd[i - 1]->pipe[0], 0);
-                close(cmd[i - 1]->pipe[1]);
+                dup2(all->cmd[i - 1].pipe[0], 0);
+                close(all->cmd[i - 1].pipe[1]);
             }
-            if (cmd[i + 1]->cmd)
-                dup2(cmd[i]->pipe[1], 1);
-            command_id(cmd[i]->cmd, ex);
-            close(cmd[i - 1]->pipe[0]);
-            close(cmd[i]->pipe[1]);
-            if (!cmd[i + 1]->cmd)
-                close(cmd[i]->pipe[0]);
+            if (all->cmd[i + 1].cmd)
+                dup2(all->cmd[i].pipe[1], 1);
+            command_id(all->cmd[i].cmd, all);
+            close(all->cmd[i - 1].pipe[0]);
+            close(all->cmd[i].pipe[1]);
+            if (!all->cmd[i + 1].cmd)
+                close(all->cmd[i].pipe[0]);
             exit(0);
         }
-        else if (cmd[i]->pid == -1)
+        else if (all->cmd[i].pid == -1)
             ;//erreur de fork
         i++;
     }
     i = 0;
-    while (cmd[i]->cmd)
+    while (all->cmd[i].cmd)
     {
-        waitpid(cmd[i]->pid, &status, 0);//a voir la redaction
-        close(cmd[i]->pipe[0]);
-        close(cmd[i]->pipe[1]);
+        waitpid(all->cmd[i].pid, &status, 0);//a voir la redaction
+        close(all->cmd[i].pipe[0]);
+        close(all->cmd[i].pipe[1]);
         //voir comment gerer les bails de pipes
         i++;
     }

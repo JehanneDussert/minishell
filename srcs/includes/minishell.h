@@ -31,21 +31,25 @@
 /*
 **MAIN FCTS
 */
-int		main();
-void	welcomer();
-void	byebye();
-char	*ft_read();
+int		main(void);
+void	welcomer(void);
+void	byebye(void);
+char	*ft_read(t_all *all);
 void	ft_count_commands(int *count, char **buf);
-void	ft_command_exec(char *comm, t_exit *exit);
+void	ft_command_exec(char *comm, t_all *all);
 
 /*
 **UTILS FCTS
 */
-char	*pipes_id(t_cmd **cmd, t_exit *exit);
+void	ft_init_all(t_all *all);
 int 	skipspace(char *line, int *i);
 char	**ft_skip_quote(char *str, char *charset);
 char	**ft_split_quote(char *str, char *charset);
 void	if_in_quote(int *d, int *s, int *i, char *str);
+t_lst	*ft_lstnew_ms(void *w1, void *w2);
+t_lst	*ft_lstlast_ms(t_lst *lst);
+void	ft_lstadd_back_ms(t_lst **alst, t_lst *new);
+
 
 /*
 **MS_ERRORS
@@ -64,10 +68,11 @@ void	error_msg(char *bin, char *message);
 /*
 **MS_PARSING
 */
-char	*command_id(char **comm, t_exit *exit);;
+char	*pipes_id(t_all *all);
+char	*command_id(char **comm, t_all *all);;
 void	ft_echo(char **comm);
 void	cd_id(char **cmd);
-void	pwd_id();
+void	pwd_id(void);
 void	ft_unset(char **comm);
 
 /*
