@@ -6,7 +6,7 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:20:42 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/21 15:56:44 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/21 16:52:48 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,29 +68,42 @@ int		export_errors(char *str)
 int		not_existent(char *cmd, t_all *all)
 {
 	char	*ptr;
+	char	*copie;
 	t_lst	*tmp;
+	char	*w1;
+	char	*w2;
 
-	if((ptr = ft_strchr(env[i], '=')))
+	if (!(copie = ft_strdup(cmd)))
+		;//erreur malloc
+	if((ptr = ft_strchr(copie, '=')))
 	{
 		*ptr = '\0';
-		if (!(w1 = ft_strdup(env[i])))
+		if (!(w1 = ft_strdup(copie)))
 			;//error malloc
 		if (!(w2 = ft_strdup(ptr + 1)))
 			;//error malloc
 	}
 	else //no = | is it necessaire?
 	{
-		if (!(w1 = ft_strdup(env[i])))
+		if (!(w1 = ft_strdup(copie)))
 			;//error malloc
 		w2 = NULL;
 	}
+	ft_free((void **)&copie);
 	tmp = all->alst;
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->key, w1) == 0)
+		{
+			ft_free((void **)&w1);
+			tmp->content = w2;
 			return (0);
+		}
 		tmp = tmp->next;
 	}
+	if(!(tmp = ft_lstnew_ms(w1, w2)))
+		;//erreur malloc
+	ft_lstadd_back_ms(&all->alst, tmp);
 	return (1);
 }
 
@@ -106,12 +119,12 @@ void	export_id(char **cmd, t_all *all)
 		while (cmd[i])
 		{
 			if (export_errors(cmd[i]))
+				not_existent(cmd[i], all);
+			else
 			{
-				if (not_exitent(cmd[i], all))
-					lst_add_env(&cmd[i], all); //s'il existe deja remplacer
-				else
-					replace_key(cmd[i], all);
+				//recup code d'erreur et mettre ds $?
 			}
+
 			i++;
 		}
 	}

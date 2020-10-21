@@ -6,7 +6,7 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 12:27:04 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/21 15:23:19 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/21 16:54:18 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_lstadd_back_ms(t_lst **alst, t_lst *new)
 
 void	lst_add_env(char **env, t_all *all)
 {
-	int	i;
+	int		i;
 	t_lst	*tmp;
 	char	*w1;
 	char	*w2;

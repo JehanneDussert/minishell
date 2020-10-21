@@ -6,7 +6,7 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:53:40 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/21 15:58:08 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/21 16:25:08 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 
 int     ft_exec(char *filename)
 {
-    (void)bin;
-    if (execve(filename) == -1)
-        return (-1);
+    (void)filename;
+    //if (execve(filename) == -1)
+    //   return (-1);
     return (0);
 }
