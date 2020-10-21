@@ -50,6 +50,8 @@ t_lst	*ft_lstnew_ms(void *w1, void *w2);
 t_lst	*ft_lstlast_ms(t_lst *lst);
 void	ft_lstadd_back_ms(t_lst **alst, t_lst *new);
 void	lst_add_env(char **env, t_all *all);
+void	ft_lstdelone_ms(t_lst *lst, void (*del)(void *));
+int		export_errors(char *str);
 
 
 /*
@@ -75,7 +77,7 @@ void	ft_echo(char **comm);
 void	cd_id(char **cmd);
 void	pwd_id(void);
 void	export_id(char **cmd, t_all *all);
-void	ft_unset(char **comm);
+void	ft_unset(char **cmd, t_all *all);
 int     ft_exec(char **comm);
 
 /*

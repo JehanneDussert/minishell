@@ -6,13 +6,50 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 17:56:12 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/20 18:02:07 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/21 17:57:50 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void    ft_unset(char **comm)
+void    ft_catch_exp(char *cmd, t_all *all)
 {
-    (void)comm;
+    t_lst   *before;
+    t_lst   *tmp;
+
+    tmp = all->alst;
+    if (!ft_strcmp(cmd, tmp->key))
+    {
+        all->alst = all->alst->next;
+        ft_lstdelone_ms(tmp, free);
+        return ;
+    }
+    before = all->alst;
+    tmp = before->next;
+    while (tmp)
+    {
+        if (!ft_strcmp(cmd, tmp->key))
+        {
+            before->next = tmp->next;
+            ft_lstdelone_ms(tmp, free);
+            return ;
+        }
+        tmp = tmp->next;
+        before = before->next;
+    }
+}
+
+void    ft_unset(char **cmd, t_all *all)
+{
+    int i;
+
+    i = 1;
+    while (cmd[i])
+    {
+        if (!export_errors(cmd[i]))
+            ;// msg d'erreur
+        else
+            ft_catch_exp(cmd[i], all);
+        i++;
+    }
 }

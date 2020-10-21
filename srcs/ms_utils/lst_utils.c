@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 12:27:04 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/21 16:54:18 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/21 17:33:11 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,16 @@ void	ft_lstadd_back_ms(t_lst **alst, t_lst *new)
 		return ;
 	}
 	ft_lstlast_ms(*alst)->next = new;
+}
+
+void	ft_lstdelone_ms(t_lst *lst, void (*del)(void *))
+{
+	if (lst && del)
+	{
+		del(lst->content);
+		del(lst->key);
+		free(lst);
+	}
 }
 
 void	lst_add_env(char **env, t_all *all)

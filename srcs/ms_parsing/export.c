@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:20:42 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/21 16:52:48 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/21 17:56:43 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		export_errors(char *str)
 	{
 		if (!ft_isalpha(str[i]) && str[i] != '_')
 			return (0);
-		if (ft_isalpha(str[i]) || str[i] == '_')
+		if (ft_isalpha(str[i]) || str[i] == '_') // faire un return ? (on ne checke que le premier char)
 			return (1);
 		i++;
 	}
