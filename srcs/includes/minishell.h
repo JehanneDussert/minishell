@@ -49,10 +49,11 @@ void	if_in_quote(int *d, int *s, int *i, char *str);
 t_lst	*ft_lstnew_ms(void *w1, void *w2);
 t_lst	*ft_lstlast_ms(t_lst *lst);
 void	ft_lstadd_back_ms(t_lst **alst, t_lst *new);
+int		create_words(char **w1, char **w2, char *cmd);
 void	lst_add_env(char **env, t_all *all);
 void	ft_lstdelone_ms(t_lst *lst, void (*del)(void *));
 int		export_errors(char *str);
-
+void	empty_tmp(t_all *all);
 
 /*
 **MS_ERRORS
