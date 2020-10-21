@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 17:29:48 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/20 18:05:38 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,6 @@ int		ft_syntax_error_ps(char *str)
 	ft_free((void *)&tmp);
 	return (res);
 }
-
-	// checker si quote sont fermees
-	// si \" on considere qu'il n'y a pas de "
-	// si \' ca passe
-	// si " ' " ok
-	// si " " " non
-	// les "" marchent tjrs par paires =/= les '
 
 int		ft_quote_error(char *str)
 {
@@ -90,7 +83,8 @@ int		check_chevrons(char *str)
 			return (0);
 		else
 			i++;
-		if (s == 0 && d == 0 && i > 0 && str[i - 1] == '>' && skipspace(str, &i) && (str[i] == ';' || str[i] == '|' || str[i] == '\0'))
+		if (s == 0 && d == 0 && i > 0 && str[i - 1] == '>' && skipspace(str, &i) &&
+			(str[i] == ';' || str[i] == '|' || str[i] == '\0'))
 			return (0);
 		i++;
 	}
