@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 18:05:38 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/21 14:44:16 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,31 +65,6 @@ int		ft_quote_error(char *str)
 	return (1);
 }
 
-int		check_chevrons(char *str)
-{
-	int	i;
-	int	s;
-	int	d;
-
-	i = 0;
-	s = 0;
-	d = 0;
-	while (str[i])
-	{
-		if_in_quote(&d, &s, &i, str);
-		if ((s == 0 && d == 0) && str[i] == '>')
-			i++;
-		if ((s == 0 && d == 0) && i > 0 && str[i - 1] == '>' && str[i] != '>')
-			return (0);
-		else
-			i++;
-		if (s == 0 && d == 0 && i > 0 && str[i - 1] == '>' && skipspace(str, &i) &&
-			(str[i] == ';' || str[i] == '|' || str[i] == '\0'))
-			return (0);
-		i++;
-	}
-	return (1);
-}
 
 int		is_charset(char c, char *charset)
 {
@@ -103,6 +78,35 @@ int		is_charset(char c, char *charset)
 		i++;
 	}
 	return (0);
+}
+int		check_chevrons(char *str)
+{
+	int	i;
+	int	s;
+	int	d;
+	int	c;
+
+	i = 0;
+	s = 0;
+	d = 0;
+	c = 0;
+	while (str[i])
+	{
+		if_in_quote(&d, &s, &i, str);
+		if (c == 0 && (s == 0 && d == 0) && is_charset(str[i], "><"))
+		{
+			i++;
+			c++;
+		}
+		else if ((s == 0 && d == 0) && c > 0 && ((str[i] == '>' && str[i - 1] != '>')
+			|| (str[i] == '<' && str[i - 1] != '<')))
+				return (0);
+		if (s == 0 && d == 0 && i > 0 && str[i - 1] == '>' && skipspace(str, &i) &&
+			(str[i] == ';' || str[i] == '|' || str[i] == '\0'))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 int		check_double(char *str, char *charset)
@@ -137,8 +141,7 @@ int		ft_check_errors_line(char *line)
 		return(ft_syntax_error(line, "ps"));
 	else if (!ft_quote_error(line))
 		return(ft_syntax_error(line, "quote"));
-	// segfault here
-	//else if (!check_chevrons(line))
-	//	return(ft_syntax_error(line, "chevrons"));
+	else if (!check_chevrons(line)) // segfault here
+		return(ft_syntax_error(line, "chevrons"));
 	return(1);
 }
