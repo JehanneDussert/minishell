@@ -6,7 +6,7 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 12:27:04 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/21 16:54:18 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/21 17:20:47 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,31 +46,39 @@ void	ft_lstadd_back_ms(t_lst **alst, t_lst *new)
 	ft_lstlast_ms(*alst)->next = new;
 }
 
+int	create_words(char **w1, char **w2, char *cmd)
+{
+	char *ptr;
+
+	if((ptr = ft_strchr(cmd, '=')))
+	{
+		*ptr = '\0';
+		if (!(*w1 = ft_strdup(cmd)))
+			return (0);//error malloc
+		if (!(*w2 = ft_strdup(ptr + 1)))
+			return (0);//error malloc
+	}
+	else
+	{
+		if (!(*w1 = ft_strdup(cmd)))
+			return (0);//error malloc
+		*w2 = NULL;
+	}
+	return (1);
+}
+
 void	lst_add_env(char **env, t_all *all)
 {
 	int		i;
 	t_lst	*tmp;
 	char	*w1;
 	char	*w2;
-	char	*ptr;
 
 	i = 0;
 	while(env && env[i])
 	{
-		if((ptr = ft_strchr(env[i], '=')))
-		{
-			*ptr = '\0';
-			if (!(w1 = ft_strdup(env[i])))
-				;//error malloc
-			if (!(w2 = ft_strdup(ptr + 1)))
-				;//error malloc
-		}
-		else //no = | is it necessaire?
-		{
-			if (!(w1 = ft_strdup(env[i])))
-				;//error malloc
-			w2 = NULL;
-		}
+		if (!create_words(&w1, &w2, env[i]))
+			;//erreur de malloc
 		if(!(tmp = ft_lstnew_ms(w1, w2)))
 			;//erreur malloc
 		ft_lstadd_back_ms(&all->alst, tmp);

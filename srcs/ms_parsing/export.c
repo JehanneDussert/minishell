@@ -6,7 +6,7 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:20:42 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/21 16:52:48 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/21 17:27:07 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	print_line(t_lst *lst)
 	ft_putstr_fd("=\"", 1);
 	ft_putstr_fd(lst->content, 1);
 	ft_putendl_fd("\"", 1);
+	lst->tmp = 1;
 }
 
 void	ascii_tri_export(t_all *all)
@@ -39,14 +40,8 @@ void	ascii_tri_export(t_all *all)
 			tmp = tmp->next;
 		}
 		print_line(small);
-		small->tmp = 1;
 	}
-	tmp = all->alst;
-	while (tmp)
-	{
-		tmp->tmp = 0;
-		tmp = tmp->next;
-	}
+	empty_tmp(all);
 }
 
 int		export_errors(char *str)
@@ -67,29 +62,12 @@ int		export_errors(char *str)
 
 int		not_existent(char *cmd, t_all *all)
 {
-	char	*ptr;
-	char	*copie;
 	t_lst	*tmp;
 	char	*w1;
 	char	*w2;
 
-	if (!(copie = ft_strdup(cmd)))
-		;//erreur malloc
-	if((ptr = ft_strchr(copie, '=')))
-	{
-		*ptr = '\0';
-		if (!(w1 = ft_strdup(copie)))
-			;//error malloc
-		if (!(w2 = ft_strdup(ptr + 1)))
-			;//error malloc
-	}
-	else //no = | is it necessaire?
-	{
-		if (!(w1 = ft_strdup(copie)))
-			;//error malloc
-		w2 = NULL;
-	}
-	ft_free((void **)&copie);
+	if (!create_words(&w1, &w2, cmd))
+		;//erreur de malloc
 	tmp = all->alst;
 	while (tmp)
 	{
