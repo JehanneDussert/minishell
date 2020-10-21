@@ -52,7 +52,7 @@ void    ft_command_exec(char *comm, t_exit *exit)
     free(commands);
 }
 
-char    *ft_read()
+char    *ft_read(//mettre structure all)
 {
     char    *line;
     char    **buf;
@@ -87,11 +87,11 @@ char    *ft_read()
     return("done");
 }//il reste 3 lignes
 
-int     main()
+int     main(void)
 {
     int     x;
     char    *tmp;
-
+    //struture all avec exit et la liste chainee (changer cmd)
     x = 1; //x is the variable that will mean the program will end
     //welcome message to begin the program.
     welcomer();

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_id.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 17:56:39 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/21 11:06:32 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*command_id(char **comm, t_exit *exit)//puisque je fais read
     return("done");
 }
 
-char	*pipes_id(t_cmd **cmd, t_exit *exit)
+char	*pipes_id(t_cmd **cmd, t_exit *ex)
 {
     int i;
     int status;
@@ -64,8 +64,12 @@ char	*pipes_id(t_cmd **cmd, t_exit *exit)
             }
             if (cmd[i + 1]->cmd)
                 dup2(cmd[i]->pipe[1], 1);
-            command_id(cmd[i]->cmd, exit);
+            command_id(cmd[i]->cmd, ex);
             close(cmd[i - 1]->pipe[0]);
+            close(cmd[i]->pipe[1]);
+            if (!cmd[i + 1]->cmd)
+                close(cmd[i]->pipe[0]);
+            exit(0);
         }
         else if (cmd[i]->pid == -1)
             ;//erreur de fork
