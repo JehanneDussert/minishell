@@ -31,9 +31,10 @@ typedef struct  s_exit
 
 typedef struct  s_lst
 {
+    struct s_lst    *next;
     char            *key;
     char            *content;
-    struct s_lst    *next;
+    int             tmp;
 }               t_lst;
 
 

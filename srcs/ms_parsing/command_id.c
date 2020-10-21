@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_id.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/10/21 14:59:33 by ede-banv         ###   ########.fr       */
-=======
-/*   Updated: 2020/10/21 14:55:34 by jdussert         ###   ########.fr       */
->>>>>>> d4d57d8c97f66414aa6f34b2357dedb9cd26656c
+/*   Updated: 2020/10/21 15:39:56 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +30,9 @@ char	*command_id(char **comm, t_all *all)//puisque je fais read
         ;//fct vrs env
     else if (!ft_strcmp(comm[0], "exit"))
         all->exit->e = 1;
-<<<<<<< HEAD
     else if (ft_strchr(comm[0], '/'))
-        ;//check si cest un binaire et excecuter le binaire
-=======
-    else if (ft_strchr(comm[0], "/"))
         ft_exec(comm[0]);
         //check si cest un binaire et excecuter le binaire
->>>>>>> d4d57d8c97f66414aa6f34b2357dedb9cd26656c
     //else on regarde pour binaire a excecuter (s'il y a un / dans le 1er mot)
     //s'il y a pas de / on cherche dans PATH
     //si on free comm ici est-ce que ca marcher avec pipe?

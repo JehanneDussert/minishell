@@ -6,12 +6,11 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 12:27:04 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/21 14:47:36 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/21 15:23:19 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
 
 t_lst	*ft_lstnew_ms(void *w1, void *w2)
 {
@@ -21,6 +20,7 @@ t_lst	*ft_lstnew_ms(void *w1, void *w2)
 		return (NULL);
 	newelem->key = w1;
 	newelem->content = w2;
+	newelem->tmp = 0;
 	newelem->next = NULL;
 	return (newelem);
 }
