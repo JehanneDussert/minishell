@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 13:46:48 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/20 18:05:38 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,30 @@ int		ft_syntax_error_ps(char *str)
 	return (res);
 }
 
+int		ft_quote_error(char *str)
+{
+	int	i;
+	int	q;
+	int c;
+
+	i = 0;
+	q = 0;
+	c = 0;
+	while (str[i])
+	{
+		if (str[i] == '\"' && (i == 0 || str[i - 1] != '\\'))
+			q++;
+		else if (str[i] == '\'' && q % 2 != 0)
+			c += 2;
+		else if (str[i] == '\'')
+			c++;
+		i++;
+	}
+	if (q % 2 != 0 || c % 2 != 0)
+		return (0);
+	return (1);
+}
+
 int		check_chevrons(char *str)
 {
 	int	i;
@@ -59,7 +83,8 @@ int		check_chevrons(char *str)
 			return (0);
 		else
 			i++;
-		if (s == 0 && d == 0 && i > 0 && str[i - 1] == '>' && skipspace(str, &i) && (str[i] == ';' || str[i] == '|' || str[i] == '\0'))
+		if (s == 0 && d == 0 && i > 0 && str[i - 1] == '>' && skipspace(str, &i) &&
+			(str[i] == ';' || str[i] == '|' || str[i] == '\0'))
 			return (0);
 		i++;
 	}
@@ -110,7 +135,10 @@ int		ft_check_errors_line(char *line)
 		return(ft_syntax_error(line, "double"));
 	else if (!ft_syntax_error_ps(line))
 		return(ft_syntax_error(line, "ps"));
-	else if (!check_chevrons(line))
-		return(ft_syntax_error(line, "chevrons"));
+	else if (!ft_quote_error(line))
+		return(ft_syntax_error(line, "quote"));
+	// segfault here
+	//else if (!check_chevrons(line))
+	//	return(ft_syntax_error(line, "chevrons"));
 	return(1);
 }

@@ -33,6 +33,7 @@
 */
 int		main();
 void	welcomer();
+void	byebye();
 char	*ft_read();
 void	ft_count_commands(int *count, char **buf);
 void	ft_command_exec(char *comm, t_exit *exit);
@@ -40,7 +41,6 @@ void	ft_command_exec(char *comm, t_exit *exit);
 /*
 **UTILS FCTS
 */
-char	*command_id(char **comm, t_exit *exit);
 char	*pipes_id(t_cmd **cmd, t_exit *exit);
 int 	skipspace(char *line, int *i);
 char	**ft_skip_quote(char *str, char *charset);
@@ -50,7 +50,7 @@ void	if_in_quote(int *d, int *s, int *i, char *str);
 /*
 **MS_ERRORS
 */
-int     ft_syntax_error_ps(char *str);
+int		ft_syntax_error_ps(char *str);
 int		check_double(char *str, char *charset);
 int		ft_check_errors_line(char *line);
 // This function will free line + send a msg error :
@@ -59,11 +59,16 @@ int		ft_check_errors_line(char *line);
 */
 int     ft_syntax_error(char *str, char *error);
 int	    ft_malloc_error(void);
+void	error_msg(char *bin, char *message);
 
 /*
 **MS_PARSING
 */
-//char	*command_id(char **comm);
+char	*command_id(char **comm, t_exit *exit);;
+void	ft_echo(char **comm);
+void	cd_id(char **cmd);
+void	pwd_id();
+void	ft_unset(char **comm);
 
 /*
 **FREE

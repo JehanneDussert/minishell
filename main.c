@@ -12,19 +12,6 @@
 
 #include "srcs/includes/minishell.h"
 
-void    welcomer() //font from http://patorjk.com/software/taag/#p=display&h=1&v=1&f=Banner3&t=Minishell
-{
-    ft_putstr_fd("Welcome to our\n", 1);
-    ft_putstr_fd("##     ## #### ##    ## ####  ######  ##     ## ######## ##       ##\n", 1);
-    ft_putstr_fd("###   ###  ##  ###   ##  ##  ##    ## ##     ## ##       ##       ##\n", 1);
-    ft_putstr_fd("#### ####  ##  ####  ##  ##  ##       ##     ## ##       ##       ##\n", 1);
-    ft_putstr_fd("## ### ##  ##  ## ## ##  ##   ######  ######### ######   ##       ##\n", 1);
-    ft_putstr_fd("##     ##  ##  ##  ####  ##        ## ##     ## ##       ##       ##\n", 1);
-    ft_putstr_fd("##     ##  ##  ##   ###  ##  ##    ## ##     ## ##       ##       ##\n", 1);
-    ft_putstr_fd("##     ## #### ##    ## ####  ######  ##     ## ######## ######## ########\n", 1);
-    ft_putchar_fd('\n', 1);
-}
-
 void    ft_count_commands(int *count, char **buf)
 {
     int i;
@@ -65,7 +52,7 @@ void    ft_command_exec(char *comm, t_exit *exit)
     free(commands);
 }
 
-char    *ft_read()
+char    *ft_read()//mettre structure all
 {
     char    *line;
     char    **buf;
@@ -76,36 +63,35 @@ char    *ft_read()
     count = 0;
     i = 0;
     buf = NULL;
+    line = NULL;
     exit.e = 0;
     exit.d = 0;
     if ((get_next_line(1, &line)) == 1)
     {
         if (!(ft_check_errors_line(line)))
         {
-            free_read(&buf, &line);
+            //free_read(&buf, &line);
             return ("done");
         }
         buf = ft_split_quote(line, ";");
         if (buf)
             ft_count_commands(&count, buf);
-        else
+        //else
             //message d'erreur
         while (i != count)
-        {
             ft_command_exec(buf[i++], &exit);
-        }
     }
-    free_read(&buf, &line);
+    //free_read(&buf, &line);
     if (exit.e == 1 || exit.d == 1)
         return (NULL);
     return("done");
 }//il reste 3 lignes
 
-int     main()
+int     main(void)
 {
     int     x;
     char    *tmp;
-
+    //struture all avec exit et la liste chainee (changer cmd)
     x = 1; //x is the variable that will mean the program will end
     //welcome message to begin the program.
     welcomer();
@@ -116,6 +102,6 @@ int     main()
         if (tmp == NULL)
             x = 0;
     }
-    //bye bye message
+    byebye();
     return (1);
 }

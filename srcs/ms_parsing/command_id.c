@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_id.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 13:47:29 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/21 11:06:32 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@ char	*command_id(char **comm, t_exit *exit)//puisque je fais read
 {
     //identifier la commande selon le 1er token
     //builtin
-    if (!ft_strncmp(comm[0], "echo", 4))
-        ;//fct vers echo
-    else if (!ft_strncmp(comm[0], "cd", 2))
-        ;//fct vrs cd
-    else if (!ft_strncmp(comm[0], "pwd", 3))
-        ;//fct vrs pwd
-    else if (!ft_strncmp(comm[0], "export", 6))
+    if (!ft_strcmp(comm[0], "echo"))
+        ft_echo(comm);
+    else if (!ft_strcmp(comm[0], "cd"))
+        cd_id(comm);//fct vrs cd
+    else if (!ft_strcmp(comm[0], "pwd"))
+        pwd_id();//fct vrs pwd
+    else if (!ft_strcmp(comm[0], "export"))
         ;//fct vrs export
-    else if (!ft_strncmp(comm[0], "unset", 5))
-        ;//fct vrs unset
-    else if (!ft_strncmp(comm[0], "env", 3))
+    else if (!ft_strcmp(comm[0], "unset"))
+        ft_unset(comm);//fct vrs unset
+    else if (!ft_strcmp(comm[0], "env"))
         ;//fct vrs env
-    else if (!ft_strncmp(comm[0], "exit", 4))
+    else if (!ft_strcmp(comm[0], "exit"))
         exit->e = 1;
     //else on regarde pour binaire a excecuter (s'il y a un / dans le 1er mot)
     //s'il y a pas de / on cherche dans PATH
@@ -36,7 +36,7 @@ char	*command_id(char **comm, t_exit *exit)//puisque je fais read
     return("done");
 }
 
-char	*pipes_id(t_cmd **cmd, t_exit *exit)
+char	*pipes_id(t_cmd **cmd, t_exit *ex)
 {
     int i;
     int status;
@@ -64,8 +64,12 @@ char	*pipes_id(t_cmd **cmd, t_exit *exit)
             }
             if (cmd[i + 1]->cmd)
                 dup2(cmd[i]->pipe[1], 1);
-            command_id(cmd[i]->cmd, exit);
+            command_id(cmd[i]->cmd, ex);
             close(cmd[i - 1]->pipe[0]);
+            close(cmd[i]->pipe[1]);
+            if (!cmd[i + 1]->cmd)
+                close(cmd[i]->pipe[0]);
+            exit(0);
         }
         else if (cmd[i]->pid == -1)
             ;//erreur de fork
@@ -75,8 +79,8 @@ char	*pipes_id(t_cmd **cmd, t_exit *exit)
     while (cmd[i]->cmd)
     {
         waitpid(cmd[i]->pid, &status, 0);//a voir la redaction
-        //close(cmd[i]->pipe[0]);
-        //close(cmd[i]->pipe[1]);
+        close(cmd[i]->pipe[0]);
+        close(cmd[i]->pipe[1]);
         //voir comment gerer les bails de pipes
         i++;
     }
