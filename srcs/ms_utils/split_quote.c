@@ -6,7 +6,7 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 17:43:38 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/14 13:48:58 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/21 14:14:24 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		word_count(char *str, char *charset)
 	w = 0;
 	d = 0;
 	s = 0;
-	while (str[i])
+	while (str && str[i])
 	{
 		if_in_quote(&d, &s, &i, str);
 		while(d == 0 && s == 0 && is_a_sep(str[i], charset) && str[i])
@@ -85,7 +85,7 @@ int		malloc_w_len(char *str, char *charset, char **result)
 	k = 0;
 	d = 0;
 	s = 0;
-	while (str[i])
+	while (str && str[i])
 	{
 		if_in_quote(&d, &s, &i, str);
 		while(d == 0 && s == 0 && is_a_sep(str[i], charset) && str[i])
@@ -117,7 +117,7 @@ char	**tab_fill(char *str, char *charset, char **result)
 	k = 0;
 	d = 0;
 	s = 0;
-	while (str[i])
+	while (str && str[i])
 	{
 		if_in_quote(&d, &s, &i, str);
 		while(d == 0 && s == 0 && is_a_sep(str[i], charset) && str[i])
@@ -139,7 +139,7 @@ char	**ft_split_quote(char *str, char *charset)
 	char **result;
 
 	if (!(result = malloc(sizeof(char *) * word_count(str, charset))))
-		return (0);
+		return (NULL);
 	if (malloc_w_len(str, charset, result))
 		return (tab_fill(str, charset, result));
 	else

@@ -34,19 +34,22 @@ void    ft_command_exec(char *comm, t_all *all)
         ;//error
     if (!commands[1] && !(command_id((ft_split_quote(commands[i], "\t\n\r\v \f")), all))) //free le split ds command_id?
         ;//error
-    ft_count_commands(&count, commands);//compter le nb de commandes
-    if (!(all->cmd = malloc(sizeof(t_cmd) * (count + 1))))//creer le t_cmd * de bonne taille
-        ;//error
-    all->cmd[count].cmd = NULL;
-    //fork de minishell pr le pipe
-    while (all->cmd[i].cmd)
+    if (commands[1])
     {
-        if (!(all->cmd[i].cmd = ft_split_quote(commands[i], "\t\n\r\v \f")))
+        ft_count_commands(&count, commands);//compter le nb de commandes
+        if (!(all->cmd = malloc(sizeof(t_cmd) * (count + 1))))//creer le t_cmd * de bonne taille
             ;//error
-        ft_free((void *)commands[i]);
-        i++;
+        all->cmd[count].cmd = NULL;
+        //fork de minishell pr le pipe
+        while (all->cmd[i].cmd)
+        {
+            if (!(all->cmd[i].cmd = ft_split_quote(commands[i], "\t\n\r\v \f")))
+                ;//error
+            //ft_free((void *)commands[i]);
+            i++;
+        }
+        pipes_id(all);
     }
-    pipes_id(all);
     //free les cmd dans t_cmd ou command_id
     free(commands);
 }

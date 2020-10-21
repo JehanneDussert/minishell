@@ -6,7 +6,7 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/21 11:51:26 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/21 14:50:55 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,15 @@ char	*command_id(char **comm, t_all *all)//puisque je fais read
     else if (!ft_strcmp(comm[0], "pwd"))
         pwd_id();//fct vrs pwd
     else if (!ft_strcmp(comm[0], "export"))
-        ;//fct vrs export
+        export_id(comm, all);//fct vrs export
     else if (!ft_strcmp(comm[0], "unset"))
         ft_unset(comm);//fct vrs unset
     else if (!ft_strcmp(comm[0], "env"))
         ;//fct vrs env
     else if (!ft_strcmp(comm[0], "exit"))
         all->exit->e = 1;
+    else if (ft_strchr(comm[0], "/"))
+        //check si cest un binaire et excecuter le binaire
     //else on regarde pour binaire a excecuter (s'il y a un / dans le 1er mot)
     //s'il y a pas de / on cherche dans PATH
     //si on free comm ici est-ce que ca marcher avec pipe?

@@ -18,30 +18,30 @@
 
 typedef struct  s_cmd
 {
-    int     pipe[2];
-    char    **cmd;
-    pid_t   pid;
+    int             pipe[2];
+    char            **cmd;
+    pid_t           pid;
 }               t_cmd;
 
 typedef struct  s_exit
 {
-    int e;
-    int d;
+    int             e;
+    int             d;
 }               t_exit;
 
 typedef struct  s_lst
 {
-    char    *key;
-    char    *content;
-    char    *next;
+    char            *key;
+    char            *content;
+    struct s_lst    *next;
 }               t_lst;
 
 
 typedef struct  s_all
 {
-    t_lst  *alst;
-    t_exit  *exit;
-    t_cmd   *cmd;
+    t_lst           *alst;
+    t_exit          *exit;
+    t_cmd           *cmd;
 }               t_all;
 
 
