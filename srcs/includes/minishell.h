@@ -76,7 +76,7 @@ void	cd_id(char **cmd);
 void	pwd_id(void);
 void	export_id(char **cmd, t_all *all);
 void	ft_unset(char **comm);
-int     ft_exec(char *bin);
+int     ft_exec(char *filename);
 
 /*
 **FREE
