@@ -52,7 +52,7 @@ void    ft_command_exec(char *comm, t_exit *exit)
     free(commands);
 }
 
-char    *ft_read(//mettre structure all)
+char    *ft_read()//mettre structure all
 {
     char    *line;
     char    **buf;
