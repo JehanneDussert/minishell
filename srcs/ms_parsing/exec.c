@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:53:40 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/21 16:38:47 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/21 16:39:44 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int     ft_exec(char **comm)
     // chercher si binaire existe dans PATH (cf env PATH) -> PATH a save dans char *
     // chercher l'executable, /bin/ls
     // envoyer la commande **comm
-    if (execve() == -1)
-        return (-1);
+    //if (execve() == -1)
+    //    return (-1);
+    (void)comm;
     return (0);
 }
