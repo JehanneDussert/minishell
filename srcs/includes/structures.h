@@ -29,9 +29,17 @@ typedef struct  s_exit
     int d;
 }               t_exit;
 
+typedef struct  s_lst
+{
+    char    *key;
+    char    *content;
+    char    *next;
+}               t_lst;
+
+
 typedef struct  s_all
 {
-    t_list  *alst;
+    t_lst  *alst;
     t_exit  *exit;
     t_cmd   *cmd;
 }               t_all;

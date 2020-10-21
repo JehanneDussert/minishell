@@ -31,7 +31,7 @@
 /*
 **MAIN FCTS
 */
-int		main(voi);
+int		main(void);
 void	welcomer(void);
 void	byebye(void);
 char	*ft_read(t_all *all);
@@ -46,6 +46,10 @@ int 	skipspace(char *line, int *i);
 char	**ft_skip_quote(char *str, char *charset);
 char	**ft_split_quote(char *str, char *charset);
 void	if_in_quote(int *d, int *s, int *i, char *str);
+t_lst	*ft_lstnew_ms(void *w1, void *w2);
+t_lst	*ft_lstlast_ms(t_lst *lst);
+void	ft_lstadd_back_ms(t_lst **alst, t_lst *new);
+
 
 /*
 **MS_ERRORS
