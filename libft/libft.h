@@ -6,7 +6,7 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 17:41:21 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/20 14:36:54 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/21 15:28:19 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 
 typedef struct	s_list
 {
+	struct s_list	*next;
 	void			*content;
 	int				nb;
-	struct s_list	*next;
 }				t_list;
 
 void			*ft_memset(void *s, int c, size_t n);
