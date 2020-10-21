@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_id.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/21 14:50:55 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/21 14:55:34 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char	*command_id(char **comm, t_all *all)//puisque je fais read
     else if (!ft_strcmp(comm[0], "exit"))
         all->exit->e = 1;
     else if (ft_strchr(comm[0], "/"))
+        ft_exec(comm[0]);
         //check si cest un binaire et excecuter le binaire
     //else on regarde pour binaire a excecuter (s'il y a un / dans le 1er mot)
     //s'il y a pas de / on cherche dans PATH
