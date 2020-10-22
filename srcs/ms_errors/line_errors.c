@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/21 14:44:16 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/22 17:11:19 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 ** Ps : pipe + semi colon
 */
 
-int		ft_syntax_error_ps(char *str)
+int		ft_error_ps(char *str)
 {
 	char *tmp;
 	int	len;
@@ -131,17 +131,4 @@ int		check_double(char *str, char *charset)
 			return (0);
 	}
 	return (1);
-}
-
-int		ft_check_errors_line(char *line)
-{
-	if (!check_double(line, ";|"))
-		return(ft_syntax_error(line, "double"));
-	else if (!ft_syntax_error_ps(line))
-		return(ft_syntax_error(line, "ps"));
-	else if (!ft_quote_error(line))
-		return(ft_syntax_error(line, "quote"));
-	else if (!check_chevrons(line)) // segfault here
-		return(ft_syntax_error(line, "chevrons"));
-	return(1);
 }

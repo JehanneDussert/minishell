@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 17:56:12 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/21 17:57:50 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/22 17:14:43 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void    ft_unset(char **cmd, t_all *all)
     while (cmd[i])
     {
         if (!export_errors(cmd[i]))
-            ;// msg d'erreur
+            ;// msg d'erreur + err code ds $?
         else
             ft_catch_exp(cmd[i], all);
         i++;
     }
-}
+}//mettre $? a 0

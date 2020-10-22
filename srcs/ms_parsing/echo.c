@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:18:45 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/22 15:40:02 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/22 17:13:59 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,4 @@ void	ft_echo(char **comm)
 	}
 	if (!ft_strncmp(opt, "off", 3))
 		ft_putchar_fd('\n', 1);
-}
+}//mettre $? a 0

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error_msg.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 15:11:25 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/21 14:24:13 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/22 17:28:47 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	ft_syntax_error(char *str, char *error)
     return(0);
 }
 
-int	ft_malloc_error(void)
+int	ft_malloc_error(char *bin)
 {
-	error_msg(NULL, "memory allocation error.");
+	error_msg(bin, "memory allocation error.");
 	return(0);
 }

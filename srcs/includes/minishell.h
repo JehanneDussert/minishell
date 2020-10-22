@@ -39,6 +39,20 @@ void	ft_count_commands(int *count, char **buf);
 void	ft_command_exec(char *comm, t_all *all);
 
 /*
+**MS_PARSING
+*/
+char	*pipes_id(t_all *all);
+char	*command_id(char **comm, t_all *all, int mode);
+void	ft_echo(char **comm);
+void	cd_id(char **cmd);
+void	pwd_id(void);
+void	export_id(char **cmd, t_all *all);
+void	print_line(t_lst *lst, int n);
+void	ft_unset(char **cmd, t_all *all);
+int     ft_exec(char **comm);
+void	env_id(char **comm, t_all *all);
+
+/*
 **UTILS FCTS
 */
 void	ft_init_all(t_all *all);
@@ -58,30 +72,18 @@ void	empty_tmp(t_all *all);
 /*
 **MS_ERRORS
 */
-int		ft_syntax_error_ps(char *str);
+int		ft_error_ps(char *str);
+int		ft_quote_error(char *str);
+int		check_chevrons(char *str);
 int		check_double(char *str, char *charset);
 int		ft_check_errors_line(char *line);
-// This function will free line + send a msg error :
-/*
-** Error msg :
-*/
-int     ft_syntax_error(char *str, char *error);
-int	    ft_malloc_error(void);
-void	error_msg(char *bin, char *message);
 
 /*
-**MS_PARSING
+**Error msg :
 */
-char	*pipes_id(t_all *all);
-char	*command_id(char **comm, t_all *all);;
-void	ft_echo(char **comm);
-void	cd_id(char **cmd);
-void	pwd_id(void);
-void	export_id(char **cmd, t_all *all);
-void	print_line(t_lst *lst, int n);
-void	ft_unset(char **cmd, t_all *all);
-int     ft_exec(char **comm);
-void	env_id(char **comm, t_all *all);
+int     ft_syntax_error(char *str, char *error);
+int	    ft_malloc_error(char *bin);
+void	error_msg(char *bin, char *message);
 
 /*
 **FREE

@@ -28,30 +28,42 @@ void    ft_command_exec(char *comm, t_all *all)
     int     i;
     char    **commands;
     int     count;
+    int     res;
 
     i = 0;
+    res = 0;
     if (!(commands = ft_split_quote(comm, "|")))
-        ;//error
-    if (!commands[1] && !(command_id((ft_split_quote(commands[i], "\t\n\r\v \f")), all))) //free le split ds command_id?
-        ;//error
-    if (commands[1])
+        res = -1;
+    if (res == 0 && !commands[1] && !(command_id((ft_split_quote(commands[i], "\t\n\r\v \f")), all, 1)))
+        res = -1;
+    if (res == 0 && commands[1])
     {
-        ft_count_commands(&count, commands);//compter le nb de commandes
-        if (!(all->cmd = malloc(sizeof(t_cmd) * (count + 1))))//creer le t_cmd * de bonne taille
-            ;//error
+        ft_count_commands(&count, commands);
+        if (!(all->cmd = malloc(sizeof(t_cmd) * (count + 1))))
+            res = -1;
         all->cmd[count].cmd = NULL;
-        //fork de minishell pr le pipe
-        while (all->cmd[i].cmd)
+        //fork de minishell pr le pipe (a demander a marc)
+        while (res == 0 && all->cmd[i].cmd)
         {
             if (!(all->cmd[i].cmd = ft_split_quote(commands[i], "\t\n\r\v \f")))
-                ;//error
-            //ft_free((void *)commands[i]);
+            {
+                ft_malloc_error(NULL);
+                free_read(&commands, NULL);
+                //free t_cmd
+                return;
+            }
+            ft_free((void **)&commands[i]);
             i++;
         }
         pipes_id(all);
     }
-    //free les cmd dans t_cmd ou command_id
-    free(commands);
+    if (res == -1)
+    {
+        ft_malloc_error(NULL);
+        free_read(&commands, NULL);
+        return;
+    }
+    ft_free((void **)commands);
 }
 
 char    *ft_read(t_all *all)
@@ -69,22 +81,26 @@ char    *ft_read(t_all *all)
     {
         if (!(ft_check_errors_line(line)))
         {
-            //free_read(&buf, &line);
+            free_read(&buf, &line);
             return ("done");
         }
         buf = ft_split_quote(line, ";");
         if (buf)
             ft_count_commands(&count, buf);
-        //else
-            //message d'erreur
+        else
+        {
+            free_read(&buf, &line);
+            ft_malloc_error();
+            return ("erreur");
+        }
         while (i != count)
             ft_command_exec(buf[i++], all);
     }
-    //free_read(&buf, &line);
+    free_read(&buf, &line);
     if (all->exit->e == 1 || all->exit->d == 1)
         return (NULL);
     return("done");
-}//il reste 3 lignes
+}
 
 int     main(void)
 {
@@ -92,16 +108,17 @@ int     main(void)
     char    *tmp;
     t_all   all;
 
-    x = 1; //x is the variable that will mean the program will end
+    x = 1;
     welcomer();
     ft_init_all(&all);
-    while (x != 0) //x = 0 means the program closed
+    while (x != 0)
     {
         ft_putstr_fd("~:", 1);
         tmp = ft_read(&all);
         if (tmp == NULL)
             x = 0;
     }
+    //free all
     byebye();
     return (1);
 }

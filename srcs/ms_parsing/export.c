@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:20:42 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/22 14:51:25 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/22 17:14:34 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	print_line(t_lst *lst, int n)
 void	ascii_tri_export(t_all *all)
 {
 	t_lst	*tmp;
-	int		count; //taille de la liste
+	int		count;
 	t_lst	*small;
 
 	count = ft_lstsize((t_list *)all->alst);
@@ -56,12 +56,13 @@ int		export_errors(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i])
+	if (!ft_isalpha(str[i]) && str[i] != '_')
+		return (0);
+	i++;
+	while (str[i] && str[i] != '=')
 	{
-		if (!ft_isalpha(str[i]) && str[i] != '_')
+		if (!ft_isalphanum(str[i]) && str[i] != '_')
 			return (0);
-		if (ft_isalpha(str[i]) || str[i] == '_') // faire un return ? (on ne checke que le premier char)
-			return (1);
 		i++;
 	}
 	return (1);
@@ -87,7 +88,7 @@ int		not_existent(char *cmd, t_all *all)
 		tmp = tmp->next;
 	}
 	if(!(tmp = ft_lstnew_ms(w1, w2)))
-		;//erreur malloc
+		;//erreur malloc : msg + free w1 et w2
 	ft_lstadd_back_ms(&all->alst, tmp);
 	return (1);
 }
@@ -113,5 +114,5 @@ void	export_id(char **cmd, t_all *all)
 			i++;
 		}
 	}
-
+//mettre $? a 0
 }

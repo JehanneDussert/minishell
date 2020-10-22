@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_splits.c                                      :+:      :+:    :+:   */
+/*   free_fcts.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/19 13:49:36 by marvin            #+#    #+#             */
-/*   Updated: 2020/10/19 13:49:36 by marvin           ###   ########.fr       */
+/*   Created: 2020/10/22 17:12:46 by jdussert          #+#    #+#             */
+/*   Updated: 2020/10/22 17:12:46 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 void	free_read(char ***buf, char **line)
 {
-	if (*line)
+	if (!line && !buf)
+		return;
+	if (line && *line)
 		ft_free((void *)line);
-	if (*buf)
+	if (buf && *buf)
 	{
 		while (**buf)
 		{

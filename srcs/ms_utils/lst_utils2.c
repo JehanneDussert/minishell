@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 14:33:43 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/22 14:34:17 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/22 16:53:39 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		create_words(char **w1, char **w2, char *cmd)
 		if (!(*w1 = ft_strdup(cmd)))
 			return (0);//error malloc
 		if (!(*w2 = ft_strdup(ptr + 1)))
-			return (0);//error malloc
+			return (0);//error malloc + free w1
 	}
 	else
 	{
