@@ -90,7 +90,7 @@ char    *ft_read(t_all *all)
         else
         {
             free_read(&buf, &line);
-            ft_malloc_error();
+            ft_malloc_error(NULL);
             return ("erreur");
         }
         while (i != count)
