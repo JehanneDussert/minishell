@@ -3,19 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 15:18:43 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/22 17:29:41 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/22 18:22:04 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	pwd_id()
+void	pwd_id(t_all *all)
 {
 	char	*buf;
+	int		catch;
 
+	catch = 0;
 	if (!(buf = ft_calloc(sizeof(buf), 1024)))
 	{
 		ft_malloc_error("pwd");
@@ -25,8 +27,11 @@ void	pwd_id()
 	{
 		error_msg("pwd", strerror(errno));
 		errno = 0;
-		//changer la variable $?
+		all->err = 1;
+		catch = 1;
 	}
 	ft_putendl_fd(buf, 1);
 	ft_free((void **)&buf);
-}//mettre $? a 0
+	if (catch = 0)
+		all->err = 0;
+}

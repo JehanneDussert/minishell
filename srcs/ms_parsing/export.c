@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:20:42 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/22 17:14:34 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/22 19:12:40 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,14 @@ int		export_errors(char *str)
 	return (1);
 }
 
-int		not_existent(char *cmd, t_all *all)
+int		not_existent(char *cmd, t_all *all, int *catch)
 {
 	t_lst	*tmp;
 	char	*w1;
 	char	*w2;
 
 	if (!create_words(&w1, &w2, cmd))
-		;//erreur de malloc
+		return (ft_malloc_error("export"));
 	tmp = all->alst;
 	while (tmp)
 	{
@@ -83,12 +83,15 @@ int		not_existent(char *cmd, t_all *all)
 		{
 			ft_free((void **)&w1);
 			tmp->content = w2;
-			return (0);
+			return (1);
 		}
 		tmp = tmp->next;
 	}
 	if(!(tmp = ft_lstnew_ms(w1, w2)))
-		;//erreur malloc : msg + free w1 et w2
+	{
+		free_read((char ***)&w1, &w2);
+		return (ft_malloc_error("export"));
+	}
 	ft_lstadd_back_ms(&all->alst, tmp);
 	return (1);
 }
@@ -96,8 +99,10 @@ int		not_existent(char *cmd, t_all *all)
 void	export_id(char **cmd, t_all *all)
 {
 	int 	i;
+	int		catch;
 
 	i = 1;
+	catch = 0;
 	if (!cmd[1])
 		ascii_tri_export(all);
 	else
@@ -105,14 +110,19 @@ void	export_id(char **cmd, t_all *all)
 		while (cmd[i])
 		{
 			if (export_errors(cmd[i]))
-				not_existent(cmd[i], all);
+				if (!(not_existent(cmd[i], all, &catch)))
+				{
+					catch = 1;
+					all->err = 1;
+				}
 			else
 			{
-				//recup code d'erreur et mettre ds $?
+				catch = 1;
+				all->err = 1;
 			}
-
 			i++;
 		}
 	}
-//mettre $? a 0
+	if (catch == 0)
+		all->err = 0;
 }

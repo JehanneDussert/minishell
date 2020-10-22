@@ -79,7 +79,7 @@ char    *ft_read(t_all *all)
     line = NULL;
     if ((get_next_line(1, &line)) == 1)
     {
-        if (!(ft_check_errors_line(line)))
+        if (!(ft_check_errors_line(line, all)))
         {
             free_read(&buf, &line);
             return ("done");

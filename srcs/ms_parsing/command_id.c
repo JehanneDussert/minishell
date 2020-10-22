@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_id.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/22 17:21:49 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/22 18:15:24 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 char	*command_id(char **comm, t_all *all, int mode)//puisque je fais read
 {
     if (!ft_strcmp(comm[0], "echo"))
-        ft_echo(comm);
+        ft_echo(comm, all);
     else if (!ft_strcmp(comm[0], "cd"))
-        cd_id(comm);
+        cd_id(comm, all);
     else if (!ft_strcmp(comm[0], "pwd"))
-        pwd_id();
+        pwd_id(all);
     else if (!ft_strcmp(comm[0], "export"))
         export_id(comm, all);
     else if (!ft_strcmp(comm[0], "unset"))

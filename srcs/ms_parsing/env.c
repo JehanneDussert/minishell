@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 14:36:19 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/22 17:14:57 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/22 19:13:02 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,5 @@ void	env_id(char **comm, t_all *all)
 		}
 		empty_tmp(all);
 	}
-}//mettre $? a 0
+	all->err = 0;
+}

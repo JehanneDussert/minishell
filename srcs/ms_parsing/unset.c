@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 17:56:12 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/22 17:14:43 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/22 19:14:15 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,21 @@ void    ft_catch_exp(char *cmd, t_all *all)
 void    ft_unset(char **cmd, t_all *all)
 {
     int i;
+    int catch;
 
     i = 1;
+    catch = 0;
     while (cmd[i])
     {
         if (!export_errors(cmd[i]))
-            ;// msg d'erreur + err code ds $?
+        {
+            catch = 1;
+            all->err = 1;
+        }
         else
             ft_catch_exp(cmd[i], all);
         i++;
     }
-}//mettre $? a 0
+    if (catch == 0)
+        all->err = 0;
+}

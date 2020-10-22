@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 14:33:43 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/22 16:53:39 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/22 18:35:48 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,17 @@ int		create_words(char **w1, char **w2, char *cmd)
 	{
 		*ptr = '\0';
 		if (!(*w1 = ft_strdup(cmd)))
-			return (0);//error malloc
+			return (0);
 		if (!(*w2 = ft_strdup(ptr + 1)))
-			return (0);//error malloc + free w1
+		{
+			ft_free((void **)&w1);
+			return (0);
+		}
 	}
 	else
 	{
 		if (!(*w1 = ft_strdup(cmd)))
-			return (0);//error malloc
+			return (0);
 		*w2 = NULL;
 	}
 	return (1);
@@ -43,10 +46,18 @@ void	lst_add_env(char **env, t_all *all)
 	i = 0;
 	while(env && env[i])
 	{
-		if (!create_words(&w1, &w2, env[i]))
-			;//erreur de malloc
+		if (!create_words(&w1, &w2, env[i])) //on devrait pas sortir du prgramme?
+		{
+			ft_malloc_error(NULL);
+			all->err = 1;
+			return ;
+		}
 		if(!(tmp = ft_lstnew_ms(w1, w2)))
-			;//erreur malloc
+		{
+			ft_malloc_error(NULL);
+			all->err = 1;
+			return ;
+		}
 		ft_lstadd_back_ms(&all->alst, tmp);
 		i++;
 	}

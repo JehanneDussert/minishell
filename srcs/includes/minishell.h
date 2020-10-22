@@ -43,14 +43,14 @@ void	ft_command_exec(char *comm, t_all *all);
 */
 char	*pipes_id(t_all *all);
 char	*command_id(char **comm, t_all *all, int mode);
-void	ft_echo(char **comm);
-void	cd_id(char **cmd);
-void	pwd_id(void);
+void	ft_echo(char **comm, t_all *all);
+void	cd_id(char **cmd, t_all *all);
+void	pwd_id(t_all *all);
 void	export_id(char **cmd, t_all *all);
 void	print_line(t_lst *lst, int n);
 void	ft_unset(char **cmd, t_all *all);
-int     ft_exec(char **comm);
 void	env_id(char **comm, t_all *all);
+int     ft_exec(char **comm);
 
 /*
 **UTILS FCTS
@@ -76,12 +76,12 @@ int		ft_error_ps(char *str);
 int		ft_quote_error(char *str);
 int		check_chevrons(char *str);
 int		check_double(char *str, char *charset);
-int		ft_check_errors_line(char *line);
+int		ft_check_errors_line(char *line, t_all *all);
 
 /*
 **Error msg :
 */
-int     ft_syntax_error(char *str, char *error);
+int     ft_syntax_error(char *str, char *error, t_all *all);
 int	    ft_malloc_error(char *bin);
 void	error_msg(char *bin, char *message);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:27:08 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/22 17:14:11 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/22 18:19:24 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,19 @@ void	cd_chdir(char *path)
 	}
 }
 
-void	cd_id(char **cmd)
+void	cd_home(t_all *all, int *catch)
+{
+	//amener a home
+	//si erreur set code $? a 1 et mettre catch a 1
+}
+
+void	cd_id(char **cmd, t_all *all)
 {
 	int		count;
+	int		catch;
 
 	count = 0;
+	catch = 0;
 	ft_count_commands(&count, cmd);
 	if (count == 1)
 	{
@@ -36,4 +44,6 @@ void	cd_id(char **cmd)
 	{
 		cd_chdir(cmd[1]);
 	}
-}//mettre $? a 0
+	if (catch == 0)
+		all->err = 0;
+}

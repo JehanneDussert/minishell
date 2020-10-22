@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:18:45 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/22 17:13:59 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/22 18:20:00 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	ft_init_echo(int *i, char **opt, int *s, int *d, int *res)
 	*opt = "off";
 }
 
-void	ft_echo(char **comm)
+void	ft_echo(char **comm, t_all *all)
 {
 	int		i;
 	char	*opt;
@@ -89,4 +89,5 @@ void	ft_echo(char **comm)
 	}
 	if (!ft_strncmp(opt, "off", 3))
 		ft_putchar_fd('\n', 1);
-}//mettre $? a 0
+	all->err = 0;
+}
