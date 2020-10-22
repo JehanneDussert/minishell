@@ -3,22 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:20:42 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/21 17:58:55 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/22 14:51:25 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	print_line(t_lst *lst)
+void	print_line(t_lst *lst, int n)
 {
-	ft_putstr_fd("declare -x ", 1);
+	if (n == 1)
+		ft_putstr_fd("declare -x ", 1);
 	ft_putstr_fd(lst->key, 1);
-	ft_putstr_fd("=\"", 1);
+	if (lst->content || n == 0)
+		ft_putstr_fd("=", 1);
+	if (lst->content && n == 1)
+		ft_putstr_fd("\"", 1);
 	ft_putstr_fd(lst->content, 1);
-	ft_putendl_fd("\"", 1);
+	if (lst->content && n == 1)
+		ft_putendl_fd("\"", 1);
+	else
+		ft_putendl_fd("", 1);
 	lst->tmp = 1;
 }
 
@@ -39,7 +46,7 @@ void	ascii_tri_export(t_all *all)
 				small = tmp;
 			tmp = tmp->next;
 		}
-		print_line(small);
+		print_line(small, 1);
 	}
 	empty_tmp(all);
 }

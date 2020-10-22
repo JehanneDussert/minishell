@@ -78,8 +78,10 @@ void	ft_echo(char **comm);
 void	cd_id(char **cmd);
 void	pwd_id(void);
 void	export_id(char **cmd, t_all *all);
+void	print_line(t_lst *lst, int n);
 void	ft_unset(char **cmd, t_all *all);
 int     ft_exec(char **comm);
+void	env_id(char **comm, t_all *all);
 
 /*
 **FREE

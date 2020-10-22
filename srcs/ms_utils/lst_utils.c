@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 12:27:04 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/21 17:58:46 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/22 14:34:21 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,24 +53,5 @@ void	ft_lstdelone_ms(t_lst *lst, void (*del)(void *))
 		del(lst->content);
 		del(lst->key);
 		free(lst);
-	}
-}
-
-void	lst_add_env(char **env, t_all *all)
-{
-	int		i;
-	t_lst	*tmp;
-	char	*w1;
-	char	*w2;
-
-	i = 0;
-	while(env && env[i])
-	{
-		if (!create_words(&w1, &w2, env[i]))
-			;//erreur de malloc
-		if(!(tmp = ft_lstnew_ms(w1, w2)))
-			;//erreur malloc
-		ft_lstadd_back_ms(&all->alst, tmp);
-		i++;
 	}
 }
