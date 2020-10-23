@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 14:36:19 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/22 19:13:02 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/23 14:52:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 void	env_id(char **comm, t_all *all)
 {
-	int		i;
 	t_lst	*tmp;
 
-	i = 0;
 	tmp = all->alst;
 	if (!comm[1])
 	{

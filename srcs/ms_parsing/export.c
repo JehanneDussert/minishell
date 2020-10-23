@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:20:42 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/22 19:12:40 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/23 14:52:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ int		export_errors(char *str)
 	i++;
 	while (str[i] && str[i] != '=')
 	{
-		if (!ft_isalphanum(str[i]) && str[i] != '_')
+		if (!ft_isalnum(str[i]) && str[i] != '_')
 			return (0);
 		i++;
 	}
 	return (1);
 }
 
-int		not_existent(char *cmd, t_all *all, int *catch)
+int		not_existent(char *cmd, t_all *all)
 {
 	t_lst	*tmp;
 	char	*w1;
@@ -110,11 +110,13 @@ void	export_id(char **cmd, t_all *all)
 		while (cmd[i])
 		{
 			if (export_errors(cmd[i]))
-				if (!(not_existent(cmd[i], all, &catch)))
+			{
+				if (!(not_existent(cmd[i], all)))
 				{
 					catch = 1;
 					all->err = 1;
 				}
+			}
 			else
 			{
 				catch = 1;

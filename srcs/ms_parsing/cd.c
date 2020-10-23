@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:27:08 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/22 22:05:07 by marvin           ###   ########.fr       */
+/*   Updated: 2020/10/23 14:49:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	cd_home(t_all *all, int *catch)
 	if (done == 0)
 	{
 		error_msg("cd", "home environment variable not set.");
-		catch = 1;
+		*catch = 1;
 		all->err = 1;
 	}
 }

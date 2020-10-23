@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_id.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/22 18:15:24 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/23 14:49:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,9 @@ char	*pipes_id(t_all *all)
             exit(0);
         }
         else if (all->cmd[i].pid == -1)
+		{
             ;//erreur de fork
+		}
         i++;
     }
     i = 0;

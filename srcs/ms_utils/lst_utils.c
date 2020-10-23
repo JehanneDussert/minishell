@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 12:27:04 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/22 14:34:21 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/23 15:03:49 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_lstadd_back_ms(t_lst **alst, t_lst *new)
 {
 	if (new == NULL || alst == NULL)
 		return ;
-	if (*alst == NULL)
+	if (alst && *alst == NULL)
 	{
 		*alst = new;
 		return ;
