@@ -15,7 +15,7 @@
 void	free_read(char ***buf, char **line)
 {
 	if (!line && !buf)
-		return;
+		return ;
 	if (line && *line)
 		ft_free((void *)line);
 	if (buf && *buf)
