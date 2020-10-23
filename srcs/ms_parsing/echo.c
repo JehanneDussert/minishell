@@ -3,17 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:18:45 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/22 18:20:00 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/23 17:31:12 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// Une fois qu'on aura les variables d'environnement, echo doit
-// etre capable de les afficher
+void	ft_echo_env(char *comm, t_lst *alst)
+{
+	int	i;
+
+	i = 0;
+	while (alst)
+	{
+		if(!ft_strcmp(comm, alst->key))
+		{
+			ft_putstr_fd(alst->content, 1);
+			return ;
+		}
+		alst = alst->next;
+	}
+}
 
 int		ft_echo_n(char *comm, char **opt)
 {
@@ -81,6 +94,8 @@ void	ft_echo(char **comm, t_all *all)
 		}
 		if ((comm[i][0] == '"' || comm[i][0] == '\'') && !res)
 			ft_echo_quote(comm[i]);
+		else if (comm[i][0] == '$')
+			ft_echo_env(&comm[i][1], all->alst);
 		else
 			ft_putstr_fd(comm[i], 1);
 		if (comm[i + 1])
