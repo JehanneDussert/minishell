@@ -6,17 +6,22 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:18:45 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/23 17:31:12 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/23 17:35:46 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_echo_env(char *comm, t_lst *alst)
+void	ft_echo_env(char *comm, t_lst *alst, int err)
 {
 	int	i;
 
 	i = 0;
+	if (comm[0] == '?')
+	{
+		ft_putnbr_fd(err, 1);
+		return ;
+	}
 	while (alst)
 	{
 		if(!ft_strcmp(comm, alst->key))
@@ -95,7 +100,7 @@ void	ft_echo(char **comm, t_all *all)
 		if ((comm[i][0] == '"' || comm[i][0] == '\'') && !res)
 			ft_echo_quote(comm[i]);
 		else if (comm[i][0] == '$')
-			ft_echo_env(&comm[i][1], all->alst);
+			ft_echo_env(&comm[i][1], all->alst, all->err);
 		else
 			ft_putstr_fd(comm[i], 1);
 		if (comm[i + 1])
