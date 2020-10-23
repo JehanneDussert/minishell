@@ -62,28 +62,8 @@ void	ft_command_exec(char *comm, t_all *all)
 	!(command_id((ft_split_quote(commands[0], "\t\n\r\v \f")), all, 1)))
 		res = -1;
 	if (res == 0 && commands[1])
-	{
 		if (!(if_pipes(commands, all, &res)))
 			return ;
-		/*ft_count_commands(&count, commands);
-		if (!(all->cmd = malloc(sizeof(t_cmd) * (count + 1))))
-			res = -1;
-		all->cmd[count].cmd = NULL;
-		while (res == 0 && all->cmd[i].cmd)
-		{
-			if (!(all->cmd[i].cmd = ft_split_quote(commands[i], 
-			"\t\n\r\v \f")))
-			{
-				ft_malloc_error(NULL);
-				free_read(&commands, NULL);
-				//free t_cmd
-				return ;
-			}
-			ft_free((void **)&commands[i]);
-			i++;
-		}
-		pipes_id(all);*/
-	}
 	if (res == -1)
 	{
 		ft_malloc_error(NULL);
@@ -127,26 +107,8 @@ char	*ft_read(t_all *all)
 	buf = NULL;
 	line = NULL;
 	if ((get_next_line(1, &line)) == 1)
-	{
 		if (!(read_checks(all, &count, buf, line)))
 			return ("error");
-		/*if (!(ft_check_errors_line(line, all)))
-		{
-			free_read(&buf, &line);
-			return ("erreur");
-		}
-		buf = ft_split_quote(line, ";");
-		if (buf)
-			ft_count_commands(&count, buf);
-		else
-		{
-			free_read(&buf, &line);
-			ft_malloc_error(NULL);
-			return ("erreur");
-		}
-		while (i != count)
-			ft_command_exec(buf[i++], all);*/
-	}
 	free_read(&buf, &line);
 	if (all->exit->e == 1 || all->exit->d == 1)
 		return (NULL);
