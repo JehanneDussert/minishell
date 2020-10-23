@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:18:45 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/23 17:35:46 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/23 17:39:38 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ft_echo_env(char *comm, t_lst *alst, int err)
 	int	i;
 
 	i = 0;
+	comm = ft_strtrim(comm, "{}");
 	if (comm[0] == '?')
 	{
 		ft_putnbr_fd(err, 1);
