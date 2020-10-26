@@ -6,22 +6,11 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/26 14:15:18 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/26 14:17:49 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "srcs/includes/minishell.h"
-
-void	ft_count_commands(int *count, char **buf)
-{
-	int i;
-
-	i = 0;
-	while (buf[i++])
-	{
-		*count += 1;
-	}
-}
 
 char	*if_pipes(char **commands, t_all *all, int *res)
 {
