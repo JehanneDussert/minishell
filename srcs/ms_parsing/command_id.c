@@ -6,13 +6,13 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/26 14:23:31 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/26 15:18:49 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*command_id(char **comm, t_all *all, int mode)//puisque je fais read
+char	*command_id(char **comm, t_all *all, int mode)
 {
 	if (!ft_strcmp(comm[0], "echo"))
 		ft_echo(comm, all);
@@ -29,7 +29,7 @@ char	*command_id(char **comm, t_all *all, int mode)//puisque je fais read
 	else if (!ft_strcmp(comm[0], "exit"))
 		all->exit->e = 1;
 	else if (ft_strchr(comm[0], '/'))
-		ft_exec(comm);//check si cest un binaire et excecuter le binaire
+		ft_exec(comm);
 	//else on regarde pour binaire a excecuter (s'il y a un / dans le 1er mot)
 	//s'il y a pas de / on cherche dans PATH
 	if (mode == 1)
@@ -80,7 +80,7 @@ char	*pipes_id(t_all *all)
 	i = 0;
 	while (all->cmd[i].cmd)
 	{
-		waitpid(all->cmd[i].pid, &status, 0);//a voir la redaction
+		waitpid(all->cmd[i].pid, &status, 0);
 		close(all->cmd[i].pipe[0]);
 		close(all->cmd[i].pipe[1]);
 		//voir comment gerer les bails de pipes

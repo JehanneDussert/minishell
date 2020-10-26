@@ -6,7 +6,7 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/26 12:45:36 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/26 15:24:37 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		ft_error_ps(char *str)
 	len = ft_strlen(tmp) - 1;
 	if (tmp[0] == ';' || tmp[0] == '|' || tmp[len] == '|')
 		res = 0;
-	ft_free((void *)&tmp);
+	ft_free((void **)&tmp);
 	return (res);
 }
 
