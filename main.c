@@ -6,7 +6,7 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/26 15:22:50 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/26 16:22:56 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,28 +64,28 @@ void	ft_command_exec(char *comm, t_all *all)
 	ft_free((void **)commands);
 }
 
-char	*read_checks(t_all *all, int *count, char **buf, char *line)
+char	*read_checks(t_all *all, int *count, char ***buf, char *line)
 {
 	int		i;
 
 	i = 0;
 	if (!(ft_check_errors_line(line, all)))
 	{
-		free_read(&buf, &line);
+		free_read(buf, &line);
 		return (NULL);
 	}
-	buf = ft_split_quote(line, ";");
-	if (buf)
-		ft_count_commands(count, buf);
+	*buf = ft_split_quote(line, ";");
+	if (*buf)
+		ft_count_commands(count, *buf);
 	else
 	{
-		free_read(&buf, &line);
+		free_read(buf, &line);
 		all->err = 1;
 		ft_malloc_error(NULL);
 		return (NULL);
 	}
 	while (i != *count)
-		ft_command_exec(buf[i++], all);
+		ft_command_exec((*buf)[i++], all);
 	return ("done");
 }
 
@@ -99,7 +99,7 @@ char	*ft_read(t_all *all)
 	buf = NULL;
 	line = NULL;
 	if ((get_next_line(1, &line)) == 1)
-		if (!(read_checks(all, &count, buf, line)))
+		if (!(read_checks(all, &count, &buf, line)))
 			return ("error");
 	free_read(&buf, &line);
 	if (all->exit->e == 1 || all->exit->d == 1)
