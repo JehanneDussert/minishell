@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_errors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/22 17:11:19 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/26 12:41:15 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@
 
 int		ft_error_ps(char *str)
 {
-	char *tmp;
-	int	len;
-	int	res;
+	char	*tmp;
+	int		len;
+	int		res;
 
 	res = 1;
 	tmp = ft_strtrim(str, " ");
@@ -65,7 +65,6 @@ int		ft_quote_error(char *str)
 	return (1);
 }
 
-
 int		is_charset(char c, char *charset)
 {
 	int	i;
@@ -79,6 +78,7 @@ int		is_charset(char c, char *charset)
 	}
 	return (0);
 }
+
 int		check_chevrons(char *str)
 {
 	int	i;
@@ -90,7 +90,7 @@ int		check_chevrons(char *str)
 	s = 0;
 	d = 0;
 	c = 0;
-	while (str[i])
+	while (str[++i])
 	{
 		if_in_quote(&d, &s, &i, str);
 		if (c == 0 && (s == 0 && d == 0) && is_charset(str[i], "><"))
@@ -98,13 +98,12 @@ int		check_chevrons(char *str)
 			i++;
 			c++;
 		}
-		else if ((s == 0 && d == 0) && c > 0 && ((str[i] == '>' && str[i - 1] != '>')
-			|| (str[i] == '<' && str[i - 1] != '<')))
-				return (0);
-		if (s == 0 && d == 0 && i > 0 && str[i - 1] == '>' && skipspace(str, &i) &&
-			(str[i] == ';' || str[i] == '|' || str[i] == '\0'))
+		else if ((s == 0 && d == 0) && c > 0 && ((str[i] == '>'
+		&& str[i - 1] != '>') || (str[i] == '<' && str[i - 1] != '<')))
 			return (0);
-		i++;
+		if (s == 0 && d == 0 && i > 0 && str[i - 1] == '>' && skipspace(str, &i)
+		&& (str[i] == ';' || str[i] == '|' || str[i] == '\0'))
+			return (0);
 	}
 	return (1);
 }
