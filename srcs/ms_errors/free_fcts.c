@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/26 12:05:33 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/26 12:05:33 by ede-banv         ###   ########.fr       */
+/*   Created: 2020/10/26 14:15:42 by ede-banv          #+#    #+#             */
+/*   Updated: 2020/10/26 14:20:00 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,20 @@ void	free_read(char ***buf, char **line)
 		}
 		ft_free((void *)buf);
 	}
+}
+
+void	free_commands(t_all *all)
+{
+	int	i;
+
+	while(all->cmd[i].cmd)
+	{
+		free_read(all->cmd[i].cmd, NULL);
+	}
+}
+
+void	free_all(t_all *all)
+{
+	ft_free((void **)&all->exit);
+	free_commands(all);
 }
