@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/26 11:58:06 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/26 11:58:06 by jdussert         ###   ########.fr       */
+/*   Created: 2020/10/26 14:11:39 by jdussert          #+#    #+#             */
+/*   Updated: 2020/10/26 14:12:24 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ typedef struct	s_lst
 	int				tmp;
 }				t_lst;
 
-
 typedef struct	s_all
 {
 	t_lst		*alst;
@@ -45,6 +44,5 @@ typedef struct	s_all
 	t_cmd		*cmd;
 	int			err;
 }				t_all;
-
 
 #endif
