@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 14:33:43 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/26 12:00:52 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/26 14:27:07 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	lst_add_env(char **env, t_all *all)
 	i = 0;
 	while (env && env[i])
 	{
-		if (!create_words(&w1, &w2, env[i])) //on devrait pas sortir du prgramme?
+		if (!create_words(&w1, &w2, env[i]))
 		{
 			ft_malloc_error(NULL);
 			all->err = 1;

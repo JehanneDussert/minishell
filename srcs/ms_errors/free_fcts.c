@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:42 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/26 14:24:36 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/26 14:26:07 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	free_commands(t_all *all)
 	int	i;
 
 	i = 0;
-	while(all->cmd[i].cmd)
+	while (all->cmd[i].cmd)
 	{
 		free_read(&all->cmd[i].cmd, NULL);
 	}
