@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 14:33:43 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/23 16:37:54 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/26 12:00:52 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		create_words(char **w1, char **w2, char *cmd)
 {
 	char *ptr;
 
-	if((ptr = ft_strchr(cmd, '=')))
+	if ((ptr = ft_strchr(cmd, '=')))
 	{
 		*ptr = '\0';
 		if (!(*w1 = ft_strdup(cmd)))
@@ -44,7 +44,7 @@ void	lst_add_env(char **env, t_all *all)
 	char	*w2;
 
 	i = 0;
-	while(env && env[i])
+	while (env && env[i])
 	{
 		if (!create_words(&w1, &w2, env[i])) //on devrait pas sortir du prgramme?
 		{
@@ -52,7 +52,7 @@ void	lst_add_env(char **env, t_all *all)
 			all->err = 1;
 			return ;
 		}
-		if(!(tmp = ft_lstnew_ms(w1, w2)))
+		if (!(tmp = ft_lstnew_ms(w1, w2)))
 		{
 			ft_malloc_error(NULL);
 			all->err = 1;

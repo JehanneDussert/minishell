@@ -56,6 +56,7 @@ int     ft_exec(char **comm);
 */
 void	ft_init_all(t_all *all);
 void	ft_init_echo(int *i, char **opt, int *res);
+void	ft_init_quote(int *i, int *k, int *d, int *s);
 int 	skipspace(char *line, int *i);
 char	**ft_skip_quote(char *str, char *charset);
 char	**ft_split_quote(char *str, char *charset);
