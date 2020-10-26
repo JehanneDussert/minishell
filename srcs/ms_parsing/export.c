@@ -6,7 +6,7 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:20:42 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/26 11:34:47 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/26 11:58:25 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	ascii_tri_export(t_all *all)
 		small = NULL;
 		while (tmp)
 		{
-			if (tmp->tmp == 0 && (!small || ft_strcmp(small->key, tmp->key) > 0))
+			if (tmp->tmp == 0 && (!small ||
+			ft_strcmp(small->key, tmp->key) > 0))
 				small = tmp;
 			tmp = tmp->next;
 		}
@@ -51,34 +52,28 @@ void	ascii_tri_export(t_all *all)
 	empty_tmp(all);
 }
 
-int		export_errors(char *str)
+int		export_catch(int *catch, t_all *all, int m)
 {
-	int	i;
-
-	i = 0;
-	if (!ft_isalpha(str[i]) && str[i] != '_')
-		return (0);
-	i++;
-	while (str[i] && str[i] != '=')
+	all->err = 1;
+	if (m == 0)
 	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
-			return (0);
-		i++;
+		*catch = 1;
+		return (0);
 	}
-	return (1);
+	else
+	{
+		return (ft_malloc_error("export"));
+	}
 }
 
-int		not_existent(char *cmd, t_all *all) //28 lignes
+int		not_existent(char *cmd, t_all *all)
 {
 	t_lst	*tmp;
 	char	*w1;
 	char	*w2;
 
 	if (!create_words(&w1, &w2, cmd))
-	{
-		all->err = 1;
-		return (ft_malloc_error("export"));
-	}
+		return (export_catch(NULL, all, 1));
 	tmp = all->alst;
 	while (tmp)
 	{
@@ -90,11 +85,10 @@ int		not_existent(char *cmd, t_all *all) //28 lignes
 		}
 		tmp = tmp->next;
 	}
-	if(!(tmp = ft_lstnew_ms(w1, w2)))
+	if (!(tmp = ft_lstnew_ms(w1, w2)))
 	{
 		free_read((char ***)&w1, &w2);
-		all->err = 1;
-		return (ft_malloc_error("export"));
+		return (export_catch(NULL, all, 1));
 	}
 	ft_lstadd_back_ms(&all->alst, tmp);
 	return (1);
@@ -102,7 +96,7 @@ int		not_existent(char *cmd, t_all *all) //28 lignes
 
 void	export_id(char **cmd, t_all *all)
 {
-	int 	i;
+	int		i;
 	int		catch;
 
 	i = 1;
@@ -116,16 +110,10 @@ void	export_id(char **cmd, t_all *all)
 			if (export_errors(cmd[i]))
 			{
 				if (!(not_existent(cmd[i], all)))
-				{
-					catch = 1;
-					all->err = 1;
-				}
+					export_catch(&catch, all, 0);
 			}
 			else
-			{
-				catch = 1;
-				all->err = 1;
-			}
+				export_catch(&catch, all, 0);
 			i++;
 		}
 	}
