@@ -50,14 +50,15 @@ int		export_errors(char *str);
 void	print_line(t_lst *lst, int n);
 void	ft_unset(char **cmd, t_all *all);
 void	env_id(char **comm, t_all *all);
-int     ft_exec(char **comm);
+int		ft_exec(char **comm);
 
 /*
 **UTILS FCTS
 */
 void	ft_init_all(t_all *all);
 void	ft_init_echo(int *i, char **opt, int *res);
-int 	skipspace(char *line, int *i);
+void	ft_init_quote(int *i, int *k, int *d, int *s);
+int		skipspace(char *line, int *i);
 char	**ft_skip_quote(char *str, char *charset);
 char	**ft_split_quote(char *str, char *charset);
 void	if_in_quote(int *d, int *s, int *i, char *str);
@@ -82,8 +83,8 @@ int		ft_check_errors_line(char *line, t_all *all);
 /*
 **Error msg :
 */
-int     ft_syntax_error(char *str, char *error, t_all *all);
-int     ft_malloc_error(char *bin);
+int		ft_syntax_error(char *str, char *error, t_all *all);
+int		ft_malloc_error(char *bin);
 void	error_msg(char *bin, char *message);
 
 /*
