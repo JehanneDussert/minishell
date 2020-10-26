@@ -46,6 +46,7 @@ void	ft_echo(char **comm, t_all *all);
 void	cd_id(char **cmd, t_all *all);
 void	pwd_id(t_all *all);
 void	export_id(char **cmd, t_all *all);
+int		export_errors(char *str);
 void	print_line(t_lst *lst, int n);
 void	ft_unset(char **cmd, t_all *all);
 void	env_id(char **comm, t_all *all);
