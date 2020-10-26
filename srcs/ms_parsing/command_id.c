@@ -6,7 +6,7 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/26 12:04:30 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/26 14:23:31 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*command_id(char **comm, t_all *all, int mode)//puisque je fais read
 	//else on regarde pour binaire a excecuter (s'il y a un / dans le 1er mot)
 	//s'il y a pas de / on cherche dans PATH
 	if (mode == 1)
-		; //free_read(&comm, NULL);
+		free_read(&comm, NULL);
 	return("done");
 }
 
@@ -86,6 +86,6 @@ char	*pipes_id(t_all *all)
 		//voir comment gerer les bails de pipes
 		i++;
 	}
-	//free ts les t_cmd->cmd
+	free_commands(all);
 	return ("done");
 }
