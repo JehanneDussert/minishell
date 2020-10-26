@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_errors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/26 15:24:37 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/26 15:30:03 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		ft_error_ps(char *str)
 	res = 1;
 	tmp = ft_strtrim(str, " ");
 	len = ft_strlen(tmp) - 1;
-	if (tmp[0] == ';' || tmp[0] == '|' || tmp[len] == '|')
+	if (len >= 0 && (tmp[0] == ';' || tmp[0] == '|' || tmp[len] == '|'))
 		res = 0;
 	ft_free((void **)&tmp);
 	return (res);
