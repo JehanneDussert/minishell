@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/06 17:31:39 by marvin            #+#    #+#             */
-/*   Updated: 2020/10/06 17:31:39 by marvin           ###   ########.fr       */
+/*   Created: 2020/10/26 11:58:06 by jdussert          #+#    #+#             */
+/*   Updated: 2020/10/26 11:58:06 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,35 @@
 # include "minishell.h"
 # include <sys/types.h>
 
-typedef struct  s_cmd
+typedef struct	s_cmd
 {
-    int             pipe[2];
-    char            **cmd;
-    pid_t           pid;
-}               t_cmd;
+	int			pipe[2];
+	char		**cmd;
+	pid_t		pid;
+}				t_cmd;
 
-typedef struct  s_exit
+typedef struct	s_exit
 {
-    int             e;
-    int             d;
-}               t_exit;
+	int			e;
+	int			d;
+}				t_exit;
 
-typedef struct  s_lst
+typedef struct	s_lst
 {
-    struct s_lst    *next;
-    char            *key;
-    char            *content;
-    int             tmp;
-}               t_lst;
+	struct s_lst	*next;
+	char			*key;
+	char			*content;
+	int				tmp;
+}				t_lst;
 
 
-typedef struct  s_all
+typedef struct	s_all
 {
-    t_lst           *alst;
-    t_exit          *exit;
-    t_cmd           *cmd;
-    int             err;
-}               t_all;
+	t_lst		*alst;
+	t_exit		*exit;
+	t_cmd		*cmd;
+	int			err;
+}				t_all;
 
 
 #endif

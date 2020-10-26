@@ -27,7 +27,6 @@
 # include <string.h>
 # include <errno.h>
 
-
 /*
 **MAIN FCTS
 */
@@ -83,7 +82,7 @@ int		ft_check_errors_line(char *line, t_all *all);
 **Error msg :
 */
 int     ft_syntax_error(char *str, char *error, t_all *all);
-int	    ft_malloc_error(char *bin);
+int     ft_malloc_error(char *bin);
 void	error_msg(char *bin, char *message);
 
 /*
