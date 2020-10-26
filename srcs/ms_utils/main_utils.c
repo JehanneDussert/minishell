@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/20 14:26:39 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/26 12:57:30 by jdussert         ###   ########.fr       */
+/*   Created: 2020/10/26 14:17:29 by jdussert          #+#    #+#             */
+/*   Updated: 2020/10/26 14:18:57 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strcmp(const char *s1, const char *s2)
+#include "../includes/minishell.h"
+
+void	ft_count_commands(int *count, char **buf)
 {
 	int i;
 
 	i = 0;
-	while (s1[i] == s2[i])
+	while (buf[i++])
 	{
-		if (s1[i] == '\0')
-			return (0);
-		i++;
+		*count += 1;
 	}
-	return ((unsigned)s1[i] - (unsigned)s2[i]);
 }
