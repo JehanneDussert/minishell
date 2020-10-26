@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:18:45 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/23 17:39:38 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/26 11:35:08 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	ft_init_echo(int *i, char **opt, int *s, int *d, int *res)
 	*opt = "off";
 }
 
-void	ft_echo(char **comm, t_all *all)
+void	ft_echo(char **comm, t_all *all)//29 lignes
 {
 	int		i;
 	char	*opt;

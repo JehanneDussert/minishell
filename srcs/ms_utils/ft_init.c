@@ -6,7 +6,7 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 11:17:46 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/22 18:31:56 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/26 11:28:29 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_init_all(t_all *all)
 	if (!(all->exit = ft_calloc(sizeof(t_exit), 1)))
 	{
 		ft_malloc_error(NULL);
+		all->err = 1;
 		return ;
 	}
 	all->err = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 15:18:43 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/23 15:06:26 by marvin           ###   ########.fr       */
+/*   Updated: 2020/10/26 11:28:53 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	pwd_id(t_all *all)
 	if (!(buf = ft_calloc(sizeof(buf), 1024)))
 	{
 		ft_malloc_error("pwd");
+		all->err = 1;
 		return ;
 	}
 	if (!(getcwd(buf, 1024)))

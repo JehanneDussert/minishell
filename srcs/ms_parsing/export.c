@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:20:42 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/23 16:50:37 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/26 11:34:47 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,17 @@ int		export_errors(char *str)
 	return (1);
 }
 
-int		not_existent(char *cmd, t_all *all)
+int		not_existent(char *cmd, t_all *all) //28 lignes
 {
 	t_lst	*tmp;
 	char	*w1;
 	char	*w2;
 
 	if (!create_words(&w1, &w2, cmd))
+	{
+		all->err = 1;
 		return (ft_malloc_error("export"));
+	}
 	tmp = all->alst;
 	while (tmp)
 	{
@@ -90,6 +93,7 @@ int		not_existent(char *cmd, t_all *all)
 	if(!(tmp = ft_lstnew_ms(w1, w2)))
 	{
 		free_read((char ***)&w1, &w2);
+		all->err = 1;
 		return (ft_malloc_error("export"));
 	}
 	ft_lstadd_back_ms(&all->alst, tmp);

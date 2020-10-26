@@ -35,9 +35,10 @@ char	*if_pipes(char **commands, t_all *all, int *res)
 	all->cmd[count].cmd = NULL;
 	while (res == 0 && all->cmd[i].cmd)
 	{
-		if (!(all->cmd[i].cmd = ft_split_quote(commands[i], 
+		if (!(all->cmd[i].cmd = ft_split_quote(commands[i],
 		"\t\n\r\v \f")))
 		{
+			all->err = 1;
 			ft_malloc_error(NULL);
 			free_read(&commands, NULL);
 			//free t_cmd
@@ -66,6 +67,7 @@ void	ft_command_exec(char *comm, t_all *all)
 			return ;
 	if (res == -1)
 	{
+		all->err = 1;
 		ft_malloc_error(NULL);
 		free_read(&commands, NULL);
 		return ;
@@ -89,6 +91,7 @@ char	*read_checks(t_all *all, int *count, char **buf, char *line)
 	else
 	{
 		free_read(&buf, &line);
+		all->err = 1;
 		ft_malloc_error(NULL);
 		return (NULL);
 	}
