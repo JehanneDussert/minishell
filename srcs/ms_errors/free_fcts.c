@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_fcts.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:42 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/26 16:23:30 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/26 17:45:05 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	free_read(char ***buf, char **line)
 			ft_free((void **)&tmp[i]);
 			i++;
 		}
-		ft_free((void **)*buf);
+		ft_free((void **)buf);
 		*buf = NULL;
 	}
 }
@@ -50,4 +50,5 @@ void	free_all(t_all *all)
 {
 	ft_free((void **)&all->exit);
 	free_commands(all);
+	ft_lstclear_ms(&all->alst, free);
 }

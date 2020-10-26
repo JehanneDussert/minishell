@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/26 14:24:42 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/26 17:07:36 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	ft_lstadd_back_ms(t_lst **alst, t_lst *new);
 int		create_words(char **w1, char **w2, char *cmd);
 void	lst_add_env(char **env, t_all *all);
 void	ft_lstdelone_ms(t_lst *lst, void (*del)(void *));
+void	ft_lstclear_ms(t_lst **lst, void (*del)(void *));
 int		export_errors(char *str);
 void	empty_tmp(t_all *all);
 

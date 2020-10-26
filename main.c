@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/26 16:22:56 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/26 17:40:49 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void	ft_command_exec(char *comm, t_all *all)
 		free_read(&commands, NULL);
 		return ;
 	}
-	ft_free((void **)commands);
+	free_read(&commands, NULL);
+	//ft_free((void **)commands);
 }
 
 char	*read_checks(t_all *all, int *count, char ***buf, char *line)
@@ -115,6 +116,7 @@ int		main(void)
 
 	x = 1;
 	welcomer();
+	ft_bzero(&all, sizeof(t_all));
 	ft_init_all(&all);
 	while (x != 0)
 	{

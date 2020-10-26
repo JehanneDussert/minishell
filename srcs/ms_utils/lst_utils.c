@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 12:27:04 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/23 15:03:49 by marvin           ###   ########.fr       */
+/*   Updated: 2020/10/26 17:06:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,21 @@ void	ft_lstdelone_ms(t_lst *lst, void (*del)(void *))
 		del(lst->key);
 		free(lst);
 	}
+}
+
+void	ft_lstclear_ms(t_lst **lst, void (*del)(void *))
+{
+	t_lst	*tmp;
+	t_lst	*indice;
+
+	if (!del || !lst)
+		return ;
+	indice = *lst;
+	while (indice)
+	{
+		tmp = indice->next;
+		ft_lstdelone_ms(indice, del);
+		indice = tmp;
+	}
+	*lst = NULL;
 }
