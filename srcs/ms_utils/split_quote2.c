@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   split_quote2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 12:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/26 12:12:02 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/26 12:43:47 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	ft_init_quote(int *i, int *k, int *d, int *s)
-{
-	*i = 0;
-	*k = 0;
-	*d = 0;
-	*s = 0;
-}
 
 void	if_in_quote(int *d, int *s, int *i, char *str)
 {

@@ -6,25 +6,11 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/26 12:41:15 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/26 12:45:36 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-//ecrire fonction qui va checker les erreurs de la ligne en debut de ft read, avant meme de split
-//erreurs a checker:
-//-double ; ou | (DONE: check_double)
-//-| en debut ou fin de commande (DONE: ft_synta_error_ps)
-//-; en debut de commande (DONE: ft_synta_error_ps)
-//-2 chevrons en fin de commande (DONE : check_chevrons)
-//-2 chevrons qui sont sep par ws) (DONE : check_chevrons)
-//- <, > doivent marcher
-//- check si les quotes sont fermes
-
-/*
-** Ps : pipe + semi colon
-*/
 
 int		ft_error_ps(char *str)
 {
@@ -86,11 +72,8 @@ int		check_chevrons(char *str)
 	int	d;
 	int	c;
 
-	i = 0;
-	s = 0;
-	d = 0;
-	c = 0;
-	while (str[++i])
+	ft_init_quote(&i, &s, &d, &c);
+	while (str[i])
 	{
 		if_in_quote(&d, &s, &i, str);
 		if (c == 0 && (s == 0 && d == 0) && is_charset(str[i], "><"))
@@ -104,6 +87,7 @@ int		check_chevrons(char *str)
 		if (s == 0 && d == 0 && i > 0 && str[i - 1] == '>' && skipspace(str, &i)
 		&& (str[i] == ';' || str[i] == '|' || str[i] == '\0'))
 			return (0);
+		i++;
 	}
 	return (1);
 }

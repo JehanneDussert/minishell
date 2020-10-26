@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 11:17:46 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/26 11:50:40 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/26 12:43:53 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,12 @@ void	ft_init_echo(int *i, char **opt, int *res)
 	*i = 1;
 	*res = 0;
 	*opt = "off";
+}
+
+void	ft_init_quote(int *i, int *k, int *d, int *s)
+{
+	*i = 0;
+	*k = 0;
+	*d = 0;
+	*s = 0;
 }
