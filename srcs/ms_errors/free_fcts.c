@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_fcts.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:42 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/26 14:20:00 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/26 14:23:47 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ void	free_commands(t_all *all)
 {
 	int	i;
 
+	i = 0;
 	while(all->cmd[i].cmd)
 	{
-		free_read(all->cmd[i].cmd, NULL);
+		free_read(&all->cmd[i].cmd, NULL);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/26 14:10:48 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/26 14:22:44 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int		ft_check_errors_line(char *line, t_all *all);
 /*
 **Error msg :
 */
-int		ft_syntax_error(char *str, char *error, t_all *all);
+int		ft_syntax_error(char *error, t_all *all);
 int		ft_malloc_error(char *bin);
 void	error_msg(char *bin, char *message);
 
