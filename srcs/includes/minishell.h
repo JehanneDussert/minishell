@@ -56,6 +56,7 @@ int     ft_exec(char **comm);
 **UTILS FCTS
 */
 void	ft_init_all(t_all *all);
+void	ft_init_echo(int *i, char **opt, int *res);
 int 	skipspace(char *line, int *i);
 char	**ft_skip_quote(char *str, char *charset);
 char	**ft_split_quote(char *str, char *charset);

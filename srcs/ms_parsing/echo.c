@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:18:45 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/26 11:35:08 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/26 11:51:38 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_echo_env(char *comm, t_lst *alst, int err)
 	}
 	while (alst)
 	{
-		if(!ft_strcmp(comm, alst->key))
+		if (!ft_strcmp(comm, alst->key))
 		{
 			ft_putstr_fd(alst->content, 1);
 			return ;
@@ -49,11 +49,19 @@ int		ft_echo_n(char *comm, char **opt)
 	return (1);
 }
 
+void	ft_check_n(int *i, int *res, char *comm, char **opt)
+{
+	*res = ft_echo_n(comm, opt);
+	if (*res != 0)
+		(*i)++;
+	*res = 0;
+}
+
 void	ft_echo_quote(char *comm)
 {
 	int i;
-	int		s;
-	int		d;
+	int	s;
+	int	d;
 
 	i = 0;
 	s = 0;
@@ -71,33 +79,17 @@ void	ft_echo_quote(char *comm)
 	}
 }
 
-void	ft_init_echo(int *i, char **opt, int *s, int *d, int *res)
-{
-	*i = 1;
-	*s = 0;
-	*d = 0;
-	*res = 0;
-	*opt = "off";
-}
-
-void	ft_echo(char **comm, t_all *all)//29 lignes
+void	ft_echo(char **comm, t_all *all)
 {
 	int		i;
 	char	*opt;
-	int		s;
-	int		d;
 	int		res;
 
-	ft_init_echo(&i, &opt, &s, &d, &res);
+	ft_init_echo(&i, &opt, &res);
 	while (comm[i])
 	{
 		if (i == 1 && comm[i][0] == '-')
-		{
-			res = ft_echo_n(comm[i], &opt);
-			if (res != 0)
-				i++;
-			res = 0;
-		}
+			ft_check_n(&i, &res, comm[i], &opt);
 		if ((comm[i][0] == '"' || comm[i][0] == '\'') && !res)
 			ft_echo_quote(comm[i]);
 		else if (comm[i][0] == '$')
