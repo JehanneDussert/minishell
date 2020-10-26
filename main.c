@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/26 14:17:49 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/26 14:22:29 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*if_pipes(char **commands, t_all *all, int *res)
 			all->err = 1;
 			ft_malloc_error(NULL);
 			free_read(&commands, NULL);
-			//free t_cmd
+			free_commands(all);
 			return (NULL);
 		}
 		ft_free((void **)&commands[i]);
@@ -123,7 +123,7 @@ int		main(void)
 		if (tmp == NULL)
 			x = 0;
 	}
-	//free all
+	free_all(all);
 	byebye();
 	return (1);
 }

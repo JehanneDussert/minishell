@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/26 14:22:44 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/10/26 14:24:42 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,7 @@ void	error_msg(char *bin, char *message);
 **FREE
 */
 void	free_read(char ***buf, char **line);
+void	free_commands(t_all *all);
+void	free_all(t_all *all);
 
 #endif
