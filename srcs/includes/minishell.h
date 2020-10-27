@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/26 17:07:36 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/26 22:42:16 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		export_errors(char *str);
 void	print_line(t_lst *lst, int n);
 void	ft_unset(char **cmd, t_all *all);
 void	env_id(char **comm, t_all *all);
-int		ft_exec(char **comm);
+int		ft_exec(char **comm, t_all *all);
 
 /*
 **UTILS FCTS
