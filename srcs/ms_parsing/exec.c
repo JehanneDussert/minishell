@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:53:40 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/27 01:23:15 by marvin           ###   ########.fr       */
+/*   Updated: 2020/10/28 15:31:34 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,38 +38,40 @@ char	**make_envp(t_all *all)
 		{
 			buf = ft_strjoin(tmp->key, "=");
 			res[i++] = ft_strjoin(buf, tmp->content);
-			ft_free(buf);
+			ft_free((void **)&buf);
 		}
 		tmp = tmp->next;
 	}
+	res[i] = NULL;
 	return (res);
 }
 
-int     ft_exec(char **comm, t_all *all)
+// recuperer variables d'environnement dans liste chainee et les mettre ds un char * envp (make_envp) (DONE)
+// chercher si binaire existe dans PATH (cf env PATH) -> PATH a save dans char *
+// chercher l'executable, /bin/ls
+// envoyer la commande **comm
+
+int		ft_exec(char **comm, t_all *all)
 {
-    // recuperer variables d'environnement dans liste chainee et les mettre ds un char * envp (make_envp)
-    // chercher si binaire existe dans PATH (cf env PATH) -> PATH a save dans char *
-    // chercher l'executable, /bin/ls
-    // envoyer la commande **comm
-    //if (execve() == -1)
-    //    return (-1);
 	char		**envp;
 	struct stat	file;
 	pid_t		pid;
-    
-	stat(comm[0], &stat); //on check l'etat du path
-	if (file.st_mode == S_IFREG) // si cest un fichier regulier on excecute
+
+	stat(comm[0], &file); //on check l'etat du path
+	//if (file.st_mode == S_IFREG) // si cest un fichier regulier on excecute
 	{
 		pid = fork(); // on fork pour que execve puisse executer le process
 		envp = make_envp(all);
 		if (pid == 0)
 		{
-			if (execve(comm[0], comm, envp) == -1)
-			{
-				error_msg("execve", strerror(errno));
-				errno = 0;
-			}
-			exit(0); //on exit le processus fils
+			//if (execve(comm[0], comm, envp) == -1) // cette condition est useless dixit mli
+			execve(comm[0], comm, envp);
+			error_msg("execve", strerror(errno));
+			errno = 0;
+			exit(1); //on exit le processus fils
 		}
-    return (0);
+		else
+			waitpid(pid, NULL, 0);
+	}
+	return (0);
 }
