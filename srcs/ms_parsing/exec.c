@@ -6,7 +6,7 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:53:40 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/29 12:18:08 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/29 13:59:17 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,33 +39,34 @@ char	**make_envp(t_all *all)
 	return (res);
 }
 
-void	execve_fct(char **comm, t_all *all)
+int		execve_fct(char **comm, char *path, t_all *all)
 {
 	char	**envp;
 	pid_t	pid;
 	int		status;
+	int		r;
 
 	pid = fork();
 	envp = make_envp(all);
+	r = 1;
 	if (pid == 0)
 	{
-		execve(comm[0], comm, envp);
+		execve(path, comm, envp);
 		error_msg("execve", strerror(errno));
 		exit(1);
+		r = 0;
 	}
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		all->err = WEXITSTATUS(status);
 	// gerer les signaux: changer la valeur de retour en cas de signaux
-	free_read(envp, NULL);
+	free_read(&envp, NULL);
+	return (r);
 }
 
 int		ft_exec(char **comm, t_all *all)
 {
-	char		**envp;
 	struct stat	file;
-	pid_t		pid;
-	int			status;
 
 	if (stat(comm[0], &file) == -1)
 	{
@@ -76,7 +77,7 @@ int		ft_exec(char **comm, t_all *all)
 	}
 	else if ((file.st_mode & S_IFREG) == S_IFREG)
 	{
-		execve_fct(comm, all);
+		execve_fct(comm, comm[0], all);
 		/*pid = fork();
 		envp = make_envp(all);
 		if (pid == 0)

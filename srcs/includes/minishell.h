@@ -6,7 +6,7 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/29 12:18:55 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/29 13:57:50 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	print_line(t_lst *lst, int n);
 void	ft_unset(char **cmd, t_all *all);
 void	env_id(char **comm, t_all *all);
 int		ft_exec(char **comm, t_all *all);
-void	execve_fct(char **comm, t_all *all);
+int		execve_fct(char **comm, char *path, t_all *all);
 char	**make_envp(t_all *all);
 void	path_id(char **comm, t_all *all);
 

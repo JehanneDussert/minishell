@@ -6,7 +6,7 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 11:52:16 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/29 12:19:14 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/29 14:02:54 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,31 +28,40 @@ char	*find_path(t_all *all)
 
 void	path_id(char **comm, t_all *all)
 {
-	int			count;
 	char		**paths;
 	struct stat	file;
 	char		*path;
 	int			i;
+	int			err;
 
-	//plusierues options de ou chercher separee par : (split normal)
-	//join le path qu'on teste avec le nom de l'excecutable et regarder le stat
+	i = 0;
+	err = 0;
 	if (!(path = find_path(all)))
 		;//no path found
 	if(!(paths = ft_split(path, ':')))
 		;//malloc error
 	while (paths && paths[i])
 	{
-		if (!(path = ft_strjoin(paths[i], comm[0])))
+		if (!(path = ft_strjoin_free(paths[i], "/", 0)))
+			;//erreur de malloc
+		if (!(path = ft_strjoin_free(path, comm[0], 1)))
 			;//erreur de malloc
 		if (stat(path, &file) == -1)
-		{
-			error_msg(NULL, "no such file or directory");
-			all->err = 127;
-			return ;
-		}
+			err = 1;
 		else if ((file.st_mode & S_IFREG) == S_IFREG)
-			execve_fct(comm, all);
-		free(path);
+		{
+			err = 0;
+			if (execve_fct(comm, path, all))
+				break ;
+		}
+		ft_free((void **)&path);
 		i++;
 	}
+	if (err == 1)
+	{
+		error_msg(NULL, strerror(errno));
+		all->err = 127;
+	}
+	errno = 0;
+	free_read(&paths, &path);
 }
