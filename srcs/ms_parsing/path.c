@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 11:52:16 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/29 15:12:42 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/30 12:47:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,8 @@ void	path_id(char **comm, t_all *all)
 {
 	char		**paths;
 	char		*path;
-	int			i;
 	int			err;
 
-	i = 0;
 	err = 0;
 	if (!(path = find_path(all)))
 	{
