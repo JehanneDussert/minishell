@@ -17,7 +17,7 @@ void	ft_echo_env(char *comm, t_lst *alst, int err)
 	char	*tmp;
 
 	tmp = comm;
-	tmp = ft_strtrim(tmp, "{}");
+tmp = ft_strtrim(tmp, "{}");
 	if (tmp[0] == '?')
 	{
 		ft_putnbr_fd(err, 1);
