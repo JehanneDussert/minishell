@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:53:40 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/27 01:23:15 by marvin           ###   ########.fr       */
+/*   Updated: 2020/10/30 14:33:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ int     ft_exec(char **comm, t_all *all)
 			}
 			exit(0); //on exit le processus fils
 		}
+	}
     return (0);
 }
