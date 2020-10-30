@@ -14,15 +14,18 @@
 
 void	ft_echo_env(char *comm, t_lst *alst, int err)
 {
-	comm = ft_strtrim(comm, "{}");
-	if (comm[0] == '?')
+	char	*tmp;
+
+	tmp = comm;
+	tmp = ft_strtrim(tmp, "{}");
+	if (tmp[0] == '?')
 	{
 		ft_putnbr_fd(err, 1);
 		return ;
 	}
 	while (alst)
 	{
-		if (!ft_strcmp(comm, alst->key))
+		if (!ft_strcmp(tmp, alst->key))
 		{
 			ft_putstr_fd(alst->content, 1);
 			return ;
