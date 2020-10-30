@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   split_quote2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/19 16:39:05 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/21 11:22:54 by ede-banv         ###   ########.fr       */
+/*   Created: 2020/10/26 12:10:47 by jdussert          #+#    #+#             */
+/*   Updated: 2020/10/26 12:43:47 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minishell.h"
 
-void	ft_lstadd_back(t_list **alst, t_list *new)
+void	if_in_quote(int *d, int *s, int *i, char *str)
 {
-	if (new == NULL || alst == NULL)
-		return ;
-	if (*alst == NULL)
+	if (str[*i] == '\\' && (str[*i + 1] == '\'' || str[*i + 1] == '\"'))
+		*i += 2;
+	if (str[*i] == '\"')
 	{
-		*alst = new;
-		return ;
+		if (*d == 0 && *s == 0)
+			(*d)++;
+		else if (*d == 1 && *s == 0)
+			(*d)--;
 	}
-	ft_lstlast(*alst)->next = new;
+	else if (str[*i] == '\'')
+	{
+		if (*s == 0 && *d == 0)
+			(*s)++;
+		else if (*s == 1 && *d == 0)
+			(*s)--;
+	}
 }

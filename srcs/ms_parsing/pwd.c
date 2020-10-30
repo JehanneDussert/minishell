@@ -1,25 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/19 16:39:05 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/21 11:22:54 by ede-banv         ###   ########.fr       */
+/*   Created: 2020/10/20 15:18:43 by ede-banv          #+#    #+#             */
+/*   Updated: 2020/10/26 11:45:39 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minishell.h"
 
-void	ft_lstadd_back(t_list **alst, t_list *new)
+void	pwd_id(t_all *all)
 {
-	if (new == NULL || alst == NULL)
-		return ;
-	if (*alst == NULL)
+	char	*buf;
+	int		catch;
+
+	catch = 0;
+	if (!(buf = ft_calloc(sizeof(buf), 1024)))
 	{
-		*alst = new;
+		ft_malloc_error("pwd");
+		all->err = 1;
 		return ;
 	}
-	ft_lstlast(*alst)->next = new;
+	if (!(getcwd(buf, 1024)))
+	{
+		error_msg("pwd", strerror(errno));
+		errno = 0;
+		all->err = 1;
+		catch = 1;
+	}
+	ft_putendl_fd(buf, 1);
+	ft_free((void **)&buf);
+	if (catch == 0)
+		all->err = 0;
 }

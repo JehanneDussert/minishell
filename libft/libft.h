@@ -6,7 +6,7 @@
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 17:41:21 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/14 14:10:09 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/29 14:02:46 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 
 typedef struct	s_list
 {
+	struct s_list	*next;
 	void			*content;
 	int				nb;
-	struct s_list	*next;
 }				t_list;
 
 void			*ft_memset(void *s, int c, size_t n);
@@ -37,6 +37,7 @@ size_t			ft_strlen(const char *str);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strrchr(const char *s, int c);
 char			*ft_strnstr(const char *str, const char *to_find, size_t n);
+int				ft_strcmp(const char *s1, const char *s2);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t			ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t			ft_strlcat(char *dst, const char *src, size_t dstsize);
@@ -55,6 +56,7 @@ void			ft_free(void **ptr);
 
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 char			*ft_strjoin(char const *s1, char const *s2);
+char			*ft_strjoin_free(char const *s1, char const *s2, int to_free);
 char			*ft_strtrim(char const *s1, char const *set);
 char			**ft_split(char const *s, char c);
 char			*ft_itoa(int n);

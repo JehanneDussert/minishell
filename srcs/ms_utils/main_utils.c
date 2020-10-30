@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/19 16:39:05 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/21 11:22:54 by ede-banv         ###   ########.fr       */
+/*   Created: 2020/10/26 14:17:29 by jdussert          #+#    #+#             */
+/*   Updated: 2020/10/26 14:18:57 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minishell.h"
 
-void	ft_lstadd_back(t_list **alst, t_list *new)
+void	ft_count_commands(int *count, char **buf)
 {
-	if (new == NULL || alst == NULL)
-		return ;
-	if (*alst == NULL)
+	int i;
+
+	i = 0;
+	while (buf[i++])
 	{
-		*alst = new;
-		return ;
+		*count += 1;
 	}
-	ft_lstlast(*alst)->next = new;
 }

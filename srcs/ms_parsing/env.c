@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/19 16:39:05 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/21 11:22:54 by ede-banv         ###   ########.fr       */
+/*   Created: 2020/10/22 14:36:19 by ede-banv          #+#    #+#             */
+/*   Updated: 2020/10/26 11:37:01 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minishell.h"
 
-void	ft_lstadd_back(t_list **alst, t_list *new)
+void	env_id(char **comm, t_all *all)
 {
-	if (new == NULL || alst == NULL)
-		return ;
-	if (*alst == NULL)
+	t_lst	*tmp;
+
+	tmp = all->alst;
+	if (!comm[1])
 	{
-		*alst = new;
-		return ;
+		while (tmp)
+		{
+			if (tmp->content)
+				print_line(tmp, 0);
+			tmp = tmp->next;
+		}
+		empty_tmp(all);
 	}
-	ft_lstlast(*alst)->next = new;
+	all->err = 0;
 }

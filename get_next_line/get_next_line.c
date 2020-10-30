@@ -3,123 +3,115 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ede-banv <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/13 11:31:33 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/12 16:45:37 by jdussert         ###   ########.fr       */
+/*   Created: 2019/11/13 14:36:55 by ede-banv          #+#    #+#             */
+/*   Updated: 2019/11/14 22:46:17 by ede-banv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_free_gnl(char **stock, char **buffer, int ret)
+int		ft_free_gnl(char **buf, char **stock, int i)
 {
-	if (*buffer)
+	if (*buf)
 	{
-		free(*buffer);
-		*buffer = NULL;
+		free(*buf);
+		*buf = NULL;
 	}
-	if ((ret == 0 || ret == -1) && *stock)
+	if (i == 0)
+	{
+		if (*stock)
+		{
+			free(*stock);
+			*stock = NULL;
+		}
+		return (0);
+	}
+	if (i == 1)
+		return (1);
+	if (*stock)
 	{
 		free(*stock);
 		*stock = NULL;
 	}
-	return (ret);
+	return (-1);
 }
 
-int	ft_stock(char **line, char **stock, char **buffer)
+char	*ft_restock(char **stock, int i)
 {
-	int		len;
 	char	*tmp;
 
-	free(line[0]);
-	line[0] = NULL;
-	if (ft_strchr(*stock, '\n'))
-	{
-		if (!(tmp = ft_substr(*stock, 0, ft_strlen(*stock))))
-			return (ft_free_gnl(stock, buffer, -1));
-		free(*stock);
-		*stock = NULL;
-		len = ft_strchr(tmp, '\n') - tmp;
-		if (!(line[0] = ft_substr(tmp, 0, len)))
-			return (ft_free_gnl(stock, buffer, -1));
-		if (!(*stock = ft_substr(ft_strchr(tmp, '\n') + 1, 0, ft_strlen(tmp))))
-			return (ft_free_gnl(stock, buffer, -1));
-		free(tmp);
-		tmp = NULL;
-		return (1);
-	}
-	if (!(line[0] = ft_substr(*stock, 0, ft_strlen(*stock))))
-		return (ft_free_gnl(stock, buffer, -1));
+	if (!(tmp = ft_substr(*stock, i, ft_strlen(*stock))))
+		return (NULL);
 	free(*stock);
 	*stock = NULL;
+	if (!(*stock = ft_substr(tmp, 0, ft_strlen(tmp))))
+	{
+		free(tmp);
+		tmp = NULL;
+		return (NULL);
+	}
+	free(tmp);
+	tmp = NULL;
+	return (*stock);
+}
+
+int		ft_stock(char **line, char **stock, char **buf)
+{
+	int i;
+
+	i = 0;
+	if (*stock && ft_strchr(*stock, '\n'))
+	{
+		while ((*stock)[i] != '\n' && (*stock)[i])
+			i++;
+		if (!(*line = ft_substr(*stock, 0, i)))
+			return (ft_free_gnl(buf, stock, -1));
+		if (!(*stock = ft_restock(stock, i + 1)))
+			return (ft_free_gnl(buf, stock, -1));
+		return (ft_free_gnl(buf, stock, 1));
+	}
 	return (0);
 }
 
-int	ft_restock(char **line, char **stock, char **buffer)
+int		ft_read_gnl(int fd, char **buf, char **stock, char **line)
 {
-	int		len;
-	char	*tmp;
+	int red;
 
-	if (!(tmp = ft_substr(line[0], 0, ft_strlen(line[0]))))
-		return (ft_free_gnl(stock, buffer, -1));
-	free(line[0]);
-	line[0] = NULL;
-	len = ft_strchr(tmp, '\n') - tmp;
-	if (!(*stock = ft_substr(ft_strchr(tmp, '\n') + 1, 0, ft_strlen(tmp))))
-		return (ft_free_gnl(stock, buffer, -1));
-	if (!(line[0] = ft_substr(tmp, 0, len)))
-		return (ft_free_gnl(stock, buffer, -1));
-	free(tmp);
-	tmp = NULL;
-	return (1);
-}
-
-int	ft_read_gnl(int fd, char **line, char **stock, char **buffer)
-{
-	int		ret;
-	char	*tmp;
-
-	while ((ret = read(fd, *buffer, BUFFER_SIZE)))
+	while ((red = read(fd, *buf, BUFFER_SIZE)) >= 0)
 	{
-		buffer[0][ret] = '\0';
-		if (ret == -1)
-			return (ft_free_gnl(stock, buffer, -1));
-		if (!(tmp = ft_substr(line[0], 0, ft_strlen(line[0]))))
-			return (ft_free_gnl(stock, buffer, -1));
-		free(line[0]);
-		line[0] = NULL;
-		if (!(line[0] = ft_strjoin(tmp, *buffer)))
-			return (ft_free_gnl(stock, buffer, -1));
-		free(tmp);
-		tmp = NULL;
-		if (ft_strchr(line[0], '\n'))
-			if (ft_restock(&line[0], stock, buffer) == 1)
-				break ;
+		buf[0][red] = '\0';
+		if (!*stock)
+		{
+			if (!(*stock = ft_substr(*buf, 0, BUFFER_SIZE)))
+				return (ft_free_gnl(buf, stock, -1));
+		}
+		else if (!(*stock = ft_noleak(stock, buf)))
+			return (ft_free_gnl(buf, stock, -1));
+		if (red == 0)
+		{
+			if (!(*line = ft_substr(*stock, 0, ft_strlen(*stock))))
+				return (ft_free_gnl(buf, stock, -1));
+			return (ft_free_gnl(buf, stock, 0));
+		}
+		if (ft_strchr(*stock, '\n'))
+			return (ft_stock(line, stock, buf));
 	}
-	return (ret);
+	return (ft_free_gnl(buf, stock, -6));
 }
 
-int	get_next_line(int fd, char **line)
+int		get_next_line(int fd, char **line)
 {
-	static char	*stock = NULL;
-	char		*buffer;
-	int			ret;
+	static char	*stock;
+	char		*buf;
 	int			s;
 
-	if (fd < 0 || line == NULL || BUFFER_SIZE < 1)
+	if (fd < 0 || BUFFER_SIZE < 1 || !line)
 		return (-1);
-	if ((line[0] = ft_calloc(BUFFER_SIZE + 1, sizeof(line[0]))) == NULL)
+	if (!(buf = malloc(sizeof(*buf) * (BUFFER_SIZE + 1))))
 		return (-1);
-	if ((buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(buffer))) == NULL)
-		return (ft_free_gnl(&stock, &buffer, -1));
-	if (stock != NULL)
-		if ((s = ft_stock(&line[0], &stock, &buffer)) != 0)
-			return (ft_free_gnl(&stock, &buffer, s));
-	ret = ft_read_gnl(fd, &line[0], &stock, &buffer);
-	if (ret < 0)
-		return (ft_free_gnl(&stock, &buffer, -1));
-	if (ret == 0)
-		return (ft_free_gnl(&stock, &buffer, 0));
-	return (ft_free_gnl(&stock, &buffer, 1));
+	if ((s = ft_stock(line, &stock, &buf)) != 0)
+		return (s);
+	return (ft_read_gnl(fd, &buf, &stock, line));
 }
