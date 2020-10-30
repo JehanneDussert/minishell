@@ -42,9 +42,3 @@ int		ft_malloc_error(char *bin)
 	error_msg(bin, "memory allocation error.");
 	return (0);
 }
-
-int	ft_malloc_error(void)
-{
-	error_msg(NULL, "memory allocation error.");
-	return(0);
-}

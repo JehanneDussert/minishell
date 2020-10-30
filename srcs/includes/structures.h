@@ -43,6 +43,7 @@ typedef struct	s_all
 	t_exit		*exit;
 	t_cmd		*cmd;
 	int			err;
+	int			fd;
 }				t_all;
 
 #endif

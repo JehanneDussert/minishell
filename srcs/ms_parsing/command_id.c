@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_id.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/29 11:51:58 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/10/30 15:59:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 char	*command_id(char **comm, t_all *all, int mode)
 {
+	//if (comm[1] && is_charset(comm[1][0], "><"))
+	//	ft_redirictions(comm, all);
 	if (!ft_strcmp(comm[0], "echo"))
 		ft_echo(comm, all);
 	else if (!ft_strcmp(comm[0], "cd"))
@@ -37,14 +39,6 @@ char	*command_id(char **comm, t_all *all, int mode)
 	return("done");
 }
 
-//pipes_id
-	//boucle
-	//  pipe
-	//  dup2
-	//  fork (pid dans pid de cmd)
-	//  command_id
-	//boucle
-	//  wait_pid qui attend le pid du fils de chaque fork
 char	*pipes_id(t_all *all)
 {
 	int	i;
@@ -65,7 +59,8 @@ char	*pipes_id(t_all *all)
 			if (all->cmd[i + 1].cmd)
 				dup2(all->cmd[i].pipe[1], 1);
 			command_id(all->cmd[i].cmd, all, 0);
-			close(all->cmd[i - 1].pipe[0]);
+			if (i != 0)
+				close(all->cmd[i - 1].pipe[0]);
 			close(all->cmd[i].pipe[1]);
 			if (!all->cmd[i + 1].cmd)
 				close(all->cmd[i].pipe[0]);
@@ -83,7 +78,6 @@ char	*pipes_id(t_all *all)
 		waitpid(all->cmd[i].pid, &status, 0);
 		close(all->cmd[i].pipe[0]);
 		close(all->cmd[i].pipe[1]);
-		//voir comment gerer les bails de pipes
 		i++;
 	}
 	free_commands(all);

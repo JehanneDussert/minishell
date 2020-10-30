@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/26 17:40:49 by user42           ###   ########.fr       */
+/*   Updated: 2020/10/30 17:04:13 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@ char	*if_pipes(char **commands, t_all *all, int *res)
 	int		i;
 
 	i = 0;
+	count = 0;
 	ft_count_commands(&count, commands);
 	if (!(all->cmd = malloc(sizeof(t_cmd) * (count + 1))))
 		*res = -1;
 	all->cmd[count].cmd = NULL;
-	while (res == 0 && all->cmd[i].cmd)
+	while (*res == 0 && all->cmd[i].cmd)
 	{
 		if (!(all->cmd[i].cmd = ft_split_quote(commands[i],
 		"\t\n\r\v \f")))
@@ -37,6 +38,7 @@ char	*if_pipes(char **commands, t_all *all, int *res)
 		i++;
 	}
 	pipes_id(all);
+	ft_free((void **)&all->cmd);
 	return ("done");
 }
 
@@ -62,7 +64,6 @@ void	ft_command_exec(char *comm, t_all *all)
 		return ;
 	}
 	free_read(&commands, NULL);
-	//ft_free((void **)commands);
 }
 
 char	*read_checks(t_all *all, int *count, char ***buf, char *line)
