@@ -17,7 +17,7 @@ MS_ERRORS_FILES = line_errors.c line_errors2.c ft_error_msg.c free_fcts.c
 SRCS_MS_ERRORS = ${addprefix ${MS_ERRORS_PATH}, ${MS_ERRORS_FILES}}
 
 MS_PARSING_PATH = ms_parsing/
-MS_PARSING_FILES = command_id.c echo.c cd.c pwd.c unset.c export.c exec.c export_2.c env.c
+MS_PARSING_FILES = command_id.c echo.c cd.c pwd.c unset.c export.c exec.c export_2.c env.c path.c
 SRCS_MS_PARSING = ${addprefix ${MS_PARSING_PATH}, ${MS_PARSING_FILES}}
 
 MS_UTILS_PATH = ms_utils/
@@ -42,7 +42,7 @@ SRCS_LIBFT = ft_memset.c ft_bzero.c ft_strlen.c ft_toupper.c ft_tolower.c \
 			ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
 			ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c \
 			ft_lstmap.c ft_itoa_base.c ft_free.c ft_memalloc.c ft_free.c \
-			ft_strcmp.c
+			ft_strcmp.c ft_strjoin_free.c
 
 OBJS	= ${SRCS:.c=.o}
 

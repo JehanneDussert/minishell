@@ -6,18 +6,11 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:53:40 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/30 14:33:19 by marvin           ###   ########.fr       */
+/*   Updated: 2020/10/30 14:35:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-// int execve(const char *filename, char *const *argv[], char *const *envp)
-// never return except if it fails, return -1
-
-// filename : le nom de notre executable
-// argv[] : tableau de chaines d'arguments qui doit se terminer par un pointeur NULL
-// envp : environnement du n ouveau programme qui doit se terminer par un pointeur NULL
 
 char	**make_envp(t_all *all)
 {
@@ -38,39 +31,69 @@ char	**make_envp(t_all *all)
 		{
 			buf = ft_strjoin(tmp->key, "=");
 			res[i++] = ft_strjoin(buf, tmp->content);
-			ft_free(buf);
+			ft_free((void **)&buf);
 		}
 		tmp = tmp->next;
 	}
+	res[i] = NULL;
 	return (res);
 }
 
-int     ft_exec(char **comm, t_all *all)
+int		execve_fct(char **comm, char *path, t_all *all)
 {
-    // recuperer variables d'environnement dans liste chainee et les mettre ds un char * envp (make_envp)
-    // chercher si binaire existe dans PATH (cf env PATH) -> PATH a save dans char *
-    // chercher l'executable, /bin/ls
-    // envoyer la commande **comm
-    //if (execve() == -1)
-    //    return (-1);
-	char		**envp;
-	struct stat	file;
-	pid_t		pid;
-    
-	stat(comm[0], &stat); //on check l'etat du path
-	if (file.st_mode == S_IFREG) // si cest un fichier regulier on excecute
+	char	**envp;
+	pid_t	pid;
+	int		status;
+	int		r;
+
+	pid = fork();
+	envp = make_envp(all);
+	r = 1;
+	if (pid == 0)
 	{
-		pid = fork(); // on fork pour que execve puisse executer le process
+		execve(path, comm, envp);
+		error_msg("execve", strerror(errno));
+		exit(1);
+		r = 0;
+	}
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		all->err = WEXITSTATUS(status);
+	// gerer les signaux: changer la valeur de retour en cas de signaux
+	free_read(&envp, NULL);
+	return (r);
+}
+
+int		ft_exec(char **comm, t_all *all)
+{
+	struct stat	file;
+
+	if (stat(comm[0], &file) == -1)
+	{
+		error_msg("exec", strerror(errno));
+		all->err = 127;
+		errno = 0;
+		return (0);
+	}
+	else if ((file.st_mode & S_IFREG) == S_IFREG)
+	{
+		execve_fct(comm, comm[0], all);
+		/*pid = fork();
 		envp = make_envp(all);
 		if (pid == 0)
 		{
-			if (execve(comm[0], comm, envp) == -1)
-			{
-				error_msg("execve", strerror(errno));
-				errno = 0;
-			}
-			exit(0); //on exit le processus fils
+			execve(comm[0], comm, envp);
+			error_msg("execve", strerror(errno));
+			exit(1);
 		}
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			all->err = WEXITSTATUS(status);*/
 	}
-    return (0);
+	else
+	{
+		error_msg("exec", "path does not point to a regular file");
+		all->err = 126;
+	}
+	return (1);
 }
