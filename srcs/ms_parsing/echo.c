@@ -21,6 +21,7 @@ void	ft_echo_env(char *comm, t_lst *alst, int err)
 	if (tmp[0] == '?')
 	{
 		ft_putnbr_fd(err, 1);
+		ft_free((void **)&tmp);
 		return ;
 	}
 	while (alst)
@@ -28,6 +29,7 @@ void	ft_echo_env(char *comm, t_lst *alst, int err)
 		if (!ft_strcmp(tmp, alst->key))
 		{
 			ft_putstr_fd(alst->content, 1);
+			ft_free((void **)&tmp);
 			return ;
 		}
 		alst = alst->next;
