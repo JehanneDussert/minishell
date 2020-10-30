@@ -14,6 +14,7 @@
 
 void	ft_stock_comd(char **comd, t_all *all)
 {
+	(void)all;
 	if (!ft_strcmp(comd[1], ">>")) // fichier exist + && >>
 	{
 		;
@@ -34,7 +35,7 @@ void	ft_apply_comd(char **comd, t_all *all)
 	(void)all;
 }
 
-void	ft_redirections(char **comd, t_all *all)
+/*void	ft_redirections(char **comd, t_all *all)
 {
 	if ((all->fd = open(comd[2], O_WRONLY)) == -1)
 		ft_putendl_fd("error", 1); // erreur
@@ -43,4 +44,4 @@ void	ft_redirections(char **comd, t_all *all)
 	else if (is_charset('<', comd[1][0]) == 1)
 		ft_apply_comd(comd, all);
 	close(all->fd);
-}
+}*/
