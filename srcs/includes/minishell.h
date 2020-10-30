@@ -54,6 +54,9 @@ int		ft_exec(char **comm, t_all *all);
 int		execve_fct(char **comm, char *path, t_all *all);
 char	**make_envp(t_all *all);
 void	path_id(char **comm, t_all *all);
+void	ft_check_n(int *i, int *res, char *comm, char **opt);
+int		ft_echo_n(char *comm, char **opt);
+void	ft_redirections(char **comd, t_all *all);
 
 /*
 **UTILS FCTS
@@ -74,6 +77,7 @@ void	ft_lstdelone_ms(t_lst *lst, void (*del)(void *));
 void	ft_lstclear_ms(t_lst **lst, void (*del)(void *));
 int		export_errors(char *str);
 void	empty_tmp(t_all *all);
+int		is_charset(char c, char *charset);
 
 /*
 **MS_ERRORS

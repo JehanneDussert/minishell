@@ -12,36 +12,35 @@
 
 #include "../includes/minishell.h"
 
-void	ft_stock_comd(char **comd)
+void	ft_stock_comd(char **comd, t_all *all)
 {
-	int	fd;
-
-	if ((fd = open(comd[2], O_WRONLY)) == -1)
-		ft_putendl_fd("error", 1); // erreur
 	if (!ft_strcmp(comd[1], ">>")) // fichier exist + && >>
 	{
-		write(fd, comd[1], sizeof comd[1]);
+		;
 	}
-	/*else if (!ft_strcmp(comd[1], ">")) // fichier exist && >
+	else if (!ft_strcmp(comd[1], ">")) // fichier exist && >
 	{
 
 	}
 	else // fichier does not exist
 	{
 
-	}*/
-	close(fd);
+	}
 }
 
-void	ft_apply_comd(char **comd)
+void	ft_apply_comd(char **comd, t_all *all)
 {
 	(void)comd;
+	(void)all;
 }
 
-void	ft_redirections(char **comd)
+void	ft_redirections(char **comd, t_all *all)
 {
-	if (is_charset('>', comd[0]) == 1)
-		ft_stock_comd(comd);
-	else if (is_charset('<', comd[0]) == 1)
-		ft_apply_comd(comd);
+	if ((all->fd = open(comd[2], O_WRONLY)) == -1)
+		ft_putendl_fd("error", 1); // erreur
+	if (is_charset('>', comd[1][0]) == 1)
+		ft_stock_comd(comd, all);
+	else if (is_charset('<', comd[1][0]) == 1)
+		ft_apply_comd(comd, all);
+	close(all->fd);
 }
