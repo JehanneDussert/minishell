@@ -32,6 +32,7 @@ void	ft_echo_env(char *comm, t_lst *alst, int err)
 		}
 		alst = alst->next;
 	}
+	ft_free((void **)&tmp);
 }
 
 int		ft_echo_n(char *comm, char **opt)
