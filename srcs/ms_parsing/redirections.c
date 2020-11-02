@@ -35,13 +35,31 @@ void	ft_apply_comd(char **comd, t_all *all)
 	(void)all;
 }
 
-/*void	ft_redirections(char **comd, t_all *all)
+void	ft_redirections(char **comd, t_all *all)
 {
-	if ((all->fd = open(comd[2], O_WRONLY)) == -1)
-		ft_putendl_fd("error", 1); // erreur
+	int	i;
+
+	i = 0;
+	while (comd[i])
+	{
+		while (comd[i][0] != '>' || comd[i][0] != '<')
+			i++;
+		i++;
+		if ((all->fd = open(comd[i], O_WRONLY)) == -1)
+		{
+			if (comd[i][0] == '>' && comd[i][1] == '>')
+			{
+				printf("creat\n");
+				all->fd = open(comd[i], O_CREAT | O_WRONLY);
+			}
+		}
+		i++;
+	}
+		//ft_putendl_fd("error", 1); // erreur
+	/*dup2(all->fd, 1);
 	if (is_charset('>', comd[1][0]) == 1)
 		ft_stock_comd(comd, all);
 	else if (is_charset('<', comd[1][0]) == 1)
-		ft_apply_comd(comd, all);
+		ft_apply_comd(comd, all);*/
 	close(all->fd);
-}*/
+}
