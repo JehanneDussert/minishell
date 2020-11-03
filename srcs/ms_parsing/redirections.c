@@ -42,18 +42,14 @@ void	ft_redirections(char **comd, t_all *all)
 	i = 0;
 	while (comd[i])
 	{
-		printf("this is cmd :%s\n", comd[i]);
 		while (comd[i] && comd[i][0] != '>' && comd[i][0] != '<')
 			i++;
 		if ((all->fd = open(comd[i], O_WRONLY)) == -1)
 		{
-			printf("enter\n");
 			if (comd[i] && comd[i][0] == '>' && comd[i][1] == '>')
 			{
 				i++;
-				printf("comd :%s\n", comd[i]);
 				all->fd = open(comd[i], O_CREAT | O_WRONLY);
-				//i++;
 			}
 		}
 		i++;
