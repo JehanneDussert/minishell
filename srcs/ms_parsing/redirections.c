@@ -42,9 +42,7 @@ void	ft_redirections(char **comd, t_all *all)
 	i = 0;
 	while (comd[i])
 	{
-		while (comd[i] && comd[i][0] != '>' && comd[i][0] != '<')
-			i++;
-		if ((all->fd = open(comd[i], O_WRONLY)) == -1)
+		if ((comd[i][0] == '>' || comd[i][0] == '<') && (all->fd = open(comd[i], O_WRONLY)) == -1)
 		{
 			if (comd[i] && comd[i][0] == '>' && comd[i][1] == '>')
 			{
