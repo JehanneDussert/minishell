@@ -12,6 +12,24 @@
 
 #include "../includes/minishell.h"
 
+void	ft_create_new_file(char *comd, t_all *all, int *i)
+{
+	(*i)++;
+	all->fd = open(comd, O_CREAT | O_WRONLY);
+}
+
+void	ft_write_new_comd(char *comd, t_all *all, int *i)
+{
+	(*i)++;
+	;// add at the end of file
+}
+
+void	ft_replace_file(char *comd, t_all *all, int *i)
+{
+	i++;
+	;// rm & write a new file
+}
+
 void	ft_redirections(char **comd, t_all *all)
 {
 	int	i;
@@ -20,18 +38,11 @@ void	ft_redirections(char **comd, t_all *all)
 	while (comd[i])
 	{
 		if ((comd[i][0] == '>' || comd[i][0] == '<') && (all->fd = open(comd[i], O_WRONLY)) == -1)
-		{
-				i++;
-				all->fd = open(comd[i], O_CREAT | O_WRONLY);
-		}
+			ft_create_new_file(comd[i], all, &i);
 		else if (comd[i][0] == '>' && comd[i][1] == '>' && (all->fd = open(comd[i], O_WRONLY)) != -1)
-		{
-			;// add at the end of file
-		}
+			ft_write_new_comd(comd[i], all, &i);
 		else if (comd[i][0] == '<' && (all->fd = open(comd[i], O_WRONLY)) != -1)
-		{
-			;// rm & write a new file
-		}
+			ft_replace_file(comd[i], all, &i);
 		i++;
 	}
 	/*dup2(all->fd, 1);*/
