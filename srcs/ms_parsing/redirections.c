@@ -18,32 +18,33 @@ char	***ft_return_new_comd(char ***comd)
 	int		i;
 	int		w;
 
-	i = -1;
+	i = 0;
 	w = 0;
 	while((*comd)[w] && !is_charset((*comd)[w][0], "><"))
 		w++;
 	if (!(tmp = malloc(sizeof(char *) * (w + 1))))
 		return(NULL);
-	while((*comd)[++i] && i < w)
+	while((*comd)[i] && i < w)
 	{
 		tmp[i] = ft_substr((*comd)[i], 0, ft_strlen((*comd)[i]));
 		ft_free((void **)&(*comd)[i]);
+		i++;
 	}
+	tmp[i] = NULL;
 	i = -1;
 	if (!(*comd = malloc(sizeof(char *) * (w + 1))))
 		return(NULL);
-	while(tmp[++i] && !is_charset(tmp[i][0], "><"))
-	{
-		printf("this is tmp :%s\n", tmp[i]);
-		// prbl here
-		ft_memcpy((*comd)[i], tmp[i], ft_strlen(tmp[i]));
-	}
+	while(tmp && tmp[++i] && !is_charset(tmp[i][0], "><"))
+		(*comd)[i] = ft_substr(tmp[i], 0, ft_strlen(tmp[i]));
+	i = -1;
+	while(tmp[++i])
+		ft_free((void **)&tmp[i]);
 	return(comd);
 }
 
 void	ft_create_new_file(char *comd, int *fd)
 {
-	*fd = open(comd, O_CREAT | O_RDWR);
+	*fd = open(comd, O_RDWR | O_CREAT, S_IRWXU | O_TRUNC);
 }
 /*
 void	ft_write_new_comd(char *comd, t_all *all)
@@ -72,16 +73,7 @@ void	ft_redirections(char ***comd, t_all *all)
 			;//ft_replace_file(comd[i], all);
 		i++;
 	}
-	ft_putendl_fd("1", 1);
-	ft_putendl_fd("2", 1);
-	printf("here now\n");
 	comd = ft_return_new_comd(comd);
-	i = -1;
-	printf("this is comd 0:%s", (*comd)[0]);
-	//while ((*comd)[++i])
-	//printf("new comd :%s\n", (*comd)[0]);
-	//need to create a tmp that will truncate comm before >>
-	//and free the cmd after
-	printf("dup :%d\n", dup2(all->fd, 1));
+	dup2(all->fd, 1);
 	close(all->fd);
 }

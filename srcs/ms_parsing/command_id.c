@@ -14,8 +14,9 @@
 
 char	*command_id(char **comm, t_all *all, int mode)
 {
-	if (comm[1] && is_charset(comm[2][0], "><"))
+	if (comm[1] && (is_charset(comm[2][0], "><") || is_charset(comm[1][0], "><")))
 		ft_redirections(&comm, all);
+	printf("comm :%s\n", comm[0]);
 	if (!ft_strcmp(comm[0], "echo"))
 		ft_echo(comm, all);
 	else if (!ft_strcmp(comm[0], "cd"))
