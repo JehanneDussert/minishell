@@ -73,7 +73,7 @@ void	ft_redirections(char ***comd, t_all *all)
 			;//ft_replace_file(comd[i], all);
 		i++;
 	}
-	comd = ft_return_new_comd(comd);
+	//comd = ft_return_new_comd(comd);
 	dup2(all->fd, 1);
 	close(all->fd);
 }
