@@ -22,7 +22,9 @@ void	free_read(char ***buf, char **line)
 		return ;
 	if (line && *line)
 		ft_free((void **)line);
-	if (buf)
+	if (!buf)
+		return ;
+	if (*buf)
 	{
 		tmp = *buf;
 		while (tmp[i])

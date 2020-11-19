@@ -44,6 +44,7 @@ typedef struct	s_all
 	t_cmd		*cmd;
 	int			err;
 	int			fd;
+	int			fd_copy;
 }				t_all;
 
 #endif

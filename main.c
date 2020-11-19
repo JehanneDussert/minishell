@@ -103,6 +103,11 @@ char	*ft_read(t_all *all)
 	if ((get_next_line(1, &line)) == 1)
 		if (!(read_checks(all, &count, &buf, line)))
 			return ("error");
+	if (!buf)
+	{
+		free_read(NULL, &line);
+		return (NULL);
+	}
 	free_read(&buf, &line);
 	if (all->exit->e == 1 || all->exit->d == 1)
 		return (NULL);
@@ -119,8 +124,12 @@ int		main(void)
 	welcomer();
 	ft_bzero(&all, sizeof(t_all));
 	ft_init_all(&all);
+	tmp = NULL;
+	//ft_putstr_fd("~:", 1);
 	while (x != 0)
 	{
+		dup2(all.fd_copy, 1);
+		close(all.fd_copy);
 		ft_putstr_fd("~:", 1);
 		tmp = ft_read(&all);
 		if (tmp == NULL)
