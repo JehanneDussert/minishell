@@ -71,11 +71,6 @@ char	***ft_return_new_comd(char ***comd)
 	return (comd);
 }
 
-void	ft_create_new_file(char *comd, int *fd)
-{
-	*fd = open(comd, O_RDWR | O_CREAT, S_IRWXU | O_TRUNC);
-}
-
 void	ft_redirections(char ***comd, t_all *all)
 {
 	int	i;
@@ -85,18 +80,34 @@ void	ft_redirections(char ***comd, t_all *all)
 	while ((*comd)[i])
 	{
 		if (((*comd)[i][0] == '>' || (*comd)[i][0] == '<')
-			&& (all->fd = open((*comd)[i], O_WRONLY)) == -1)
-			ft_create_new_file((*comd)[++i], &all->fd);
+			&& (all->fd = open((*comd)[i + 1], O_WRONLY)) < 0)
+			all->fd = open((*comd)[++i], O_WRONLY | O_CREAT, S_IRWXU | O_APPEND);
 		else if ((*comd)[i][0] == '>' && (*comd)[i][1] == '>'
-				&& (all->fd = open((*comd)[i], O_WRONLY)) != -1)
-			;//ft_write_new_comd(comd[i], all);
+				&& (all->fd = open((*comd)[i + 1], O_WRONLY)) >= 0)
+			all->fd = open((*comd)[++i], O_WRONLY | O_APPEND, S_IRWXU);
 		else if ((*comd)[i][0] == '<' &&
-				(all->fd = open((*comd)[i], O_WRONLY)) != -1)
-			;//ft_replace_file(comd[i], all);
+				(all->fd = open((*comd)[i + 1], O_WRONLY)) >= 0)
+			all->fd = open((*comd)[++i], O_WRONLY | O_CREAT, S_IRWXU | O_TRUNC);
 		i++;
 	}
 	comd = ft_return_new_comd(comd);
 	all->fd_copy = dup(1);
 	dup2(all->fd, 1);
 	//close(all->fd);
+}
+
+void	ft_check_redirection(char ***comm, t_all *all)
+{
+	int	i;
+
+	i = 0;
+	while ((*comm) && (*comm)[i])
+	{
+		if (is_charset((*comm)[i][0], "><"))
+		{
+			ft_redirections(comm, all);
+			return ;
+		}
+		i++;
+	}
 }

@@ -56,6 +56,7 @@ char	**make_envp(t_all *all);
 void	path_id(char **comm, t_all *all);
 void	ft_check_n(int *i, int *res, char *comm, char **opt);
 int		ft_echo_n(char *comm, char **opt);
+void	ft_check_redirection(char ***comm, t_all *all);
 void	ft_redirections(char ***comd, t_all *all);
 
 /*
