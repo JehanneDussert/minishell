@@ -47,7 +47,10 @@ int		path_two(char **comm, t_all *all, char **path, char **paths)
 			return (ft_malloc_error(comm[0]));
 		}
 		if (stat(*path, &file) == -1)
+		{
+			//printf("prbl ici\n");
 			r = 1;
+		}
 		else if ((file.st_mode & S_IFREG) == S_IFREG)
 		{
 			r = 0;
@@ -82,6 +85,8 @@ void	path_id(char **comm, t_all *all)
 	err = path_two(comm, all, &path, paths);
 	if (err == 1)
 	{
+
+	printf("there\n");
 		error_msg(comm[0], strerror(errno));
 		all->err = 127;
 	}

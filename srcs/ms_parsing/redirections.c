@@ -12,9 +12,10 @@
 
 #include "../includes/minishell.h"
 
-// comd : comd + redirection
-// tmp : doit contenir comd sans la redirection (< ou > + comd[i])
-// free comd + on re-remplit avec tmp et on free tmp
+// ERREUR : echo >> fichier.txt : doit rajouter un \n dans un fichier, 
+// pour l'instant envoie un msg d'erreur
+// ERREUR : fichier.txt < grep i : doit dire "grep : no such file or directory"
+// pour l'instant dit "grep : no such..." ET "fichier.txt : no such..."
 
 int		ft_nb_to_print(char ***comd)
 {
@@ -79,15 +80,19 @@ void	ft_redirections(char ***comd, t_all *all)
 	all->fd = 1;
 	while ((*comd)[i])
 	{
-		if (((*comd)[i][0] == '>' || (*comd)[i][0] == '<')
-			&& (all->fd = open((*comd)[i + 1], O_WRONLY)) < 0)
+		if ((*comd)[i][0] == '>' && (all->fd = open((*comd)[i + 1], O_WRONLY)) < 0)
 			all->fd = open((*comd)[++i], O_WRONLY | O_CREAT, S_IRWXU | O_APPEND);
 		else if ((*comd)[i][0] == '>' && (*comd)[i][1] == '>'
 				&& (all->fd = open((*comd)[i + 1], O_WRONLY)) >= 0)
 			all->fd = open((*comd)[++i], O_WRONLY | O_APPEND, S_IRWXU);
-		else if ((*comd)[i][0] == '<' &&
-				(all->fd = open((*comd)[i + 1], O_WRONLY)) >= 0)
-			all->fd = open((*comd)[++i], O_WRONLY | O_CREAT, S_IRWXU | O_TRUNC);
+		//else if ((*comd)[i][0] == '<' &&
+		//		(all->fd = open((*comd)[i + 1], O_WRONLY)) >= 0)
+		//	all->fd = open((*comd)[++i], O_WRONLY | O_CREAT, S_IRWXU | O_TRUNC);
+		else if (!is_charset((*comd)[i][0], "><") && (open((*comd)[i], O_WRONLY)) < 0)
+		{
+			//error_msg((*comd)[i], "No such file or directory");
+			//return ;
+		}
 		i++;
 	}
 	comd = ft_return_new_comd(comd);
