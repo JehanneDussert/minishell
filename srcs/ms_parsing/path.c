@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 11:52:16 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/30 12:47:27 by user42           ###   ########.fr       */
+/*   Updated: 2020/11/25 14:57:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int		path_two(char **comm, t_all *all, char **path, char **paths)
 		else if ((file.st_mode & S_IFREG) == S_IFREG)
 		{
 			r = 0;
+			//signal ctrlc et ctrlbackslash
 			if (execve_fct(comm, *path, all))
 				break ;
 		}

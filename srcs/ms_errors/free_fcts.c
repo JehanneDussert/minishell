@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:42 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/30 17:05:40 by marvin           ###   ########.fr       */
+/*   Updated: 2020/11/25 15:21:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_read(char ***buf, char **line)
 	if (buf)
 	{
 		tmp = *buf;
-		while (tmp[i])
+		while (tmp && tmp[i])
 		{
 			ft_free((void **)&tmp[i]);
 			i++;

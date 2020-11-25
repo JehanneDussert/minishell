@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
-/*   Updated: 2020/11/02 12:00:56 by user42           ###   ########.fr       */
+/*   Updated: 2020/11/25 15:23:04 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,15 +94,29 @@ char	*read_checks(t_all *all, int *count, char ***buf, char *line)
 char	*ft_read(t_all *all)
 {
 	char	*line;
+	char	*line_d;
 	char	**buf;
 	int		count;
+	int		n;
 
 	count = 0;
 	buf = NULL;
 	line = NULL;
-	if ((get_next_line(1, &line)) == 1)
+	if ((n = get_next_line(1, &line)) == 1)
 		if (!(read_checks(all, &count, &buf, line)))
 			return ("error");
+	while (n == 0)
+	{
+		if (line[0] == '\0')
+		{
+			ft_free((void **)&line);
+			return (NULL);
+		}
+		n = get_next_line(1, &line_d);
+		line = ft_strjoin_free(line, line_d, 3);
+		if (!(read_checks(all, &count, &buf, line)))
+			return ("error");
+	}
 	free_read(&buf, &line);
 	if (all->exit->e == 1 || all->exit->d == 1)
 		return (NULL);
@@ -113,12 +127,13 @@ int		main(void)
 {
 	int		x;
 	char	*tmp;
-	t_all	all;
+//	t_all	all;
 
 	x = 1;
 	welcomer();
 	ft_bzero(&all, sizeof(t_all));
 	ft_init_all(&all);
+	signal(SIGINT, c_handler);
 	while (x != 0)
 	{
 		ft_putstr_fd("~:", 1);

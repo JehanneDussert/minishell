@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/29 13:57:50 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/11/25 15:23:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 # include <string.h>
 # include <errno.h>
 
+
+
+t_all	all;
 /*
 **MAIN FCTS
 */
@@ -57,6 +60,7 @@ void	path_id(char **comm, t_all *all);
 void	ft_check_n(int *i, int *res, char *comm, char **opt);
 int		ft_echo_n(char *comm, char **opt);
 void	ft_redirections(char **comd, t_all *all);
+void	c_handler(int sigld);
 
 /*
 **UTILS FCTS
