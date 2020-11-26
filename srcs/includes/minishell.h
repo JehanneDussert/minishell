@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2020/11/25 15:23:42 by marvin           ###   ########.fr       */
+/*   Updated: 2020/11/26 17:26:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	ft_check_n(int *i, int *res, char *comm, char **opt);
 int		ft_echo_n(char *comm, char **opt);
 void	ft_redirections(char **comd, t_all *all);
 void	c_handler(int sigld);
+void	c_prgm(int sigld);
 
 /*
 **UTILS FCTS

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:53:40 by jdussert          #+#    #+#             */
-/*   Updated: 2020/11/25 14:55:35 by marvin           ###   ########.fr       */
+/*   Updated: 2020/11/26 15:46:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int		execve_fct(char **comm, char *path, t_all *all)
 	if (pid == 0)
 	{
 		//signal ctrlc et ctrlbackslash
+		//signal(SIGINT, c_prgm);
 		execve(path, comm, envp);
 		error_msg("execve", strerror(errno));
 		exit(1);

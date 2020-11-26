@@ -14,22 +14,14 @@
 
 void	c_handler(int sigld)
 {
-	char *tmp;
-	int		x;
-
 	(void)sigld;
-	x = 1;
+	all.err = 1; //tester sur le bash de la vm
 	ft_putendl_fd("", 1);
-	all.err = 1; //tester le code d'erreur sur linux sur la vm
-	while (x != 0)
-	{
-		ft_putstr_fd("~:", 1);
-		tmp = ft_read(&all);
-		if (tmp == NULL)
-			x = 0;
-	}
-	signal(SIGINT, c_handler);
-	free_all(&all);
-	byebye();
-	exit(EXIT_SUCCESS);
+	ft_putstr_fd("~:", 1);
+}
+
+void	c_prgm(int sigld)
+{
+	(void)sigld;
+	kill(0, SIGINT);
 }
