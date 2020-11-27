@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:53:40 by jdussert          #+#    #+#             */
-/*   Updated: 2020/11/27 15:15:23 by marvin           ###   ########.fr       */
+/*   Updated: 2020/11/27 16:19:08 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	**make_envp(t_all *all)
 int		execve_fct(char **comm, char *path, t_all *all)
 {
 	char	**envp;
-	pid_t	pid;
+	//pid_t	pid;
 	int		status;
 	int		r;
 
@@ -53,7 +53,6 @@ int		execve_fct(char **comm, char *path, t_all *all)
 	if (pid == 0)
 	{
 		//signal ctrlc et ctrlbackslash
-		signal(SIGQUIT, d_handler);
 		execve(path, comm, envp);
 		error_msg("execve", strerror(errno));
 		exit(1);

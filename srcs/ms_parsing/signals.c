@@ -26,12 +26,15 @@ void	c_handler(int sigld)
 void	d_handler(int sigld)
 {
 	(void)sigld;
-	ft_putendl_fd("xd", 1);
 	if (all.prog == 1)
 	{
 		all.err = 131;
-		kill(0, SIGQUIT);
+		kill(pid, SIGQUIT);
 		ft_putendl_fd("Quit (core dumped)", 1);
-		exit(0);
 	}
+	else
+	{
+		ft_putstr_fd("\b \b\b \b", 1);
+	}
+	
 }
