@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:11:39 by jdussert          #+#    #+#             */
-/*   Updated: 2020/11/25 15:16:24 by marvin           ###   ########.fr       */
+/*   Updated: 2020/11/27 13:01:23 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct	s_all
 	t_cmd		*cmd;
 	int			err;
 	int			fd;
+	int			prog;
 }				t_all;
 
 #endif

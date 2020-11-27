@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:53:40 by jdussert          #+#    #+#             */
-/*   Updated: 2020/11/26 15:46:05 by marvin           ###   ########.fr       */
+/*   Updated: 2020/11/27 13:47:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int		execve_fct(char **comm, char *path, t_all *all)
 	pid = fork();
 	envp = make_envp(all);
 	r = 1;
+	all->prog = 1;
 	if (pid == 0)
 	{
 		//signal ctrlc et ctrlbackslash
@@ -59,6 +60,7 @@ int		execve_fct(char **comm, char *path, t_all *all)
 		r = 0;
 	}
 	waitpid(pid, &status, 0);
+	all->prog = 0;
 	if (WIFEXITED(status))
 		all->err = WEXITSTATUS(status);
 	// gerer les signaux: changer la valeur de retour en cas de signaux

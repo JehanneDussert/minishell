@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
-/*   Updated: 2020/11/26 17:26:27 by marvin           ###   ########.fr       */
+/*   Updated: 2020/11/27 13:46:31 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ int		main(void)
 	ft_bzero(&all, sizeof(t_all));
 	ft_init_all(&all);
 	signal(SIGINT, c_handler);
+	//signal(SIGQUIT, SIG_IGN);
+	all.prog = 0;
 	while (x != 0)
 	{
 		ft_putstr_fd("~:", 1);

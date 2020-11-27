@@ -16,12 +16,10 @@ void	c_handler(int sigld)
 {
 	(void)sigld;
 	all.err = 1; //tester sur le bash de la vm
-	ft_putendl_fd("", 1);
-	ft_putstr_fd("~:", 1);
-}
-
-void	c_prgm(int sigld)
-{
-	(void)sigld;
-	kill(0, SIGINT);
+	if (all.prog == 0)
+	{
+		ft_putendl_fd("", 1);
+		ft_putstr_fd("~:", 1);
+	}
+	
 }
