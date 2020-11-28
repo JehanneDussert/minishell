@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/30 17:12:58 by marvin           ###   ########.fr       */
+/*   Updated: 2020/11/28 14:26:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,24 @@ char	*command_id(char **comm, t_all *all, int mode)
 	return("done");
 }
 
+void	in_fork(t_all *all, int i)
+{
+	if (i != 0)
+	{
+		dup2(all->cmd[i - 1].pipe[0], 0);
+		close(all->cmd[i - 1].pipe[1]);
+	}
+	if (all->cmd[i + 1].cmd)
+		dup2(all->cmd[i].pipe[1], 1);
+	command_id(all->cmd[i].cmd, all, 0);
+	if (i != 0)
+		close(all->cmd[i - 1].pipe[0]);
+	close(all->cmd[i].pipe[1]);
+	if (!all->cmd[i + 1].cmd)
+		close(all->cmd[i].pipe[0]);
+	exit(0);
+}
+
 char	*pipes_id(t_all *all)
 {
 	int	i;
@@ -50,22 +68,7 @@ char	*pipes_id(t_all *all)
 		pipe(all->cmd[i].pipe);
 		all->cmd[i].pid = fork();
 		if (all->cmd[i].pid == 0)
-		{
-			if (i != 0)
-			{
-				dup2(all->cmd[i - 1].pipe[0], 0);
-				close(all->cmd[i - 1].pipe[1]);
-			}
-			if (all->cmd[i + 1].cmd)
-				dup2(all->cmd[i].pipe[1], 1);
-			command_id(all->cmd[i].cmd, all, 0);
-			if (i != 0)
-				close(all->cmd[i - 1].pipe[0]);
-			close(all->cmd[i].pipe[1]);
-			if (!all->cmd[i + 1].cmd)
-				close(all->cmd[i].pipe[0]);
-			exit(0);
-		}
+			in_fork(all, i);
 		else if (all->cmd[i].pid == -1)
 		{
 			;//erreur de fork
@@ -81,5 +84,35 @@ char	*pipes_id(t_all *all)
 		i++;
 	}
 	free_commands(all);
+	return ("done");
+}
+
+char	*if_pipes(char **commands, t_all *all, int *res)
+{
+	int		count;
+	int		i;
+
+	i = 0;
+	count = 0;
+	ft_count_commands(&count, commands);
+	if (!(all->cmd = malloc(sizeof(t_cmd) * (count + 1))))
+		*res = -1;
+	all->cmd[count].cmd = NULL;
+	while (*res == 0 && all->cmd[i].cmd)
+	{
+		if (!(all->cmd[i].cmd = ft_split_quote(commands[i],
+		"\t\n\r\v \f")))
+		{
+			all->err = 1;
+			ft_malloc_error(NULL);
+			free_read(&commands, NULL);
+			free_commands(all);
+			return (NULL);
+		}
+		ft_free((void **)&commands[i]);
+		i++;
+	}
+	pipes_id(all);
+	ft_free((void **)&all->cmd);
 	return ("done");
 }

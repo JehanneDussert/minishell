@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 11:52:16 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/11/26 15:37:52 by marvin           ###   ########.fr       */
+/*   Updated: 2020/11/28 14:46:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		path_two(char **comm, t_all *all, char **path, char **paths)
 		else if ((file.st_mode & S_IFREG) == S_IFREG)
 		{
 			r = 0;
-			//signal ctrlc et ctrlbackslash
+			//signal ctrlc et ctrlbackslash (voir si les signal au debut marchent, ajouter prog?)
 			if (execve_fct(comm, *path, all))
 				break ;
 		}
