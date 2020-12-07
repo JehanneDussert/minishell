@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/12/07 16:13:37 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/07 16:55:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ char	*pipes_id(t_all *all)
 			in_fork(all, i);
 		else if (all->cmd[i].pid == -1)
 		{
-			;//erreur de fork
+			error_msg("fork", "unable to create fork");
+			all->err = 1;
 		}
 		i++;
 	}
