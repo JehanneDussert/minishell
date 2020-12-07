@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:11:39 by jdussert          #+#    #+#             */
-/*   Updated: 2020/11/27 13:01:23 by marvin           ###   ########.fr       */
+/*   Updated: 2020/12/07 11:15:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct	s_all
 	int			err;
 	int			fd;
 	int			prog;
+	int			fd_copy;
 }				t_all;
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_fcts.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:42 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/11/25 15:21:01 by marvin           ###   ########.fr       */
+/*   Updated: 2020/12/07 11:19:47 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@ void	free_read(char ***buf, char **line)
 		return ;
 	if (line && *line)
 		ft_free((void **)line);
-	if (buf)
+	if (!buf)
+		return ;
+	if (*buf)
 	{
 		tmp = *buf;
-		while (tmp && tmp[i])
+		while (tmp[i])
 		{
 			ft_free((void **)&tmp[i]);
 			i++;

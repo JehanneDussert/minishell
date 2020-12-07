@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
 /*   Updated: 2020/11/27 16:10:49 by user42           ###   ########.fr       */
+=======
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
+/*   Updated: 2020/10/30 17:04:13 by marvin           ###   ########.fr       */
+>>>>>>> 23288b1f787ad4ab994c291e6126d9dc150d2697
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +101,20 @@ char	*read_checks(t_all *all, int *count, char ***buf, char *line)
 char	*ft_read(t_all *all)
 {
 	char	*line;
+<<<<<<< HEAD
 	char	*line_d;
 	char	**buf;
 	int		count;
 	int		n;
+=======
+	char	**buf;
+	int		count;
+>>>>>>> 23288b1f787ad4ab994c291e6126d9dc150d2697
 
 	count = 0;
 	buf = NULL;
 	line = NULL;
+<<<<<<< HEAD
 	if ((n = get_next_line(1, &line)) == 1)
 		if (!(read_checks(all, &count, &buf, line)))
 			return ("error");
@@ -116,6 +129,15 @@ char	*ft_read(t_all *all)
 		line = ft_strjoin_free(line, line_d, 3);
 		if (!(read_checks(all, &count, &buf, line)))
 			return ("error");
+=======
+	if ((get_next_line(1, &line)) == 1)
+		if (!(read_checks(all, &count, &buf, line)))
+			return ("error");
+	if (!buf)
+	{
+		free_read(NULL, &line);
+		return (NULL);
+>>>>>>> 23288b1f787ad4ab994c291e6126d9dc150d2697
 	}
 	free_read(&buf, &line);
 	if (all->exit->e == 1 || all->exit->d == 1)
@@ -140,6 +162,13 @@ int		main(void)
 		ft_putstr_fd("~:", 1);
 		tmp = ft_read(&all);
 		if (tmp == NULL)
+	tmp = NULL;
+	while (x != 0)
+	{
+		dup2(all.fd_copy, 1);
+		close(all.fd_copy);
+		ft_putstr_fd("~:", 1);
+		if ((tmp = ft_read(&all)) == NULL)
 			x = 0;
 	}
 	free_all(&all);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_id.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/30 17:12:58 by marvin           ###   ########.fr       */
+/*   Updated: 2020/12/07 11:20:30 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 char	*command_id(char **comm, t_all *all, int mode)
 {
-	//if (comm[1] && is_charset(comm[1][0], "><"))
-	//	ft_redirictions(comm, all);
+	ft_check_redirection(&comm, all);
+	/*if (comm[1] && comm[2] && (is_charset(comm[2][0], "><") || is_charset(comm[1][0], "><")))
+		ft_redirections(&comm, all);*/
 	if (!ft_strcmp(comm[0], "echo"))
 		ft_echo(comm, all);
 	else if (!ft_strcmp(comm[0], "cd"))

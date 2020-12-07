@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2020/11/27 16:04:57 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/07 11:15:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,10 @@ char	**make_envp(t_all *all);
 void	path_id(char **comm, t_all *all);
 void	ft_check_n(int *i, int *res, char *comm, char **opt);
 int		ft_echo_n(char *comm, char **opt);
-void	ft_redirections(char **comd, t_all *all);
 void	c_handler(int sigld);
 void	d_handler(int sigld);
+void	ft_check_redirection(char ***comm, t_all *all);
+void	ft_redirections(char ***comd, t_all *all);
 
 /*
 **UTILS FCTS
