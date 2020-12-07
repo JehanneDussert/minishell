@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 17:56:12 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/26 11:54:32 by jdussert         ###   ########.fr       */
+/*   Updated: 2020/12/07 12:49:37 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	ft_unset(char **cmd, t_all *all)
 		{
 			catch = 1;
 			all->err = 1;
+			error_msg("unset", "unavailable identifier");
 		}
 		else
 			ft_catch_exp(cmd[i], all);

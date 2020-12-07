@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:20:42 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/26 11:58:25 by ede-banv         ###   ########.fr       */
+/*   Updated: 2020/12/07 12:45:30 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int		export_catch(int *catch, t_all *all, int m)
 	if (m == 0)
 	{
 		*catch = 1;
+		error_msg("export", "unavailable identifier");
 		return (0);
 	}
 	else

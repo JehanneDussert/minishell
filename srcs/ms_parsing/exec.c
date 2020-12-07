@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:53:40 by jdussert          #+#    #+#             */
-/*   Updated: 2020/12/07 11:35:29 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/07 12:32:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ char	**make_envp(t_all *all)
 int		execve_fct(char **comm, char *path, t_all *all)
 {
 	char	**envp;
-	//pid_t	pid;
 	int		status;
 	int		r;
 

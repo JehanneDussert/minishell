@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 14:21:15 by jehannedu         #+#    #+#             */
-/*   Updated: 2020/12/07 11:22:27 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/07 16:25:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	ft_copy_clean_comd(char ***comd, char ***tmp, int w)
 			ft_free((void **)&(*comd)[i++]);
 		ft_free((void **)&(*comd)[i]);
 	}
+	ft_free((void **)comd);
 }
 
 char	***ft_return_new_comd(char ***comd)
@@ -60,14 +61,17 @@ char	***ft_return_new_comd(char ***comd)
 	w = ft_nb_to_print(comd);
 	if ((tmp = ft_calloc(w + 1, sizeof(char *))) == NULL)
 		return (NULL);
+	tmp[w] = NULL;
 	ft_copy_clean_comd(comd, &tmp, w);
 	if (((*comd) = ft_calloc(w + 1, sizeof(char *))) == NULL)
 		return (NULL);
+	(*comd)[w] = NULL;
 	while (tmp && tmp[++i])
 	{
 		(*comd)[i] = ft_substr(tmp[i], 0, ft_strlen(tmp[i]));
 		ft_free((void **)&tmp[i]);
 	}
+	ft_free((void **)&tmp);
 	return (comd);
 }
 
