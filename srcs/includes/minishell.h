@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2020/12/07 11:15:24 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/07 11:35:07 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	byebye(void);
 char	*ft_read(t_all *all);
 void	ft_count_commands(int *count, char **buf);
 void	ft_command_exec(char *comm, t_all *all);
+char	*if_pipes(char **commands, t_all *all, int *res);
 
 /*
 **MS_PARSING

@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 14:53:40 by jdussert          #+#    #+#             */
-/*   Updated: 2020/12/07 11:12:04 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/07 11:35:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int		execve_fct(char **comm, char *path, t_all *all)
 	all->prog = 1;
 	if (pid == 0)
 	{
-		//signal ctrlc et ctrlbackslash
 		execve(path, comm, envp);
 		error_msg("execve", strerror(errno));
 		exit(1);
@@ -62,7 +61,6 @@ int		execve_fct(char **comm, char *path, t_all *all)
 	all->prog = 0;
 	if (WIFEXITED(status))
 		all->err = WEXITSTATUS(status);
-	// gerer les signaux: changer la valeur de retour en cas de signaux
 	free_read(&envp, NULL);
 	return (r);
 }
@@ -79,20 +77,7 @@ int		ft_exec(char **comm, t_all *all)
 		return (0);
 	}
 	else if ((file.st_mode & S_IFREG) == S_IFREG)
-	{
 		execve_fct(comm, comm[0], all);
-		/*pid = fork();
-		envp = make_envp(all);
-		if (pid == 0)
-		{
-			execve(comm[0], comm, envp);
-			error_msg("execve", strerror(errno));
-			exit(1);
-		}
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			all->err = WEXITSTATUS(status);*/
-	}
 	else
 	{
 		error_msg("exec", "path does not point to a regular file");

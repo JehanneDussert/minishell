@@ -6,41 +6,11 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
-/*   Updated: 2020/12/07 11:27:13 by user42           ###   ########.fr       */
+/*   Updated: 2020/12/07 11:36:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "srcs/includes/minishell.h"
-
-char	*if_pipes(char **commands, t_all *all, int *res)
-{
-	int		count;
-	int		i;
-
-	i = 0;
-	count = 0;
-	ft_count_commands(&count, commands);
-	if (!(all->cmd = malloc(sizeof(t_cmd) * (count + 1))))
-		*res = -1;
-	all->cmd[count].cmd = NULL;
-	while (*res == 0 && all->cmd[i].cmd)
-	{
-		if (!(all->cmd[i].cmd = ft_split_quote(commands[i],
-		"\t\n\r\v \f")))
-		{
-			all->err = 1;
-			ft_malloc_error(NULL);
-			free_read(&commands, NULL);
-			free_commands(all);
-			return (NULL);
-		}
-		ft_free((void **)&commands[i]);
-		i++;
-	}
-	pipes_id(all);
-	ft_free((void **)&all->cmd);
-	return ("done");
-}
 
 void	ft_command_exec(char *comm, t_all *all)
 {
@@ -91,13 +61,33 @@ char	*read_checks(t_all *all, int *count, char ***buf, char *line)
 	return ("done");
 }
 
+int		read_d(t_all *all, char **line, char **buf, int n)
+{
+	int		count;
+	char	*line_d;
+
+	while (n == 0)
+	{
+		if (*line[0] == '\0')
+		{
+			ft_free((void **)line);
+			return (0);
+		}
+		n = get_next_line(1, &line_d);
+		*line = ft_strjoin_free(*line, line_d, 3);
+		if (!(read_checks(all, &count, &buf, *line)))
+			return (2);
+	}
+	return (1);
+}
+
 char	*ft_read(t_all *all)
 {
 	char	*line;
-	char	*line_d;
 	char	**buf;
 	int		count;
 	int		n;
+	int		d;
 
 	count = 0;
 	buf = NULL;
@@ -105,18 +95,8 @@ char	*ft_read(t_all *all)
 	if ((n = get_next_line(1, &line)) == 1)
 		if (!(read_checks(all, &count, &buf, line)))
 			return ("error");
-	while (n == 0)
-	{
-		if (line[0] == '\0')
-		{
-			ft_free((void **)&line);
-			return (NULL);
-		}
-		n = get_next_line(1, &line_d);
-		line = ft_strjoin_free(line, line_d, 3);
-		if (!(read_checks(all, &count, &buf, line)))
-			return ("error");
-	}
+	if ((d = read_d(all, &line, buf, n)) != 1)
+		return (d == 0 ? NULL : "error");
 	if (!buf)
 	{
 		free_read(NULL, &line);
