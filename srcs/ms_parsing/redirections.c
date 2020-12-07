@@ -12,8 +12,6 @@
 
 #include "../includes/minishell.h"
 
-// ERREUR : echo >> fichier.txt : doit rajouter un \n dans un fichier, 
-// pour l'instant envoie un msg d'erreur
 // ERREUR : fichier.txt < grep i : doit dire "grep : no such file or directory"
 // pour l'instant dit "grep : no such..." ET "fichier.txt : no such..."
 // ERREUR : si plusieurs commandes séparées par des ; ou des | -> affiche msg d'erreur
@@ -73,6 +71,30 @@ char	***ft_return_new_comd(char ***comd)
 	return (comd);
 }
 
+void	ft_redir_plus(char ***comd, t_all *all, int *i)
+{
+	if ((*comd)[*i][0] == '>' && (*comd)[*i][1] == '>'
+		&& (all->fd = open((*comd)[(*i) + 1], O_WRONLY)) >= 0)
+		all->fd = open((*comd)[++(*i)], O_WRONLY | O_APPEND, S_IRWXU);
+	else if ((*comd)[*i][0] == '>')
+		all->fd = open((*comd)[++(*i)], O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
+	all->fd_copy = dup(1);
+	dup2(all->fd, 1);
+	close(all->fd);
+}
+
+int		ft_redir_less(char ***comd, t_all *all, int i)
+{
+	// prbl
+	if ((all->fd = open((*comd)[i + 1], O_WRONLY)) < 0)
+		return (0);
+	printf("this is fd :%d\n", all->fd);
+	all->fd_copy = dup(0);
+	dup2(all->fd, 0);
+	close(all->fd);
+	return (1);
+}
+
 void	ft_redirections(char ***comd, t_all *all)
 {
 	int	i;
@@ -81,25 +103,18 @@ void	ft_redirections(char ***comd, t_all *all)
 	all->fd = 1;
 	while ((*comd)[i])
 	{
-		if ((*comd)[i][0] == '>' && (*comd)[i][1] == '>'
-				&& (all->fd = open((*comd)[i + 1], O_WRONLY)) >= 0)
-			all->fd = open((*comd)[++i], O_WRONLY | O_APPEND, S_IRWXU);
-		else if ((*comd)[i][0] == '>')// && (all->fd = open((*comd)[i + 1], O_WRONLY)) < 0)
-			all->fd = open((*comd)[++i], O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
-		//else if ((*comd)[i][0] == '<' &&
-		//		(all->fd = open((*comd)[i + 1], O_WRONLY)) >= 0)
-		//	all->fd = open((*comd)[++i], O_WRONLY | O_CREAT, S_IRWXU | O_TRUNC);
-		else if (!is_charset((*comd)[i][0], "><") && (open((*comd)[i], O_WRONLY)) < 0)
+		if (is_charset((*comd)[i][0], ">"))
+			ft_redir_plus(comd, all, &i);
+		else if ((*comd)[i][0] == '<' && (!ft_redir_less(comd, all, i)))
+			return ;
+		/*else if (!is_charset((*comd)[i][0], "><") && (open((*comd)[i], O_WRONLY)) < 0)
 		{
 			//error_msg((*comd)[i], "No such file or directory");
-			//return ;
-		}
+			return ;
+		}*/
 		i++;
 	}
 	comd = ft_return_new_comd(comd);
-	all->fd_copy = dup(1);
-	dup2(all->fd, 1);
-	//close(all->fd);
 }
 
 void	ft_check_redirection(char ***comm, t_all *all)

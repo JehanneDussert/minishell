@@ -86,7 +86,9 @@ void	path_id(char **comm, t_all *all)
 	if (err == 1)
 	{
 
-	printf("there\n");
+		printf("there\n");
+		// if comm[0] != commande (par ex si c'est un fichier)
+		// print : : "comm[0] : command not found" et pas no such file...
 		error_msg(comm[0], strerror(errno));
 		all->err = 127;
 	}
