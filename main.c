@@ -123,8 +123,11 @@ int		main(void)
 	tmp = NULL;
 	while (x != 0)
 	{
-		dup2(all.fd_copy, 1);
-		close(all.fd_copy);
+		if (all.fd_copy > 2)
+		{
+			dup2(all.fd_copy, 1);
+			close(all.fd_copy);
+		}
 		ft_putstr_fd("~:", 1);
 		if ((tmp = ft_read(&all)) == NULL)
 			x = 0;

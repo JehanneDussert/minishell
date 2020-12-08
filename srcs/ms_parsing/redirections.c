@@ -99,6 +99,13 @@ int		ft_redir_less(char ***comd, t_all *all, int i)
 	return (1);
 }
 
+int		ft_reverse(char ***comd, int *i)
+{
+	if ((open((*comd)[++(*i)], O_CREAT | O_WRONLY)) < 0)
+		return (0);
+	return (1);
+}
+
 void	ft_redirections(char ***comd, t_all *all)
 {
 	int	i;
@@ -107,7 +114,9 @@ void	ft_redirections(char ***comd, t_all *all)
 	all->fd = 1;
 	while ((*comd)[i])
 	{
-		if (is_charset((*comd)[i][0], ">"))
+		if ((*comd)[i][0] == '<' && (*comd)[i][1] == '>' && !ft_reverse(comd, &i))
+			return ;
+		else if (is_charset((*comd)[i][0], ">"))
 			ft_redir_plus(comd, all, &i);
 		else if ((*comd)[i][0] == '<' && (!ft_redir_less(comd, all, i)))
 			return ;
