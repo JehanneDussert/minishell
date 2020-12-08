@@ -81,8 +81,7 @@ int		check_chevrons(char *str)
 			i++;
 			c++;
 		}
-		else if ((s == 0 && d == 0) && c > 0 && ((str[i] == '>'
-		&& str[i - 1] != '>') || (str[i] == '<' && str[i - 1] != '<')))
+		if ((s == 0 && d == 0) && c > 0 && (str[i] == '<' && str[i - 1] == '>'))
 			return (0);
 		if (s == 0 && d == 0 && i > 0 && str[i - 1] == '>' && skipspace(str, &i)
 		&& (str[i] == ';' || str[i] == '|' || str[i] == '\0'))
