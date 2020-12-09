@@ -14,6 +14,9 @@
 
 // ERREUR : fichier.txt < grep i : doit dire "grep : no such file or directory"
 // pour l'instant dit "grep : no such..." ET "fichier.txt : no such..."
+// SPECIFIC case not fixed : echo hello | cat -e <> file.txt : should create file.txt and that's all
+// US : create file.txt + echo hello$
+// SPECIFIC case fixed : echo hello <> file.txt : create file.txt + echo hello
 
 void	ft_redir_plus(char **comd, t_all *all, int *i)
 {
@@ -45,7 +48,7 @@ void	ft_redir_plus(char **comd, t_all *all, int *i)
 int		ft_redir_less(char **comd, t_all *all, int *i)
 {
 	// prbl
-	i++;
+	(*i)++;
 	while (comd[0][*i] == ' ')
 		(*i)++;
 	if ((all->fd = open(&comd[0][*i], O_WRONLY)) < 0)
@@ -81,12 +84,7 @@ void	ft_redirections(char **comd, t_all *all)
 		else if (is_charset(comd[0][i], ">"))
 			ft_redir_plus(comd, all, &i);
 		else if (comd[0][i] == '<' && (!ft_redir_less(comd, all, &i)))
-			return ;
-		/*else if (!is_charset(comd[i][0], "><") && (open(comd[i], O_WRONLY)) < 0)
-		{
-			//error_msg(comd[i], "No such file or directory");
-			return ;
-		}*/
+			return ; // i should put an error msg if the file does not exist, i think it's gonna be easy
 		i++;
 	}
 	comd[0] = ft_return_new_comd(comd);
