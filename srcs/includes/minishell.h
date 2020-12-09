@@ -88,6 +88,9 @@ void	ft_lstclear_ms(t_lst **lst, void (*del)(void *));
 int		export_errors(char *str);
 void	empty_tmp(t_all *all);
 int		is_charset(char c, char *charset);
+int		ft_nb_to_print(char **comd);
+void	ft_copy_clean_comd(char **comd, char **tmp);
+char	*ft_return_new_comd(char **comd);
 
 /*
 **MS_ERRORS

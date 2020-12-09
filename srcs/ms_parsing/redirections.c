@@ -14,90 +14,32 @@
 
 // ERREUR : fichier.txt < grep i : doit dire "grep : no such file or directory"
 // pour l'instant dit "grep : no such..." ET "fichier.txt : no such..."
-// FIXED : si plusieurs commandes séparées par des ; 
-// ERREUR si | :  semble leaker + le pipe ne fonctionne pas
-
-// LEAKS : s'il n'y a pas de pipe, c'est bien toute la commande qui est envoyée, dès 
-// le commande[0] MAIS s'il y a un pipe, c'est comme si on m'envoyait la commande
-// à partir du pipe
-// ex : echo lol > test.txt : commande[0] sera bien echo
-// ex : echo lol | cat -e > test.txt : commande[0] sera cat
-// donc quand je vais free si y a un pipe, je ne free pas la première partie de la commande
-
-int		ft_nb_to_print(char **comd)
-{
-	int	w;
-	int	i;
-
-	w = 0;
-	i = 0;
-	while (comd[0] && comd[0][i])
-	{
-		while (comd[0][i] && !is_charset(comd[0][i], "><"))
-		{
-			w++;
-			i++;
-		}
-		ft_skip_redirection(comd, &i);
-	}
-	return (w);
-}
-
-void	ft_copy_clean_comd(char **comd, char **tmp)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (comd[0] && comd[0][i])
-	{
-		while (comd[0][i] && !is_charset(comd[0][i], "><"))
-		{
-			tmp[0][j] = comd[0][i];
-			j++;
-			i++;
-		}
-		ft_skip_redirection(comd, &i);
-	}
-}
-
-char	*ft_return_new_comd(char **comd)
-{
-	char	*tmp;
-	int		w;
-
-	w = ft_nb_to_print(comd);
-	if ((tmp = ft_calloc(w + 1, sizeof(char))) == NULL)
-		return (NULL);
-	ft_copy_clean_comd(comd, &tmp);
-	free_read(NULL, comd);
-	if (tmp)
-	{
-		comd[0] = ft_strdup(tmp);
-		ft_free((void **)&tmp);
-	}
-	return (comd[0]);
-}
 
 void	ft_redir_plus(char **comd, t_all *all, int *i)
 {
-	if (comd[0][*i] == '>' && comd[0][*i + 1] == '>')
+	char	*tmp;
+	int		j;
+
+	j = 0;
+	tmp = ft_strtrim(&comd[0][*i], " ");
+	if (tmp[j] == '>' && tmp[j + 1] == '>')
 	{
-		while (is_charset(comd[0][*i], "> "))
-			(*i)++;
-		if ((all->fd = open(&comd[0][*i], O_WRONLY)) >= 0)
-			all->fd = open(&comd[0][*i], O_WRONLY | O_APPEND, S_IRWXU);
+		while (is_charset(tmp[j], "> "))
+			j++;
+		if ((all->fd = open(&tmp[j], O_WRONLY)) >= 0)
+			all->fd = open(&tmp[j], O_WRONLY | O_APPEND, S_IRWXU);
 	}
-	else if (comd[0][*i] == '>')
+	else if (tmp[j] == '>')
 	{
-		while (is_charset(comd[0][*i], "> "))
-			(*i)++;
-		all->fd = open(&comd[0][*i], O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
+		while (is_charset(tmp[j], "> "))
+			j++;
+		all->fd = open(&tmp[j], O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
 	}
+	ft_free((void **)&tmp);
 	all->fd_copy = dup(1);
 	dup2(all->fd, 1);
 	close(all->fd);
+	(*i) += j;
 }
 
 int		ft_redir_less(char **comd, t_all *all, int *i)
