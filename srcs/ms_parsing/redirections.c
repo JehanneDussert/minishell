@@ -14,9 +14,6 @@
 
 // ERREUR : fichier.txt < grep i : doit dire "grep : no such file or directory"
 // pour l'instant dit "grep : no such..." ET "fichier.txt : no such..."
-// SPECIFIC case not fixed : echo hello | cat -e <> file.txt : should create file.txt and that's all
-// US : create file.txt + echo hello$
-// SPECIFIC case fixed : echo hello <> file.txt : create file.txt + echo hello
 
 void	ft_redir_plus(char **comd, t_all *all, int *i)
 {
@@ -47,13 +44,12 @@ void	ft_redir_plus(char **comd, t_all *all, int *i)
 
 int		ft_redir_less(char **comd, t_all *all, int *i)
 {
-	// prbl
+	// prbl with grep
 	(*i)++;
 	while (comd[0][*i] == ' ')
 		(*i)++;
 	if ((all->fd = open(&comd[0][*i], O_WRONLY)) < 0)
 		return (0);
-	printf("this is fd :%d\n", all->fd);
 	all->fd_copy = dup(0);
 	dup2(all->fd, 0);
 	close(all->fd);
@@ -62,16 +58,26 @@ int		ft_redir_less(char **comd, t_all *all, int *i)
 
 int		ft_reverse(char **comd, int *i)
 {
-	if (comd[0][*i] == '<' && comd[0][(*i) + 1] == '>')
-		(*i) += 2;
-	while (comd[0][*i] == ' ')
-		(*i)++;
-	if ((open(&comd[0][*i], O_CREAT | O_WRONLY)) < 0)
+	char	*tmp;
+	int		k;
+
+	tmp = ft_strtrim(&comd[0][*i], " ");
+	k = 0;
+	if (tmp[k] == '<' && tmp[k + 1] == '>')
+		k += 2;
+	while (tmp[k] == ' ')
+		k++;
+	if ((open(&tmp[k], O_CREAT | O_WRONLY, S_IRWXU)) >= 0)
+	{
+		ft_free((void **)&tmp);
 		return (0);
+	}
+	ft_free((void **)&tmp);
+	(*i) += k;
 	return (1);
 }
 
-void	ft_redirections(char **comd, t_all *all)
+int		ft_redirections(char **comd, t_all *all, int j)
 {
 	int	i;
 
@@ -79,30 +85,47 @@ void	ft_redirections(char **comd, t_all *all)
 	all->fd = 1;
 	while (comd[0][i])
 	{
-		if (comd[0][i] == '<' && comd[0][i + 1] == '>' && !ft_reverse(comd, &i))
-			return ;
+		if (comd[0][i] == '<' && comd[0][i + 1] == '>')
+		{
+			ft_reverse(comd, &i);
+			if (j > 0)
+			{
+				ft_free((void **)&comd[0]);
+				return (0);
+			}
+			break ;
+		}
 		else if (is_charset(comd[0][i], ">"))
 			ft_redir_plus(comd, all, &i);
 		else if (comd[0][i] == '<' && (!ft_redir_less(comd, all, &i)))
-			return ; // i should put an error msg if the file does not exist, i think it's gonna be easy
+			return (0); // i should put an error msg if the file does not exist, i think it's gonna be easy
 		i++;
 	}
 	comd[0] = ft_return_new_comd(comd);
+	return (1);
 }
 
-void	ft_check_redirection(char **comm, t_all *all)
+int		ft_check_redirection(char **comm, t_all *all)
 {
 	int	i;
+	int	j;
 
-	i = 0;
-	while (comm[0][i])
+	j = 0;
+	while(comm[j])
 	{
-		if (comm[0] && is_charset(comm[0][i], "><"))
+		i = 0;
+		while (comm[j][i])
 		{
-			ft_redirections(comm, all);
-			break ;
+			if (comm[j] && is_charset(comm[j][i], "><"))
+			{
+				if (!ft_redirections(&comm[j], all, j))
+					return (0);
+				break ;
+			}
+			else
+				i++;
 		}
-		else
-			i++;
+		j++;
 	}
+	return (1);
 }

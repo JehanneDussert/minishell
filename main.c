@@ -16,14 +16,15 @@ void	ft_command_exec(char *comm, t_all *all)
 {
 	char	**commands;
 	int		res;
-	int		j;
 
 	res = 0;
-	j = 0;
 	if (!(commands = ft_split_quote(comm, "|")))
 		res = -1;
-	while (commands[j])
-		ft_check_redirection(&commands[j++], all);
+	if (!ft_check_redirection(commands, all))
+	{
+		free_read(&commands, NULL);
+		return ;
+	}
 	if (res == 0 && !commands[1] &&
 	!(command_id((ft_split_quote(commands[0], "\t\n\r\v \f")), all, 1)))
 		res = -1;
