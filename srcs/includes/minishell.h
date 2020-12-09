@@ -64,8 +64,8 @@ void	ft_check_n(int *i, int *res, char *comm, char **opt);
 int		ft_echo_n(char *comm, char **opt);
 void	c_handler(int sigld);
 void	d_handler(int sigld);
-void	ft_check_redirection(char ***comm, t_all *all);
-void	ft_redirections(char ***comd, t_all *all);
+void	ft_check_redirection(char **comm, t_all *all);
+void	ft_redirections(char **comd, t_all *all);
 
 /*
 **UTILS FCTS
@@ -74,6 +74,7 @@ void	ft_init_all(t_all *all);
 void	ft_init_echo(int *i, char **opt, int *res);
 void	ft_init_quote(int *i, int *k, int *d, int *s);
 int		skipspace(char *line, int *i);
+void	ft_skip_redirection(char **comd, int *i);
 char	**ft_skip_quote(char *str, char *charset);
 char	**ft_split_quote(char *str, char *charset);
 void	if_in_quote(int *d, int *s, int *i, char *str);

@@ -24,89 +24,89 @@
 // ex : echo lol | cat -e > test.txt : commande[0] sera cat
 // donc quand je vais free si y a un pipe, je ne free pas la première partie de la commande
 
-int		ft_nb_to_print(char ***comd)
+int		ft_nb_to_print(char **comd)
 {
 	int	w;
 	int	i;
 
 	w = 0;
-	i = -1;
-	while ((*comd) && (*comd)[++i])
+	i = 0;
+	while (comd[0] && comd[0][i])
 	{
-		if (!is_charset((*comd)[i][0], "><"))
+		while (comd[0][i] && !is_charset(comd[0][i], "><"))
+		{
 			w++;
-		else
 			i++;
+		}
+		ft_skip_redirection(comd, &i);
 	}
 	return (w);
 }
 
-void	ft_copy_clean_comd(char ***comd, char ***tmp, int w)
+void	ft_copy_clean_comd(char **comd, char **tmp)
 {
 	int	i;
 	int	j;
 
-	i = -1;
+	i = 0;
 	j = 0;
-	while ((*comd) && (*comd)[++i])
+	while (comd[0] && comd[0][i])
 	{
-		ft_putstr_fd("redirections, copy clean comd : ", 2);
-		ft_putendl_fd((*comd)[i], 2);
-		if (j <= w && !is_charset((*comd)[i][0], "><"))
+		while (comd[0][i] && !is_charset(comd[0][i], "><"))
 		{
-			(*tmp)[j++] = ft_strdup((*comd)[i]);
+			tmp[0][j] = comd[0][i];
+			j++;
+			i++;
 		}
-		else if ((*comd)[i + 1])
-		{
-			ft_free((void **)&(*comd)[i++]);
-		}
-		ft_free((void **)&(*comd)[i]);
+		ft_skip_redirection(comd, &i);
 	}
-	ft_free((void **)&(*comd));
 }
 
-char	***ft_return_new_comd(char ***comd)
+char	*ft_return_new_comd(char **comd)
 {
-	char	**tmp;
-	int		i;
+	char	*tmp;
 	int		w;
 
-	i = -1;
 	w = ft_nb_to_print(comd);
-	if ((tmp = ft_calloc(w + 1, sizeof(char *))) == NULL)
+	if ((tmp = ft_calloc(w + 1, sizeof(char))) == NULL)
 		return (NULL);
-	tmp[w] = NULL;
-	ft_putstr_fd("redir, first comd sent :", 2);
-	ft_putendl_fd((*comd)[0], 2);
-	ft_copy_clean_comd(comd, &tmp, w);
-	if (((*comd) = ft_calloc(w + 1, sizeof(char *))) == NULL)
-		return (NULL);
-	(*comd)[w] = NULL;
-	while (tmp && tmp[++i])
+	ft_copy_clean_comd(comd, &tmp);
+	free_read(NULL, comd);
+	if (tmp)
 	{
-		(*comd)[i] = ft_strdup(tmp[i]);
-		ft_free((void **)&tmp[i]);
+		comd[0] = ft_strdup(tmp);
+		ft_free((void **)&tmp);
 	}
-	ft_free((void **)&tmp);
-	return (comd);
+	return (comd[0]);
 }
 
-void	ft_redir_plus(char ***comd, t_all *all, int *i)
+void	ft_redir_plus(char **comd, t_all *all, int *i)
 {
-	if ((*comd)[*i][0] == '>' && (*comd)[*i][1] == '>'
-		&& (all->fd = open((*comd)[(*i) + 1], O_WRONLY)) >= 0)
-		all->fd = open((*comd)[++(*i)], O_WRONLY | O_APPEND, S_IRWXU);
-	else if ((*comd)[*i][0] == '>')
-		all->fd = open((*comd)[++(*i)], O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
+	if (comd[0][*i] == '>' && comd[0][*i + 1] == '>')
+	{
+		while (is_charset(comd[0][*i], "> "))
+			(*i)++;
+		if ((all->fd = open(&comd[0][*i], O_WRONLY)) >= 0)
+			all->fd = open(&comd[0][*i], O_WRONLY | O_APPEND, S_IRWXU);
+	}
+	else if (comd[0][*i] == '>')
+	{
+		while (is_charset(comd[0][*i], "> "))
+			(*i)++;
+		all->fd = open(&comd[0][*i], O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
+	}
 	all->fd_copy = dup(1);
 	dup2(all->fd, 1);
 	close(all->fd);
 }
 
-int		ft_redir_less(char ***comd, t_all *all, int i)
+int		ft_redir_less(char **comd, t_all *all, int *i)
 {
 	// prbl
-	if ((all->fd = open((*comd)[i + 1], O_WRONLY)) < 0)
+	i++;
+	while (comd[0][*i] == ' ')
+		(*i)++;
+	if ((all->fd = open(&comd[0][*i], O_WRONLY)) < 0)
 		return (0);
 	printf("this is fd :%d\n", all->fd);
 	all->fd_copy = dup(0);
@@ -115,49 +115,54 @@ int		ft_redir_less(char ***comd, t_all *all, int i)
 	return (1);
 }
 
-int		ft_reverse(char ***comd, int *i)
+int		ft_reverse(char **comd, int *i)
 {
-	if ((open((*comd)[++(*i)], O_CREAT | O_WRONLY)) < 0)
+	if (comd[0][*i] == '<' && comd[0][(*i) + 1] == '>')
+		(*i) += 2;
+	while (comd[0][*i] == ' ')
+		(*i)++;
+	if ((open(&comd[0][*i], O_CREAT | O_WRONLY)) < 0)
 		return (0);
 	return (1);
 }
 
-void	ft_redirections(char ***comd, t_all *all)
+void	ft_redirections(char **comd, t_all *all)
 {
 	int	i;
 
 	i = 0;
 	all->fd = 1;
-	while ((*comd)[i])
+	while (comd[0][i])
 	{
-		if ((*comd)[i][0] == '<' && (*comd)[i][1] == '>' && !ft_reverse(comd, &i))
+		if (comd[0][i] == '<' && comd[0][i + 1] == '>' && !ft_reverse(comd, &i))
 			return ;
-		else if (is_charset((*comd)[i][0], ">"))
+		else if (is_charset(comd[0][i], ">"))
 			ft_redir_plus(comd, all, &i);
-		else if ((*comd)[i][0] == '<' && (!ft_redir_less(comd, all, i)))
+		else if (comd[0][i] == '<' && (!ft_redir_less(comd, all, &i)))
 			return ;
-		/*else if (!is_charset((*comd)[i][0], "><") && (open((*comd)[i], O_WRONLY)) < 0)
+		/*else if (!is_charset(comd[i][0], "><") && (open(comd[i], O_WRONLY)) < 0)
 		{
-			//error_msg((*comd)[i], "No such file or directory");
+			//error_msg(comd[i], "No such file or directory");
 			return ;
 		}*/
 		i++;
 	}
-	comd = ft_return_new_comd(comd);
+	comd[0] = ft_return_new_comd(comd);
 }
 
-void	ft_check_redirection(char ***comm, t_all *all)
+void	ft_check_redirection(char **comm, t_all *all)
 {
 	int	i;
 
 	i = 0;
-	while ((*comm) && (*comm)[i])
+	while (comm[0][i])
 	{
-		if (is_charset((*comm)[i][0], "><"))
+		if (comm[0] && is_charset(comm[0][i], "><"))
 		{
 			ft_redirections(comm, all);
-			return ;
+			break ;
 		}
-		i++;
+		else
+			i++;
 	}
 }
