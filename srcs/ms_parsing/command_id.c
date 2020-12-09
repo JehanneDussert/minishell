@@ -14,6 +14,8 @@
 
 char	*command_id(char **comm, t_all *all, int mode)
 {
+	ft_putstr_fd("command id, command 0 : ", 2);
+	ft_putendl_fd(comm[0], 2);
 	ft_check_redirection(&comm, all);
 	if (!ft_strcmp(comm[0], "echo"))
 		ft_echo(comm, all);
@@ -47,6 +49,8 @@ void	in_fork(t_all *all, int i)
 	}
 	if (all->cmd[i + 1].cmd)
 		dup2(all->cmd[i].pipe[1], 1);
+	ft_putstr_fd("pipes : ", 2);
+	ft_putendl_fd(all->cmd[i].cmd[0], 2);
 	command_id(all->cmd[i].cmd, all, 0);
 	if (i != 0)
 		close(all->cmd[i - 1].pipe[0]);

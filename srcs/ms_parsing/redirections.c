@@ -14,7 +14,15 @@
 
 // ERREUR : fichier.txt < grep i : doit dire "grep : no such file or directory"
 // pour l'instant dit "grep : no such..." ET "fichier.txt : no such..."
-// ERREUR : si plusieurs commandes séparées par des ; ou des | -> affiche msg d'erreur
+// FIXED : si plusieurs commandes séparées par des ; 
+// ERREUR si | :  semble leaker + le pipe ne fonctionne pas
+
+// LEAKS : s'il n'y a pas de pipe, c'est bien toute la commande qui est envoyée, dès 
+// le commande[0] MAIS s'il y a un pipe, c'est comme si on m'envoyait la commande
+// à partir du pipe
+// ex : echo lol > test.txt : commande[0] sera bien echo
+// ex : echo lol | cat -e > test.txt : commande[0] sera cat
+// donc quand je vais free si y a un pipe, je ne free pas la première partie de la commande
 
 int		ft_nb_to_print(char ***comd)
 {
@@ -42,13 +50,19 @@ void	ft_copy_clean_comd(char ***comd, char ***tmp, int w)
 	j = 0;
 	while ((*comd) && (*comd)[++i])
 	{
+		ft_putstr_fd("redirections, copy clean comd : ", 2);
+		ft_putendl_fd((*comd)[i], 2);
 		if (j <= w && !is_charset((*comd)[i][0], "><"))
-			(*tmp)[j++] = ft_substr((*comd)[i], 0, ft_strlen((*comd)[i]));
+		{
+			(*tmp)[j++] = ft_strdup((*comd)[i]);
+		}
 		else if ((*comd)[i + 1])
+		{
 			ft_free((void **)&(*comd)[i++]);
+		}
 		ft_free((void **)&(*comd)[i]);
 	}
-	ft_free((void **)comd);
+	ft_free((void **)&(*comd));
 }
 
 char	***ft_return_new_comd(char ***comd)
@@ -62,13 +76,15 @@ char	***ft_return_new_comd(char ***comd)
 	if ((tmp = ft_calloc(w + 1, sizeof(char *))) == NULL)
 		return (NULL);
 	tmp[w] = NULL;
+	ft_putstr_fd("redir, first comd sent :", 2);
+	ft_putendl_fd((*comd)[0], 2);
 	ft_copy_clean_comd(comd, &tmp, w);
 	if (((*comd) = ft_calloc(w + 1, sizeof(char *))) == NULL)
 		return (NULL);
 	(*comd)[w] = NULL;
 	while (tmp && tmp[++i])
 	{
-		(*comd)[i] = ft_substr(tmp[i], 0, ft_strlen(tmp[i]));
+		(*comd)[i] = ft_strdup(tmp[i]);
 		ft_free((void **)&tmp[i]);
 	}
 	ft_free((void **)&tmp);
