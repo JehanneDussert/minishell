@@ -130,7 +130,7 @@ int		main(void)
 	{
 		if (all.fd_copy > 2)
 		{
-			dup2(all.fd_copy, 1);
+			dup2(all.fd_copy, STDOUT);
 			close(all.fd_copy);
 		}
 		ft_putstr_fd("~:", 1);

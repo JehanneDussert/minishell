@@ -56,17 +56,15 @@ char	*ft_return_new_comd(char **comd)
 	return (comd[0]);
 }
 
-char	*ft_create_file(char *str, char **file)
+char	*ft_create_file(char *str, char **file, int *j)
 {
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
-	while (is_charset(str[j], "> "))
-		j++;
-	while (str[i + j] && str[i + j] != ' ')
+	while (is_charset(str[*j], "> "))
+		(*j)++;
+	while (str[i + (*j)] && str[i + (*j)] != ' ')
 		i++;
-	(*file) = ft_substr(str, j, i);
+	(*file) = ft_substr(str, *j, i);
 	return (*file);
 }

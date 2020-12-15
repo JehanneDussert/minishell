@@ -25,19 +25,18 @@ void	ft_redir_plus(char **comd, t_all *all, int *i)
 	tmp = ft_strtrim(&comd[0][*i], " ");
 	if (tmp[j] == '>' && tmp[j + 1] == '>')
 	{
-		ft_create_file(tmp, &file);
-		all->fd = open(file, O_WRONLY | O_APPEND, S_IRWXU);
-		ft_putnbr_fd(all->fd, 2);
+		ft_create_file(tmp, &file, &j);
+		all->fd = open(file, O_WRONLY | O_APPEND | O_CREAT, S_IRWXU);
 	}
 	else if (tmp[j] == '>')
 	{
-		ft_create_file(tmp, &file);
+		ft_create_file(tmp, &file, &j);
 		all->fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
 	}
 	ft_free((void **)&tmp);
 	ft_free((void **)&file);
-	all->fd_copy = dup(1);
-	dup2(all->fd, 1);
+	all->fd_copy = dup(STDOUT);
+	dup2(all->fd, STDOUT);
 	close(all->fd);
 	(*i) += j;
 }
@@ -50,8 +49,8 @@ int		ft_redir_less(char **comd, t_all *all, int *i)
 		(*i)++;
 	if ((all->fd = open(&comd[0][*i], O_WRONLY)) < 0)
 		return (0);
-	all->fd_copy = dup(0);
-	dup2(all->fd, 0);
+	all->fd_copy = dup(STDIN);
+	dup2(all->fd, STDIN);
 	close(all->fd);
 	return (1);
 }

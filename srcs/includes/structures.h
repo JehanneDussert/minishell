@@ -13,6 +13,10 @@
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
+
 # include "minishell.h"
 # include <sys/types.h>
 
