@@ -91,6 +91,7 @@ int		is_charset(char c, char *charset);
 int		ft_nb_to_print(char **comd);
 void	ft_copy_clean_comd(char **comd, char **tmp);
 char	*ft_return_new_comd(char **comd);
+char	*ft_create_file(char *str, char **file);
 
 /*
 **MS_ERRORS

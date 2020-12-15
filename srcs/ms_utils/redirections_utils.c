@@ -55,3 +55,17 @@ char	*ft_return_new_comd(char **comd)
 	}
 	return (comd[0]);
 }
+
+char	*ft_create_file(char *str, char **file)
+{
+	int		i;
+
+	i = 0;
+	while (str[i] && str[i] != ' ')
+	{
+		//ft_putchar_fd(str[i], 2);
+		i++;
+	}
+	(*file) = ft_substr(str, 0, i);
+	return(*file);
+}

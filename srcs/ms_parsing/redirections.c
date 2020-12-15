@@ -18,6 +18,7 @@
 void	ft_redir_plus(char **comd, t_all *all, int *i)
 {
 	char	*tmp;
+	char	*file;
 	int		j;
 
 	j = 0;
@@ -26,16 +27,19 @@ void	ft_redir_plus(char **comd, t_all *all, int *i)
 	{
 		while (is_charset(tmp[j], "> "))
 			j++;
-		if ((all->fd = open(&tmp[j], O_WRONLY)) >= 0)
-			all->fd = open(&tmp[j], O_WRONLY | O_APPEND, S_IRWXU);
+		ft_create_file(&tmp[j], &file);
+		if ((all->fd = open(file, O_WRONLY)) >= 0)
+			all->fd = open(file, O_WRONLY | O_APPEND, S_IRWXU);
 	}
 	else if (tmp[j] == '>')
 	{
 		while (is_charset(tmp[j], "> "))
 			j++;
-		all->fd = open(&tmp[j], O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
+		ft_create_file(&tmp[j], &file);
+		all->fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
 	}
 	ft_free((void **)&tmp);
+	ft_free((void **)&file);
 	all->fd_copy = dup(1);
 	dup2(all->fd, 1);
 	close(all->fd);
