@@ -49,7 +49,8 @@ typedef struct	s_all
 	int			err;
 	int			fd;
 	int			prog;
-	int			fd_copy;
+	int			copy_stdout;
+	int			copy_stdin;
 }				t_all;
 
 #endif

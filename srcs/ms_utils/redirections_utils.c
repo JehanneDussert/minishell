@@ -68,3 +68,17 @@ char	*ft_create_file(char *str, char **file, int *j)
 	(*file) = ft_substr(str, *j, i);
 	return (*file);
 }
+
+void	ft_redirection_out(t_all *all)
+{
+	if (all->copy_stdout > 2)
+	{
+		dup2(all->copy_stdout, STDOUT);
+		close(all->copy_stdout);
+	}
+	if (all->copy_stdin > 2)
+	{
+		dup2(all->copy_stdin, STDIN);
+		close(all->copy_stdin);
+	}
+}

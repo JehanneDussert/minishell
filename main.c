@@ -128,11 +128,7 @@ int		main(void)
 	tmp = NULL;
 	while (x != 0)
 	{
-		if (all.fd_copy > 2)
-		{
-			dup2(all.fd_copy, STDOUT);
-			close(all.fd_copy);
-		}
+		ft_redirection_out(&all);
 		ft_putstr_fd("~:", 1);
 		if ((tmp = ft_read(&all)) == NULL)
 			x = 0;

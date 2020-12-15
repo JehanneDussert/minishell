@@ -35,7 +35,7 @@ void	ft_redir_plus(char **comd, t_all *all, int *i)
 	}
 	ft_free((void **)&tmp);
 	ft_free((void **)&file);
-	all->fd_copy = dup(STDOUT);
+	all->copy_stdout = dup(STDOUT);
 	dup2(all->fd, STDOUT);
 	close(all->fd);
 	(*i) += j;
@@ -43,13 +43,12 @@ void	ft_redir_plus(char **comd, t_all *all, int *i)
 
 int		ft_redir_less(char **comd, t_all *all, int *i)
 {
-	// prbl with grep
 	(*i)++;
 	while (comd[0][*i] == ' ')
 		(*i)++;
-	if ((all->fd = open(&comd[0][*i], O_WRONLY)) < 0)
+	if ((all->fd = open(&comd[0][*i], O_RDONLY)) < 0)
 		return (0);
-	all->fd_copy = dup(STDIN);
+	all->copy_stdin = dup(STDIN);
 	dup2(all->fd, STDIN);
 	close(all->fd);
 	return (1);
