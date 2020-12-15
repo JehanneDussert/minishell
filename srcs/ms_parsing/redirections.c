@@ -25,17 +25,13 @@ void	ft_redir_plus(char **comd, t_all *all, int *i)
 	tmp = ft_strtrim(&comd[0][*i], " ");
 	if (tmp[j] == '>' && tmp[j + 1] == '>')
 	{
-		while (is_charset(tmp[j], "> "))
-			j++;
-		ft_create_file(&tmp[j], &file);
+		ft_create_file(tmp, &file);
 		if ((all->fd = open(file, O_WRONLY)) >= 0)
 			all->fd = open(file, O_WRONLY | O_APPEND, S_IRWXU);
 	}
 	else if (tmp[j] == '>')
 	{
-		while (is_charset(tmp[j], "> "))
-			j++;
-		ft_create_file(&tmp[j], &file);
+		ft_create_file(tmp, &file);
 		all->fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
 	}
 	ft_free((void **)&tmp);

@@ -59,13 +59,14 @@ char	*ft_return_new_comd(char **comd)
 char	*ft_create_file(char *str, char **file)
 {
 	int		i;
+	int		j;
 
 	i = 0;
-	while (str[i] && str[i] != ' ')
-	{
-		//ft_putchar_fd(str[i], 2);
+	j = 0;
+	while (is_charset(str[j], "> "))
+		j++;
+	while (str[i + j] && str[i + j] != ' ')
 		i++;
-	}
-	(*file) = ft_substr(str, 0, i);
-	return(*file);
+	(*file) = ft_substr(str, j, i);
+	return (*file);
 }
