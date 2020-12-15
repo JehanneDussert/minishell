@@ -26,8 +26,8 @@ void	ft_redir_plus(char **comd, t_all *all, int *i)
 	if (tmp[j] == '>' && tmp[j + 1] == '>')
 	{
 		ft_create_file(tmp, &file);
-		if ((all->fd = open(file, O_WRONLY)) >= 0)
-			all->fd = open(file, O_WRONLY | O_APPEND, S_IRWXU);
+		all->fd = open(file, O_WRONLY | O_APPEND, S_IRWXU);
+		ft_putnbr_fd(all->fd, 2);
 	}
 	else if (tmp[j] == '>')
 	{
