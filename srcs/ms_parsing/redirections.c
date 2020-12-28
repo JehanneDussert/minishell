@@ -12,9 +12,6 @@
 
 #include "../includes/minishell.h"
 
-// ERREUR : fichier.txt < grep i : doit dire "grep : no such file or directory"
-// pour l'instant dit "grep : no such..." ET "fichier.txt : no such..."
-
 void	ft_redir_plus(char **comd, t_all *all, int *i)
 {
 	char	*tmp;
@@ -33,6 +30,8 @@ void	ft_redir_plus(char **comd, t_all *all, int *i)
 		ft_create_file(tmp, &file, &j);
 		all->fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
 	}
+	if (comd[1])
+		ft_free((void **)&comd[1]);
 	ft_free((void **)&tmp);
 	ft_free((void **)&file);
 	all->copy_stdout = dup(STDOUT);
@@ -47,7 +46,10 @@ int		ft_redir_less(char **comd, t_all *all, int *i)
 	while (comd[0][*i] == ' ')
 		(*i)++;
 	if ((all->fd = open(&comd[0][*i], O_RDONLY)) < 0)
+	{
+		error_msg(&comd[0][*i], "No such file or directory");
 		return (0);
+	}
 	all->copy_stdin = dup(STDIN);
 	dup2(all->fd, STDIN);
 	close(all->fd);
@@ -96,7 +98,7 @@ int		ft_redirections(char **comd, t_all *all, int j)
 		else if (is_charset(comd[0][i], ">"))
 			ft_redir_plus(comd, all, &i);
 		else if (comd[0][i] == '<' && (!ft_redir_less(comd, all, &i)))
-			return (0); // i should put an error msg if the file does not exist, i think it's gonna be easy
+			return (0);
 		i++;
 	}
 	comd[0] = ft_return_new_comd(comd);
