@@ -69,15 +69,19 @@ void	ft_echo_quote(char *comm)
 	i = 0;
 	s = 0;
 	d = 0;
-	while (comm[i])
+	if_in_quote(&d, &s, &i, comm);
+	while (comm && comm[i])
 	{
-		if_in_quote(&d, &s, &i, comm);
 		if (s == 1)
 			while (comm[i] != '\'')
 				ft_putchar_fd(comm[i++], 1);
 		else if (d == 1)
 			while (comm[i] != '\"')
+			{
+				if (!comm[i])
+					return ;
 				ft_putchar_fd(comm[i++], 1);
+			}
 		i++;
 	}
 }
