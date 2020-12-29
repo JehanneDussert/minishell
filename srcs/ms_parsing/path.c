@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+** Signal ctrlc et ctrlbackslash (voir si les signal
+** au debut marchent, ajouter prog?)
+*/
+
 #include "../includes/minishell.h"
 
 char	*find_path(t_all *all)
@@ -30,7 +35,7 @@ int		path_two(char **comm, t_all *all, char **path, char **paths)
 {
 	struct stat	file;
 	int			i;
-	int 		r;
+	int			r;
 
 	i = 0;
 	r = 0;
@@ -51,7 +56,6 @@ int		path_two(char **comm, t_all *all, char **path, char **paths)
 		else if ((file.st_mode & S_IFREG) == S_IFREG)
 		{
 			r = 0;
-			//signal ctrlc et ctrlbackslash (voir si les signal au debut marchent, ajouter prog?)
 			if (execve_fct(comm, *path, all))
 				break ;
 		}
@@ -74,7 +78,7 @@ void	path_id(char **comm, t_all *all)
 		all->err = 127;
 		return ;
 	}
-	if(!(paths = ft_split(path, ':')))
+	if (!(paths = ft_split(path, ':')))
 	{
 		ft_malloc_error(comm[0]);
 		all->err = 1;

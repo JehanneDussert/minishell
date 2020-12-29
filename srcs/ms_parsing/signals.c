@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jehannedussert <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/25 14:16:55 by marvin            #+#    #+#             */
-/*   Updated: 2020/11/25 14:16:55 by marvin           ###   ########.fr       */
+/*   Created: 2020/12/29 17:06:21 by jehannedu         #+#    #+#             */
+/*   Updated: 2020/12/29 17:06:30 by jehannedu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,5 @@ void	d_handler(int sigld)
 		ft_putendl_fd("Quit (core dumped)", 1);
 	}
 	else
-	{
 		ft_putstr_fd("\b \b\b \b", 1);
-	}
-	
 }

@@ -112,7 +112,7 @@ int		ft_check_redirection(char **comm, t_all *all)
 	int	j;
 
 	j = 0;
-	while(comm[j])
+	while (comm[j])
 	{
 		i = 0;
 		while (comm[j][i])
