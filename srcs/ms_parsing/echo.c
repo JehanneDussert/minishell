@@ -72,7 +72,7 @@ void	ft_echo_quote(char *comm, t_all *all)
 	if_in_quote(&d, &s, &i, comm);
 	if (g_all.env == 1)
 		ft_echo_env(comm, all->alst, all->err);
-	while (comm && comm[i])
+	while (comm && comm[i] && g_all.env != 1)
 	{
 		if (s == 1)
 			while (comm[i] != '\'' && comm[i] != '$')
