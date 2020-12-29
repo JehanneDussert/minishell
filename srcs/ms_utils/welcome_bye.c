@@ -12,7 +12,12 @@
 
 #include "../includes/minishell.h"
 
-void	welcomer(void) //font from http://patorjk.com/software/taag/#p=display&h=1&v=1&f=Banner3&t=Minishell
+/*
+** Font from
+** http://patorjk.com/software/taag/#p=display&h=1&v=1&f=Banner3&t=Minishell
+*/
+
+void	welcomer(void)
 {
 	ft_putendl_fd("Welcome to our", 1);
 	ft_putstr_fd("##     ## #### ##    ## ####  ######  ##     ", 1);
