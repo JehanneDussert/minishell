@@ -83,7 +83,8 @@ int		check_chevrons(char *str)
 		}
 		if ((s == 0 && d == 0) && c > 0 && (str[i] == '<' && str[i - 1] == '>'))
 			return (0);
-		if ((s == 0 && d == 0) && c > 0 && (str[i - 1] == '<' && str[i] == ' ' && skipspace(str, &i) && str[i] == '>'))
+		if ((s == 0 && d == 0) && c > 0 && (str[i - 1] == '<' && str[i] == ' '
+			&& skipspace(str, &i) && str[i] == '>'))
 			return (0);
 		if (s == 0 && d == 0 && i > 0 && str[i - 1] == '>' && skipspace(str, &i)
 		&& (str[i] == ';' || str[i] == '|' || str[i] == '\0'))

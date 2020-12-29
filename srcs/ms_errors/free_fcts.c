@@ -14,7 +14,7 @@
 
 void	free_read(char ***buf, char **line)
 {
-	int	i;
+	int		i;
 	char	**tmp;
 
 	i = 0;

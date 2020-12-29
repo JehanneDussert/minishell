@@ -47,7 +47,8 @@ int		ft_redir_less(char **comd, t_all *all, int *i)
 		(*i)++;
 	if ((all->fd = open(&comd[0][*i], O_RDONLY)) < 0)
 	{
-		error_msg(&comd[0][*i], "No such file or directory");
+		error_msg("grep", "No such file or directory");
+		all->err = 1;
 		return (0);
 	}
 	all->copy_stdin = dup(STDIN);

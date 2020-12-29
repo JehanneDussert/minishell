@@ -14,8 +14,6 @@
 
 char	*command_id(char **comm, t_all *all, int mode)
 {
-	//ft_putstr_fd("command id, command 0 : ", 2);
-	//ft_putendl_fd(comm[0], 2);
 	if (!ft_strcmp(comm[0], "echo"))
 		ft_echo(comm, all);
 	else if (!ft_strcmp(comm[0], "cd"))
@@ -36,7 +34,7 @@ char	*command_id(char **comm, t_all *all, int mode)
 		path_id(comm, all);
 	if (mode == 1)
 		free_read(&comm, NULL);
-	return("done");
+	return ("done");
 }
 
 void	in_fork(t_all *all, int i)

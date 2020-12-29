@@ -62,8 +62,8 @@ void	ft_check_n(int *i, int *res, char *comm, char **opt);
 int		ft_echo_n(char *comm, char **opt);
 void	c_handler(int sigld);
 void	d_handler(int sigld);
-int 	ft_check_redirection(char **comm, t_all *all);
-int 	ft_redirections(char **comd, t_all *all, int j);
+int		ft_check_redirection(char **comm, t_all *all);
+int		ft_redirections(char **comd, t_all *all, int j);
 
 /*
 **UTILS FCTS
