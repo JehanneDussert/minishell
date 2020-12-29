@@ -100,6 +100,7 @@ int		ft_quote_error(char *str);
 int		check_chevrons(char *str);
 int		check_double(char *str, char *charset);
 int		ft_check_errors_line(char *line, t_all *all);
+int		ft_path_error(t_all *all, char **comm);
 
 /*
 **Error msg :

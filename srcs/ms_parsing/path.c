@@ -42,15 +42,9 @@ int		path_two(char **comm, t_all *all, char **path, char **paths)
 	while (paths && paths[i])
 	{
 		if (!(*path = ft_strjoin_free(paths[i], "/", 0)))
-		{
-			all->err = 1;
-			return (ft_malloc_error(comm[0]));
-		}
+			return (ft_path_error(all, comm));
 		if (!(*path = ft_strjoin_free(*path, comm[0], 1)))
-		{
-			all->err = 1;
-			return (ft_malloc_error(comm[0]));
-		}
+			return (ft_path_error(all, comm));
 		if (stat(*path, &file) == -1)
 			r = 1;
 		else if ((file.st_mode & S_IFREG) == S_IFREG)

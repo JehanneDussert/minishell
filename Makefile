@@ -13,7 +13,7 @@ GNL_SRCS = ${addprefix ${GNL_PATH}, ${GNL_FILES}}
 
 MS_ERRORS_PATH = ms_errors/
 MS_ERRORS_FILES = line_errors.c line_errors2.c ft_error_msg.c free_fcts.c
-MS_ERRORS_FILES = line_errors.c line_errors2.c ft_error_msg.c free_fcts.c
+MS_ERRORS_FILES = line_errors.c line_errors2.c ft_error_msg.c free_fcts.c ft_path_error.c
 SRCS_MS_ERRORS = ${addprefix ${MS_ERRORS_PATH}, ${MS_ERRORS_FILES}}
 
 MS_PARSING_PATH = ms_parsing/
