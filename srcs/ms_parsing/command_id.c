@@ -60,8 +60,8 @@ char	*pipes_id(t_all *all)
 	int	i;
 	int	status;
 
-	i = 0;
-	while (all->cmd[i].cmd)
+	i = -1;
+	while (all->cmd[++i].cmd)
 	{
 		pipe(all->cmd[i].pipe);
 		all->cmd[i].pid = fork();
@@ -72,15 +72,13 @@ char	*pipes_id(t_all *all)
 			error_msg("fork", "unable to create fork");
 			all->err = 1;
 		}
-		i++;
 	}
-	i = 0;
-	while (all->cmd[i].cmd)
+	i = -1;
+	while (all->cmd[++i].cmd)
 	{
 		waitpid(all->cmd[i].pid, &status, 0);
 		close(all->cmd[i].pipe[0]);
 		close(all->cmd[i].pipe[1]);
-		i++;
 	}
 	free_commands(all);
 	return ("done");
@@ -91,13 +89,13 @@ char	*if_pipes(char **commands, t_all *all, int *res)
 	int		count;
 	int		i;
 
-	i = 0;
+	i = -1;
 	count = 0;
 	ft_count_commands(&count, commands);
 	if (!(all->cmd = malloc(sizeof(t_cmd) * (count + 1))))
 		*res = -1;
 	all->cmd[count].cmd = NULL;
-	while (*res == 0 && all->cmd[i].cmd)
+	while (*res == 0 && all->cmd[++i].cmd)
 	{
 		if (!(all->cmd[i].cmd = ft_split_quote(commands[i],
 		"\t\n\r\v \f")))
@@ -109,7 +107,6 @@ char	*if_pipes(char **commands, t_all *all, int *res)
 			return (NULL);
 		}
 		ft_free((void **)&commands[i]);
-		i++;
 	}
 	pipes_id(all);
 	ft_free((void **)&all->cmd);
