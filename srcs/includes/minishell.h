@@ -28,8 +28,8 @@
 # include <errno.h>
 # include <time.h>
 
-t_all	all;
-pid_t	pid;
+t_all	g_all;
+pid_t	g_pid;
 /*
 **MAIN FCTS
 */

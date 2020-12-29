@@ -15,8 +15,8 @@
 void	c_handler(int sigld)
 {
 	(void)sigld;
-	all.err = 130;
-	if (all.prog == 0)
+	g_all.err = 130;
+	if (g_all.prog == 0)
 	{
 		ft_putendl_fd("", 1);
 		ft_putstr_fd("~:", 1);
@@ -26,10 +26,10 @@ void	c_handler(int sigld)
 void	d_handler(int sigld)
 {
 	(void)sigld;
-	if (all.prog == 1)
+	if (g_all.prog == 1)
 	{
-		all.err = 131;
-		kill(pid, SIGQUIT);
+		g_all.err = 131;
+		kill(g_pid, SIGQUIT);
 		ft_putendl_fd("Quit (core dumped)", 1);
 	}
 	else

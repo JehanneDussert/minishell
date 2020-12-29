@@ -120,20 +120,20 @@ int		main(void)
 
 	x = 1;
 	welcomer();
-	ft_bzero(&all, sizeof(t_all));
-	ft_init_all(&all);
+	ft_bzero(&g_all, sizeof(t_all));
+	ft_init_all(&g_all);
 	signal(SIGINT, c_handler);
 	signal(SIGQUIT, d_handler);
-	all.prog = 0;
+	g_all.prog = 0;
 	tmp = NULL;
 	while (x != 0)
 	{
-		ft_redirection_out(&all);
+		ft_redirection_out(&g_all);
 		ft_putstr_fd("~:", 1);
-		if ((tmp = ft_read(&all)) == NULL)
+		if ((tmp = ft_read(&g_all)) == NULL)
 			x = 0;
 	}
-	free_all(&all);
+	free_all(&g_all);
 	byebye();
 	return (1);
 }

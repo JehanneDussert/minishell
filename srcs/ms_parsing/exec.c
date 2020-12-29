@@ -45,18 +45,18 @@ int		execve_fct(char **comm, char *path, t_all *all)
 	int		status;
 	int		r;
 
-	pid = fork();
+	g_pid = fork();
 	envp = make_envp(all);
 	r = 1;
 	all->prog = 1;
-	if (pid == 0)
+	if (g_pid == 0)
 	{
 		execve(path, comm, envp);
 		error_msg("execve", strerror(errno));
 		exit(1);
 		r = 0;
 	}
-	waitpid(pid, &status, 0);
+	waitpid(g_pid, &status, 0);
 	all->prog = 0;
 	if (WIFEXITED(status))
 		all->err = WEXITSTATUS(status);
