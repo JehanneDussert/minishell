@@ -14,6 +14,8 @@
 
 void	if_in_quote(int *d, int *s, int *i, char *str)
 {
+	if (str[*i] == '$')
+		g_all.env = 1;
 	if (str[*i] == '\\' && (str[*i + 1] == '\'' || str[*i + 1] == '\"'))
 		*i += 2;
 	if (str[*i] == '\"')

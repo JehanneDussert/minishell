@@ -17,7 +17,7 @@ void	ft_echo_env(char *comm, t_lst *alst, int err)
 	char	*tmp;
 
 	tmp = comm;
-	tmp = ft_strtrim(tmp, "{}");
+	tmp = ft_strtrim(tmp, "{}\"$ ");
 	if (tmp[0] == '?')
 	{
 		ft_putnbr_fd(err, 1);
@@ -60,7 +60,7 @@ void	ft_check_n(int *i, int *res, char *comm, char **opt)
 	*res = 0;
 }
 
-void	ft_echo_quote(char *comm)
+void	ft_echo_quote(char *comm, t_all *all)
 {
 	int i;
 	int	s;
@@ -70,13 +70,15 @@ void	ft_echo_quote(char *comm)
 	s = 0;
 	d = 0;
 	if_in_quote(&d, &s, &i, comm);
+	if (g_all.env == 1)
+		ft_echo_env(comm, all->alst, all->err);
 	while (comm && comm[i])
 	{
 		if (s == 1)
-			while (comm[i] != '\'')
+			while (comm[i] != '\'' && comm[i] != '$')
 				ft_putchar_fd(comm[i++], 1);
 		else if (d == 1)
-			while (comm[i] != '\"')
+			while (comm[i] != '\"' && comm[i] != '$')
 			{
 				if (!comm[i])
 					return ;
@@ -98,7 +100,7 @@ void	ft_echo(char **comm, t_all *all)
 		if (comm[i][0] == '-')
 			ft_check_n(&i, &res, comm[i], &opt);
 		if ((comm[i][0] == '"' || comm[i][0] == '\'') && !res)
-			ft_echo_quote(comm[i]);
+			ft_echo_quote(comm[i], all);
 		else if (comm[i][0] == '$')
 			ft_echo_env(&comm[i][1], all->alst, all->err);
 		else if (comm[i][0] != '-')
