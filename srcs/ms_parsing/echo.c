@@ -44,12 +44,12 @@ int		ft_echo_n(char *comm, char **opt)
 	i = 1;
 	while (comm[i])
 	{
-		if (comm[i] != 'n')
+		if (comm[i] != 'n' && comm[i] != '-' && comm[i] != ' ')
 			return (0);
 		i++;
 	}
 	*opt = "-n";
-	return (1);
+	return (i);
 }
 
 void	ft_check_n(int *i, int *res, char *comm, char **opt)
@@ -95,15 +95,15 @@ void	ft_echo(char **comm, t_all *all)
 	ft_init_echo(&i, &opt, &res);
 	while (comm[i])
 	{
-		if (i == 1 && comm[i][0] == '-')
+		if (comm[i][0] == '-')
 			ft_check_n(&i, &res, comm[i], &opt);
 		if ((comm[i][0] == '"' || comm[i][0] == '\'') && !res)
 			ft_echo_quote(comm[i]);
 		else if (comm[i][0] == '$')
 			ft_echo_env(&comm[i][1], all->alst, all->err);
-		else
+		else if (comm[i][0] != '-')
 			ft_putstr_fd(comm[i], 1);
-		if (comm[i + 1])
+		if (comm[i + 1] && ft_strncmp(opt, "-n", 2))
 			ft_putchar_fd(' ', 1);
 		i++;
 	}
