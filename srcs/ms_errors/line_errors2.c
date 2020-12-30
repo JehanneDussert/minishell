@@ -14,10 +14,12 @@
 
 int		ft_check_errors_line(char *line, t_all *all)
 {
-	if (!check_double(line, ";|"))
-		return (ft_syntax_error("double", all));
-	else if (!ft_error_ps(line))
+	if (!ft_error_ps(line))
 		return (ft_syntax_error("ps", all));
+	else if (!check_double(line, ";"))
+		return (ft_syntax_error("sc", all));
+	else if (!check_double(line, "|"))
+		return (ft_syntax_error("pipe", all));
 	else if (!ft_quote_error(line))
 		return (ft_syntax_error("quote", all));
 	else if (!check_chevrons(line))

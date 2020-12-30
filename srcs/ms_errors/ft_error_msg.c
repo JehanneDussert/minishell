@@ -25,7 +25,13 @@ void	error_msg(char *bin, char *message)
 
 int		ft_syntax_error(char *error, t_all *all)
 {
-	if (ft_strcmp(error, "double") == 0)
+	if (ft_strcmp(error, "pipe") == 0 || ft_strcmp(error, "quote") == 0)
+		all->err = 130;
+	else
+		all->err = 2;
+	if (ft_strcmp(error, "pipe") == 0)
+		error_msg(NULL, "syntax error : double separator tokens.");
+	else if (ft_strcmp(error, "sc") == 0)
 		error_msg(NULL, "syntax error : double separator tokens.");
 	else if (ft_strcmp(error, "ps") == 0)
 		error_msg(NULL, "syntax error : pipe or semi-colon error.");
@@ -33,7 +39,6 @@ int		ft_syntax_error(char *error, t_all *all)
 		error_msg(NULL, "syntax error : redirection symbol syntax error.");
 	else if (ft_strcmp(error, "quote") == 0)
 		error_msg(NULL, "syntax error : quote error.");
-	all->err = 258;
 	return (0);
 }
 

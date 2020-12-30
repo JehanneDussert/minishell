@@ -21,7 +21,7 @@ int		ft_error_ps(char *str)
 	res = 1;
 	tmp = ft_strtrim(str, " ");
 	len = ft_strlen(tmp) - 1;
-	if (len >= 0 && (tmp[0] == ';' || tmp[0] == '|' || tmp[len] == '|'))
+	if (len >= 0 && (tmp[0] == ';' || tmp[0] == '|'))
 		res = 0;
 	ft_free((void **)&tmp);
 	return (res);
