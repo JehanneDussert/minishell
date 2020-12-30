@@ -26,6 +26,8 @@ void	ft_skip_redirection(char **comd, int *i)
 	int	s;
 
 	s = 0;
+	while (is_charset(comd[0][*i], "\\ "))
+		(*i)++;
 	while (is_charset(comd[0][*i], ">< "))
 	{
 		(*i)++;

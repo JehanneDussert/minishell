@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int		ft_nb_to_print(char **comd)
+int		ft_nb_to_print(char **comd, char *charset)
 {
 	int	w;
 	int	i;
@@ -21,7 +21,9 @@ int		ft_nb_to_print(char **comd)
 	i = 0;
 	while (comd[0] && comd[0][i])
 	{
-		while (comd[0][i] && !is_charset(comd[0][i], "><"))
+		if (charset[0] == '\\')
+			w++;
+		while (comd[0][i] && !is_charset(comd[0][i], charset))
 		{
 			w++;
 			i++;
@@ -31,7 +33,7 @@ int		ft_nb_to_print(char **comd)
 	return (w);
 }
 
-void	ft_copy_clean_comd(char **comd, char **tmp)
+void	ft_copy_clean_comd(char **comd, char **tmp, char *charset)
 {
 	int	i;
 	int	j;
@@ -40,7 +42,13 @@ void	ft_copy_clean_comd(char **comd, char **tmp)
 	j = 0;
 	while (comd[0] && comd[0][i])
 	{
-		while (comd[0][i] && !is_charset(comd[0][i], "><"))
+		while (comd[0][i] && !is_charset(comd[0][i], charset))
+		{
+			tmp[0][j] = comd[0][i];
+			j++;
+			i++;
+		}
+		if (charset[0] == '\\' && comd[0][i] && comd[0][i] == '\\')
 		{
 			tmp[0][j] = comd[0][i];
 			j++;
@@ -50,15 +58,15 @@ void	ft_copy_clean_comd(char **comd, char **tmp)
 	}
 }
 
-char	*ft_return_new_comd(char **comd)
+char	*ft_return_new_comd(char **comd, char *charset)
 {
 	char	*tmp;
 	int		w;
 
-	w = ft_nb_to_print(comd);
+	w = ft_nb_to_print(comd, charset);
 	if ((tmp = ft_calloc(w + 1, sizeof(char))) == NULL)
 		return (NULL);
-	ft_copy_clean_comd(comd, &tmp);
+	ft_copy_clean_comd(comd, &tmp, charset);
 	free_read(NULL, comd);
 	if (tmp)
 	{

@@ -102,7 +102,7 @@ int		ft_redirections(char **comd, t_all *all, int j)
 			return (0);
 		i++;
 	}
-	comd[0] = ft_return_new_comd(comd);
+	comd[0] = ft_return_new_comd(comd, "><");
 	return (1);
 }
 
@@ -117,6 +117,8 @@ int		ft_check_redirection(char **comm, t_all *all)
 		i = 0;
 		while (comm[j][i])
 		{
+			if (comm[j] && is_charset(comm[j][i], "\\"))
+				comm[j] = ft_return_new_comd(comm, "\\");
 			if (comm[j] && is_charset(comm[j][i], "><"))
 			{
 				if (!ft_redirections(&comm[j], all, j))

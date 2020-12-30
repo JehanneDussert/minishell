@@ -60,7 +60,7 @@ void	ft_check_n(int *i, int *res, char *comm, char **opt)
 	*res = 0;
 }
 
-void	ft_echo_quote(char *comm, t_all *all)
+void	ft_echo_quote(char *comm)
 {
 	int i;
 	int	s;
@@ -71,7 +71,7 @@ void	ft_echo_quote(char *comm, t_all *all)
 	d = 0;
 	if_in_quote(&d, &s, &i, comm);
 	if (g_all.env == 1)
-		ft_echo_env(comm, all->alst, all->err);
+		ft_echo_env(comm, g_all.alst, g_all.err);
 	while (comm && comm[i] && g_all.env != 1)
 	{
 		if (s == 1)
@@ -99,8 +99,8 @@ void	ft_echo(char **comm, t_all *all)
 	{
 		if (comm[i][0] == '-')
 			ft_check_n(&i, &res, comm[i], &opt);
-		if ((comm[i][0] == '"' || comm[i][0] == '\'') && !res)
-			ft_echo_quote(comm[i], all);
+		if ((comm[i][0] == '\"' || comm[i][0] == '\'') && !res)
+			ft_echo_quote(comm[i]);
 		else if (comm[i][0] == '$')
 			ft_echo_env(&comm[i][1], all->alst, all->err);
 		else if (comm[i][0] != '-')
