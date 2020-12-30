@@ -42,6 +42,8 @@ void	ft_copy_clean_comd(char **comd, char **tmp, char *charset)
 	j = 0;
 	while (comd[0] && comd[0][i])
 	{
+		if (comd[0][i] == '\\' && comd[0][i + 1] != '\\')
+			i++;
 		while (comd[0][i] && !is_charset(comd[0][i], charset))
 		{
 			tmp[0][j] = comd[0][i];
