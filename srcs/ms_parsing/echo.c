@@ -28,10 +28,13 @@ void	ft_echo_env(char *comm, t_lst *alst, int err)
 	{
 		if (!ft_strcmp(tmp, alst->key))
 		{
+			g_all.env = 0;
 			ft_putstr_fd(alst->content, 1);
 			ft_free((void **)&tmp);
 			return ;
 		}
+		else
+			g_all.env = -1;		
 		alst = alst->next;
 	}
 	ft_free((void **)&tmp);
@@ -105,7 +108,7 @@ void	ft_echo(char **comm, t_all *all)
 			ft_echo_env(&comm[i][1], all->alst, all->err);
 		else if (comm[i][0] != '-')
 			ft_putstr_fd(comm[i], 1);
-		if (comm[i + 1] && ft_strncmp(opt, "-n", 2))
+		if (comm[i + 1] && ft_strncmp(opt, "-n", 2) && g_all.env != -1)
 			ft_putchar_fd(' ', 1);
 		i++;
 	}
