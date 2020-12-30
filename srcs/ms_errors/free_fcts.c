@@ -43,9 +43,7 @@ void	free_commands(t_all *all)
 
 	i = 0;
 	while (all->cmd && all->cmd[i].cmd)
-	{
 		free_read(&all->cmd[i++].cmd, NULL);
-	}
 }
 
 void	free_all(t_all *all)
