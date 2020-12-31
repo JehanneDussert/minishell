@@ -62,8 +62,8 @@ void	ft_check_n(int *i, int *res, char *comm, char **opt);
 int		ft_echo_n(char *comm, char **opt);
 void	c_handler(int sigld);
 void	d_handler(int sigld);
-int		ft_check_redirection(char **comm, t_all *all);
-int		ft_redirections(char **comd, t_all *all, int j);
+int		ft_check_redirection(char **comm, t_all *all, char *charset);
+int		ft_redirections(char **comd, t_all *all, int j, char *charset);
 
 /*
 **UTILS FCTS
@@ -91,6 +91,8 @@ void	ft_copy_clean_comd(char **comd, char **tmp, char *charset);
 char	*ft_return_new_comd(char **comd, char *charset);
 char	*ft_create_file(char *str, char **file, int *j);
 void	ft_redirection_out(t_all *all);
+void	ft_nb_backslash(char *comd);
+void	ft_check_hash(char ***commands);
 
 /*
 **MS_ERRORS

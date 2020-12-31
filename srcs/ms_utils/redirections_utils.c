@@ -19,16 +19,20 @@ int		ft_nb_to_print(char **comd, char *charset)
 
 	w = 0;
 	i = 0;
-	while (comd[0] && comd[0][i])
+	ft_nb_backslash(comd[0]);
+	while (comd[0] && comd[0][i++])
 	{
-		if (charset[0] == '\\')
-			w++;
-		while (comd[0][i] && !is_charset(comd[0][i], charset))
+		w += g_all.bs;
+		while (comd[0][i] && ((charset[0] != '#' && !is_charset(comd[0][i], charset))
+			|| (charset[0] == '#')))
 		{
+			if (charset[0] == '#' && comd[0][i] == '#')
+				return (w);
 			w++;
 			i++;
 		}
-		ft_skip_redirection(comd, &i);
+		if (is_charset(comd[0][i], "><\\"))
+			ft_skip_redirection(comd, &i);
 	}
 	return (w);
 }
@@ -37,26 +41,35 @@ void	ft_copy_clean_comd(char **comd, char **tmp, char *charset)
 {
 	int	i;
 	int	j;
+	int nb;
 
 	i = 0;
 	j = 0;
+	nb = 0;
 	while (comd[0] && comd[0][i])
 	{
-		if (comd[0][i] == '\\' && comd[0][i + 1] != '\\')
-			i++;
-		while (comd[0][i] && !is_charset(comd[0][i], charset))
+		while (comd[0][i] == '\\' && charset[0] == '\\' && g_all.bs > nb)
 		{
+			tmp[0][j] = charset[0];
+			j++;
+			i++;
+			nb++;
+		}
+		while (comd[0][i] && ((charset[0] != '#' && !is_charset(comd[0][i], charset))
+			|| (charset[0] == '#')))
+		{
+			if (charset[0] == '#' && comd[0][i] == ' ' && comd[0][i + 1] == '#')
+				return ;
 			tmp[0][j] = comd[0][i];
 			j++;
 			i++;
 		}
-		if (comd[0][i] == '\\' && comd[0][i + 1] != '\\')
-			i++;
-		if (charset[0] == '\\' && comd[0][i] && comd[0][i] == '\\')
+		while (comd[0][i] == '\\' && charset[0] == '\\' && g_all.bs > nb)
 		{
-			tmp[0][j] = comd[0][i];
+			tmp[0][j] = charset[0];
 			j++;
 			i++;
+			nb++;
 		}
 		ft_skip_redirection(comd, &i);
 	}

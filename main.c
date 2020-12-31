@@ -20,7 +20,8 @@ void	ft_command_exec(char *comm, t_all *all)
 	res = 0;
 	if (!(commands = ft_split_quote(comm, "|")))
 		res = -1;
-	if (!ft_check_redirection(commands, all))
+	ft_check_hash(&commands);
+	if (!ft_check_redirection(commands, all, "><"))
 	{
 		free_read(&commands, NULL);
 		return ;

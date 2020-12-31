@@ -47,7 +47,7 @@ int		ft_redir_less(char **comd, t_all *all, int *i)
 		(*i)++;
 	if ((all->fd = open(&comd[0][*i], O_RDONLY)) < 0)
 	{
-		error_msg("grep", "No such file or directory");
+		error_msg(comd[0], "No such file or directory");
 		all->err = 1;
 		return (0);
 	}
@@ -78,7 +78,7 @@ int		ft_reverse(char **comd, int *i)
 	return (1);
 }
 
-int		ft_redirections(char **comd, t_all *all, int j)
+int		ft_redirections(char **comd, t_all *all, int j, char *charset)
 {
 	int	i;
 
@@ -102,11 +102,12 @@ int		ft_redirections(char **comd, t_all *all, int j)
 			return (0);
 		i++;
 	}
-	comd[0] = ft_return_new_comd(comd, "><");
+	(void)charset;
+	comd[0] = ft_return_new_comd(comd, charset);
 	return (1);
 }
 
-int		ft_check_redirection(char **comm, t_all *all)
+int		ft_check_redirection(char **comm, t_all *all, char *charset)
 {
 	int	i;
 	int	j;
@@ -115,13 +116,14 @@ int		ft_check_redirection(char **comm, t_all *all)
 	while (comm[j])
 	{
 		i = 0;
+		g_all.bs = 0;
 		while (comm[j][i])
 		{
-			if (comm[j] && is_charset(comm[j][i], "\\"))
-				comm[j] = ft_return_new_comd(comm, "\\");
+			//if (g_all.bs == 0 && comm[j] && is_charset(comm[j][i], "\\"))
+			//	comm[j] = ft_return_new_comd(comm, "\\");
 			if (comm[j] && is_charset(comm[j][i], "><"))
 			{
-				if (!ft_redirections(&comm[j], all, j))
+				if (!ft_redirections(&comm[j], all, j, charset))
 					return (0);
 				break ;
 			}
