@@ -26,9 +26,11 @@ void	ft_check_hash(char ***commands)
 	i = 0;
 	while ((*commands)[0][i])
 	{
-		if ((*commands)[0][0] == '#' || (i > 0 && (*commands)[0][i - 1] == ' ' && (*commands)[0][i] == '#'))
+		if ((*commands)[0][0] == '#' ||
+			(i > 0 && (*commands)[0][i - 1] == ' ' && (*commands)[0][i] == '#'))
 		{
-			(*commands)[0] = ft_return_new_comd(commands[0], &(*commands)[0][i]);
+			(*commands)[0] = ft_return_new_comd(commands[0],
+			&(*commands)[0][i]);
 			if ((*commands)[1])
 				free_read(NULL, &(*commands)[1]);
 			return ;

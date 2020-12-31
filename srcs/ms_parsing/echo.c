@@ -34,7 +34,7 @@ void	ft_echo_env(char *comm, t_lst *alst, int err)
 			return ;
 		}
 		else
-			g_all.env = -1;		
+			g_all.env = -1;
 		alst = alst->next;
 	}
 	ft_free((void **)&tmp);

@@ -23,7 +23,8 @@ int		ft_nb_to_print(char **comd, char *charset)
 	while (comd[0] && comd[0][i++])
 	{
 		w += g_all.bs;
-		while (comd[0][i] && ((charset[0] != '#' && !is_charset(comd[0][i], charset))
+		while (comd[0][i] && ((charset[0] != '#'
+			&& !is_charset(comd[0][i], charset))
 			|| (charset[0] == '#')))
 		{
 			if (charset[0] == '#' && comd[0][i] == '#')
@@ -55,8 +56,8 @@ void	ft_copy_clean_comd(char **comd, char **tmp, char *charset)
 			i++;
 			nb++;
 		}
-		while (comd[0][i] && ((charset[0] != '#' && !is_charset(comd[0][i], charset))
-			|| (charset[0] == '#')))
+		while (comd[0][i] && ((charset[0] != '#'
+			&& !is_charset(comd[0][i], charset)) || (charset[0] == '#')))
 		{
 			if (charset[0] == '#' && comd[0][i] == ' ' && comd[0][i + 1] == '#')
 				return ;
