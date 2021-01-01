@@ -50,28 +50,13 @@ void	ft_copy_clean_comd(char **comd, char **tmp, char *charset)
 	while (comd[0] && comd[0][i])
 	{
 		while (comd[0][i] == '\\' && charset[0] == '\\' && g_all.bs > nb)
-		{
-			tmp[0][j] = charset[0];
-			j++;
-			i++;
-			nb++;
-		}
+			ft_backslash(&tmp, &i, &j);
 		while (comd[0][i] && ((charset[0] != '#'
 			&& !is_charset(comd[0][i], charset)) || (charset[0] == '#')))
-		{
-			if (charset[0] == '#' && comd[0][i] == ' ' && comd[0][i + 1] == '#')
+			if (!ft_hash(comd, &tmp, charset, &i, &j))
 				return ;
-			tmp[0][j] = comd[0][i];
-			j++;
-			i++;
-		}
 		while (comd[0][i] == '\\' && charset[0] == '\\' && g_all.bs > nb)
-		{
-			tmp[0][j] = charset[0];
-			j++;
-			i++;
-			nb++;
-		}
+			ft_backslash(&tmp, &i, &j);
 		ft_skip_redirection(comd, &i);
 	}
 }
