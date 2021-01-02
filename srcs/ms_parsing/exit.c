@@ -66,5 +66,4 @@ void	ft_exit_fct(t_all *g_all, char **comm)
 		else
 			error_msg("exit", "Too many arguments");
 	}
-	
 }

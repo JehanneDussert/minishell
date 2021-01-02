@@ -38,6 +38,9 @@ void	cd_home(t_all *all, int *catch)
 
 void	olddir(t_all *all, int *catch, char *path)
 {
+	(void)all;
+	(void)catch;
+	(void)path;
 	//check if OLDPWD exists in env, if not, create it and set it to the current dir (other fct?)
 	//if - and OLDPWD, cd to OLDPWD
 	//if OLDPWD doesnt exist and cd -: error messade "OLDPWD not set" and errcode 1
@@ -45,9 +48,9 @@ void	olddir(t_all *all, int *catch, char *path)
 
 void	cd_chdir(char *path, int *catch, t_all *all)
 {
-	if (ft_strcmp(path, '~') || ft_strcmp(path, '-'))
+	if (ft_strcmp(path, "~") || ft_strcmp(path, "-"))
 	{
-		if (ft_strcmp(path, '~'))
+		if (ft_strcmp(path, "~"))
 			cd_home(all, catch);
 		else
 		{

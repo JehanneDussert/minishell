@@ -48,6 +48,7 @@ char	*pipes_id(t_all *all);
 char	*command_id(char **comm, t_all *all, int mode);
 void	ft_echo(char **comm, t_all *all);
 void	cd_id(char **cmd, t_all *all);
+void	cd_chdir(char *path, int *catch, t_all *all);
 void	pwd_id(t_all *all);
 void	export_id(char **cmd, t_all *all);
 int		export_errors(char *str);
