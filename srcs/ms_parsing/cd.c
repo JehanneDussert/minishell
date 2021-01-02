@@ -3,25 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emmadebanville <emmadebanville@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:27:08 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/23 15:09:19 by marvin           ###   ########.fr       */
+/*   Updated: 2021/01/02 01:37:40 by emmadebanvi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	cd_chdir(char *path, int *catch, t_all *all)
-{
-	if (chdir(path) == -1)
-	{
-		error_msg("cd", strerror(errno));
-		errno = 0;
-		all->err = 1;
-		*catch = 1;
-	}
-}
 
 void	cd_home(t_all *all, int *catch)
 {
@@ -44,6 +33,33 @@ void	cd_home(t_all *all, int *catch)
 		error_msg("cd", "home environment variable not set.");
 		*catch = 1;
 		all->err = 1;
+	}
+}
+
+void	olddir(t_all *all, int *catch, char *path)
+{
+	//check if OLDPWD exists in env, if not, create it and set it to the current dir (other fct?)
+	//if - and OLDPWD, cd to OLDPWD
+	//if OLDPWD doesnt exist and cd -: error messade "OLDPWD not set" and errcode 1
+}
+
+void	cd_chdir(char *path, int *catch, t_all *all)
+{
+	if (ft_strcmp(path, '~') || ft_strcmp(path, '-'))
+	{
+		if (ft_strcmp(path, '~'))
+			cd_home(all, catch);
+		else
+		{
+			;//back to previous place
+		}
+	}
+	if (chdir(path) == -1)
+	{
+		error_msg("cd", strerror(errno));
+		errno = 0;
+		all->err = 1;
+		*catch = 1;
 	}
 }
 
