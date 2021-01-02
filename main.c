@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emmadebanville <emmadebanville@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
-/*   Updated: 2020/12/07 16:13:26 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/01 22:17:21 by emmadebanvi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ char	*ft_read(t_all *all)
 		return (NULL);
 	}
 	free_read(&buf, &line);
-	if (all->exit->e == 1 || all->exit->d == 1)
+	if (all->exit->e != -1 || all->exit->d == 1)
 		return (NULL);
 	return ("done");
 }
@@ -132,8 +132,10 @@ int		main(void)
 		ft_redirection_out(&g_all);
 		ft_putstr_fd("~:", 1);
 		if ((tmp = ft_read(&g_all)) == NULL)
-			x = 0;
+			x = (g_all.exit->e == -1 ? -1 : 0);
 	}
+	if (x == 0)
+		exit(g_all.exit->e);
 	free_all(&g_all);
 	byebye();
 	return (1);

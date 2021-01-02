@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emmadebanville <emmadebanville@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 11:17:46 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/26 17:03:10 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/01 22:18:14 by emmadebanvi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_init_all(t_all *all)
 	}
 	all->err = 0;
 	create_list(all);
+	all->exit->e = -1;
 }
 
 void	ft_init_echo(int *i, char **opt, int *res)

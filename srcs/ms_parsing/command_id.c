@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_id.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emmadebanville <emmadebanville@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/12/07 16:55:48 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/01 22:13:43 by emmadebanvi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*command_id(char **comm, t_all *all, int mode)
 	else if (!ft_strcmp(comm[0], "env"))
 		env_id(comm, all);
 	else if (!ft_strcmp(comm[0], "exit"))
-		all->exit->e = 1;
+		ft_exit_fct(all, comm);
 	else if (ft_strchr(comm[0], '/'))
 		ft_exec(comm, all);
 	else

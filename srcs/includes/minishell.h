@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: emmadebanville <emmadebanville@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2020/12/07 11:35:07 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/01 22:11:07 by emmadebanvi      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int		ft_exec(char **comm, t_all *all);
 int		execve_fct(char **comm, char *path, t_all *all);
 char	**make_envp(t_all *all);
 void	path_id(char **comm, t_all *all);
+void	ft_exit_fct(t_all *g_all, char **comm);
 void	ft_check_n(int *i, int *res, char *comm, char **opt);
 int		ft_echo_n(char *comm, char **opt);
 void	c_handler(int sigld);
