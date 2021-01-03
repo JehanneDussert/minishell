@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:27:08 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/03 16:00:38 by ubuntu           ###   ########.fr       */
+/*   Updated: 2021/01/03 16:50:35 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ void	cd_home(t_all *all, int *catch)
 int		pwdexist(t_all *all, int *catch, int mode, t_lst *tmp)
 {
 	char	*buf;
+	int		used;
 
+	used = 0;
 	if (!(buf = ft_calloc(sizeof(buf), 1024)))
 	{
 		all->err = 1;
@@ -59,13 +61,17 @@ int		pwdexist(t_all *all, int *catch, int mode, t_lst *tmp)
 		chdir(tmp->content);
 		ft_free((void **)&tmp->content);
 		tmp->content = buf;
+		used = 1;
 	}
 	else if (mode == 0)
 	{
 		getcwd(buf, 1024);
 		ft_free((void **)&tmp->content);
 		tmp->content = buf;
+		used = 1;
 	}
+	if (used == 0)
+		ft_free((void **)&buf);
 	return (1);
 }
 
@@ -74,8 +80,10 @@ int		olddir(t_all *all, int *catch, int mode)
 	t_lst	*tmp;
 	char	*buf;
 	int		f;
+	int		used;
 
 	f = 0;
+	used = 0;
 	tmp = all->alst;
 	buf = ft_calloc(sizeof(buf), 1024);
 	while (tmp)
@@ -83,6 +91,7 @@ int		olddir(t_all *all, int *catch, int mode)
 		if (!ft_strcmp(tmp->key, "OLDPWD"))
 		{
 			f = 1;
+			ft_free((void **)&buf);
 			return (pwdexist(all, catch, mode, tmp));
 		}
 		tmp = tmp->next;
@@ -91,6 +100,7 @@ int		olddir(t_all *all, int *catch, int mode)
 	{
 		getcwd(buf, 1024);
 		ft_lstadd_back_ms(&all->alst, ft_lstnew_ms("OLDPWD", buf));
+		used = 1;
 	}
 	else if (mode == 1)
 	{
@@ -98,6 +108,8 @@ int		olddir(t_all *all, int *catch, int mode)
 		*catch = 1;
 		error_msg("cd", "OLDPWD not set");
 	}
+	if (used == 0)
+		ft_free((void **)&buf);
 	return (1);
 }
 
