@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emmadebanville <emmadebanville@student.    +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/01 22:11:07 by emmadebanvi      ###   ########.fr       */
+/*   Updated: 2021/01/03 20:47:07 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ char	*command_id(char **comm, t_all *all, int mode);
 void	ft_echo(char **comm, t_all *all);
 void	cd_id(char **cmd, t_all *all);
 void	cd_chdir(char *path, int *catch, t_all *all);
+int		olddir(t_all *all, int *catch, int mode);
+int		create_oldpwd(t_all *all, int *catch, char **buf);
+int		pwdexist(t_all *all, int *catch, int mode, t_lst *tmp);
+int		pwd_error(t_all *all, int *catch, int mode);
 void	pwd_id(t_all *all);
 void	export_id(char **cmd, t_all *all);
 int		export_errors(char *str);

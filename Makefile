@@ -17,7 +17,7 @@ MS_ERRORS_FILES = line_errors.c line_errors2.c ft_error_msg.c free_fcts.c ft_pat
 SRCS_MS_ERRORS = ${addprefix ${MS_ERRORS_PATH}, ${MS_ERRORS_FILES}}
 
 MS_PARSING_PATH = ms_parsing/
-MS_PARSING_FILES = command_id.c echo.c cd.c pwd.c unset.c export.c exec.c export_2.c env.c path.c \
+MS_PARSING_FILES = command_id.c echo.c cd.c cd_2.c pwd.c unset.c export.c exec.c export_2.c env.c path.c \
 					redirections.c signals.c exit.c
 SRCS_MS_PARSING = ${addprefix ${MS_PARSING_PATH}, ${MS_PARSING_FILES}}
 
