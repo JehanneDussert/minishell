@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:27:08 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/03 06:18:14 by ubuntu           ###   ########.fr       */
+/*   Updated: 2021/01/03 06:28:14 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,23 @@ int		olddir(t_all *all, int *catch, int mode)
 		if (!ft_strcmp(tmp->key, "OLDPWD"))
 		{
 			f = 1;
-			if (!tmp->content && mode == 1)//mode 1 = cd -
+			if (!tmp->content && mode == 1)//mode 1 : cd -
 			{
 				all->err = 1;
 				*catch = 1;
 				error_msg("cd", "OLDPWD not set");
 			}
 			else if (tmp->content && mode == 1)
+			{
+				getcwd(buf, 1024);
 				chdir(tmp->content);
+				ft_free((void **)&tmp->content);
+				tmp->content = buf;
+			}
 			else if (mode == 0)
 			{
 				getcwd(buf, 1024);
+				ft_free((void **)&tmp->content);
 				tmp->content = buf;
 			}
 			return (1);
