@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:27:08 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/03 16:50:35 by ubuntu           ###   ########.fr       */
+/*   Updated: 2021/01/03 17:01:14 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int		olddir(t_all *all, int *catch, int mode)
 	if (f == 0 && mode == 0)
 	{
 		getcwd(buf, 1024);
-		ft_lstadd_back_ms(&all->alst, ft_lstnew_ms("OLDPWD", buf));
+		ft_lstadd_back_ms(&all->alst, ft_lstnew_ms(ft_strdup("OLDPWD"), buf));
 		used = 1;
 	}
 	else if (mode == 1)
