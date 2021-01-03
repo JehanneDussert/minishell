@@ -23,17 +23,11 @@ int		ft_nb_to_print(char **comd, char *charset)
 	while (comd[0] && comd[0][i++])
 	{
 		w += g_all.bs;
-		while (comd[0][i] && ((charset[0] != '#'
-			&& !is_charset(comd[0][i], charset))
-			|| (charset[0] == '#')))
-		{
-			if (charset[0] == '#' && comd[0][i] == '#')
-				return (w);
-			w++;
+		if (charset[0] == '#' && comd[0][i] == '#')
+			return (w);
+		if (charset[0] == '\\' && g_all.bs == 0 && comd[0][i] == '\\')
 			i++;
-		}
-		if (is_charset(comd[0][i], "><\\"))
-			ft_skip_redirection(comd, &i);
+		w++;
 	}
 	return (w);
 }
@@ -42,21 +36,19 @@ void	ft_copy_clean_comd(char **comd, char **tmp, char *charset)
 {
 	int	i;
 	int	j;
-	int nb;
 
 	i = 0;
 	j = 0;
-	nb = 0;
 	while (comd[0] && comd[0][i])
 	{
-		while (comd[0][i] == '\\' && charset[0] == '\\' && g_all.bs > nb)
-			ft_backslash(&tmp, &i, &j);
+		while (comd[0][i] == '\\' && charset[0] == '\\')
+			ft_backslash(comd, &tmp, &i, &j);
 		while (comd[0][i] && ((charset[0] != '#'
 			&& !is_charset(comd[0][i], charset)) || (charset[0] == '#')))
 			if (!ft_hash(comd, &tmp, charset, &i, &j))
 				return ;
-		while (comd[0][i] == '\\' && charset[0] == '\\' && g_all.bs > nb)
-			ft_backslash(&tmp, &i, &j);
+		while (comd[0][i] == '\\' && charset[0] == '\\')
+			ft_backslash(comd, &tmp, &i, &j);
 		ft_skip_redirection(comd, &i);
 	}
 }
