@@ -51,9 +51,22 @@ int		ft_hash(char **comd, char ***tmp, char *charset, int *i, int *j)
 	return (1);
 }
 
-void	ft_backslash(char ***tmp, int *i, int *j)
+void	ft_backslash(char **comd, char ***tmp, int *i, int *j)
 {
-	(*tmp)[0][*j] = '\\';
-	(*j)++;
-	(*i)++;
+	if (g_all.bs == 0)
+		while (comd[0][*i])
+		{
+			if (comd[0][*i] != '\\')
+			{
+				(*tmp)[0][*j] = comd[0][*i];
+				(*j)++;
+			}
+			(*i)++;
+		}
+	else if (comd[0][*i + 1])
+		while (comd[0][++(*i)])
+		{
+			(*tmp)[0][*j] = comd[0][*i];
+			(*j)++;
+		}
 }

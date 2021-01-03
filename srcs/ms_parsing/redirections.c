@@ -119,8 +119,6 @@ int		ft_check_redirection(char **comm, t_all *all, char *charset)
 		g_all.bs = 0;
 		while (comm[j][i])
 		{
-			//if (g_all.bs == 0 && comm[j] && is_charset(comm[j][i], "\\"))
-			//	comm[j] = ft_return_new_comd(comm, "\\");
 			if (comm[j] && is_charset(comm[j][i], "><"))
 			{
 				if (!ft_redirections(&comm[j], all, j, charset))
