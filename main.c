@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emmadebanville <emmadebanville@student.    +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/01 22:17:21 by emmadebanvi      ###   ########.fr       */
+/*   Updated: 2021/01/03 06:09:36 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int		main(void)
 	signal(SIGQUIT, d_handler);
 	g_all.prog = 0;
 	tmp = NULL;
-	while (x != 0)
+	while (x >= 0)
 	{
 		ft_redirection_out(&g_all);
 		ft_putstr_fd("~:", 1);

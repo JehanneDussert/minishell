@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emmadebanville <emmadebanville@student.    +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:27:08 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/02 01:37:40 by emmadebanvi      ###   ########.fr       */
+/*   Updated: 2021/01/03 06:18:14 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,49 @@ void	cd_home(t_all *all, int *catch)
 	}
 }
 
-void	olddir(t_all *all, int *catch, char *path)
+int		olddir(t_all *all, int *catch, int mode)
 {
-	(void)all;
-	(void)catch;
-	(void)path;
+	t_lst	*tmp;
+	char	*buf;
+	int		f;
+
+	f = 0;
+	tmp = all->alst;
+	buf = ft_calloc(sizeof(buf), 1024);
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->key, "OLDPWD"))
+		{
+			f = 1;
+			if (!tmp->content && mode == 1)//mode 1 = cd -
+			{
+				all->err = 1;
+				*catch = 1;
+				error_msg("cd", "OLDPWD not set");
+			}
+			else if (tmp->content && mode == 1)
+				chdir(tmp->content);
+			else if (mode == 0)
+			{
+				getcwd(buf, 1024);
+				tmp->content = buf;
+			}
+			return (1);
+		}
+		tmp = tmp->next;
+	}
+	if (f == 0 && mode == 0)
+	{
+		getcwd(buf, 1024);
+		ft_lstadd_back_ms(&all->alst, ft_lstnew_ms("OLDPWD", buf));
+	}
+	else if (mode == 1)
+	{
+		all->err = 1;
+		*catch = 1;
+		error_msg("cd", "OLDPWD not set");
+	}
+	return (1);
 	//check if OLDPWD exists in env, if not, create it and set it to the current dir (other fct?)
 	//if - and OLDPWD, cd to OLDPWD
 	//if OLDPWD doesnt exist and cd -: error messade "OLDPWD not set" and errcode 1
@@ -48,16 +86,16 @@ void	olddir(t_all *all, int *catch, char *path)
 
 void	cd_chdir(char *path, int *catch, t_all *all)
 {
-	if (ft_strcmp(path, "~") || ft_strcmp(path, "-"))
+	if (!ft_strcmp(path, "~") || !ft_strcmp(path, "-"))
 	{
-		if (ft_strcmp(path, "~"))
+		if (!ft_strcmp(path, "~"))
 			cd_home(all, catch);
 		else
 		{
-			;//back to previous place
+			olddir(all, catch, 1);//back to previous place
 		}
 	}
-	if (chdir(path) == -1)
+	else if (*catch == 0 && olddir(all, catch, 0) && chdir(path) == -1)
 	{
 		error_msg("cd", strerror(errno));
 		errno = 0;
