@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:27:08 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/03 06:28:14 by ubuntu           ###   ########.fr       */
+/*   Updated: 2021/01/03 16:00:38 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,39 @@ void	cd_home(t_all *all, int *catch)
 	}
 }
 
+int		pwdexist(t_all *all, int *catch, int mode, t_lst *tmp)
+{
+	char	*buf;
+
+	if (!(buf = ft_calloc(sizeof(buf), 1024)))
+	{
+		all->err = 1;
+		*catch = 1;
+		ft_malloc_error("cd");
+		return (0);
+	}
+	if (!tmp->content && mode == 1)//mode 1 : cd -
+	{
+		all->err = 1;
+		*catch = 1;
+		error_msg("cd", "OLDPWD not set");
+	}
+	else if (tmp->content && mode == 1)
+	{
+		getcwd(buf, 1024);
+		chdir(tmp->content);
+		ft_free((void **)&tmp->content);
+		tmp->content = buf;
+	}
+	else if (mode == 0)
+	{
+		getcwd(buf, 1024);
+		ft_free((void **)&tmp->content);
+		tmp->content = buf;
+	}
+	return (1);
+}
+
 int		olddir(t_all *all, int *catch, int mode)
 {
 	t_lst	*tmp;
@@ -50,26 +83,7 @@ int		olddir(t_all *all, int *catch, int mode)
 		if (!ft_strcmp(tmp->key, "OLDPWD"))
 		{
 			f = 1;
-			if (!tmp->content && mode == 1)//mode 1 : cd -
-			{
-				all->err = 1;
-				*catch = 1;
-				error_msg("cd", "OLDPWD not set");
-			}
-			else if (tmp->content && mode == 1)
-			{
-				getcwd(buf, 1024);
-				chdir(tmp->content);
-				ft_free((void **)&tmp->content);
-				tmp->content = buf;
-			}
-			else if (mode == 0)
-			{
-				getcwd(buf, 1024);
-				ft_free((void **)&tmp->content);
-				tmp->content = buf;
-			}
-			return (1);
+			return (pwdexist(all, catch, mode, tmp));
 		}
 		tmp = tmp->next;
 	}
@@ -85,9 +99,6 @@ int		olddir(t_all *all, int *catch, int mode)
 		error_msg("cd", "OLDPWD not set");
 	}
 	return (1);
-	//check if OLDPWD exists in env, if not, create it and set it to the current dir (other fct?)
-	//if - and OLDPWD, cd to OLDPWD
-	//if OLDPWD doesnt exist and cd -: error messade "OLDPWD not set" and errcode 1
 }
 
 void	cd_chdir(char *path, int *catch, t_all *all)
@@ -97,9 +108,7 @@ void	cd_chdir(char *path, int *catch, t_all *all)
 		if (!ft_strcmp(path, "~"))
 			cd_home(all, catch);
 		else
-		{
-			olddir(all, catch, 1);//back to previous place
-		}
+			olddir(all, catch, 1);
 	}
 	else if (*catch == 0 && olddir(all, catch, 0) && chdir(path) == -1)
 	{
@@ -119,9 +128,7 @@ void	cd_id(char **cmd, t_all *all)
 	catch = 0;
 	ft_count_commands(&count, cmd);
 	if (count == 1)
-	{
 		cd_home(all, &catch);
-	}
 	else if (count > 1)
 	{
 		cd_chdir(cmd[1], &catch, all);
