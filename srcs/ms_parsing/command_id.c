@@ -14,7 +14,9 @@
 
 char	*command_id(char **comm, t_all *all, int mode)
 {
-	if (!ft_strcmp(comm[0], "echo"))
+	if (!comm[0])
+		;
+	else if (!ft_strcmp(comm[0], "echo"))
 		ft_echo(comm, all);
 	else if (!ft_strcmp(comm[0], "cd"))
 		cd_id(comm, all);
