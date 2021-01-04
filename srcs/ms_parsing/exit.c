@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emmadebanville <emmadebanville@student.    +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 21:47:41 by emmadebanvi       #+#    #+#             */
-/*   Updated: 2021/01/01 22:21:52 by emmadebanvi      ###   ########.fr       */
+/*   Updated: 2021/01/04 15:19:29 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,8 @@ void	ft_exit_fct(t_all *g_all, char **comm)
 			if (comm[1][i])
 				i++;
 			while (comm[1][i])
-			{
-				if (!ft_isdigit(comm[1][i]))
+				if (!ft_isdigit(comm[1][i++]))
 					break ;
-				i++;
-			}
 			if (comm[1][i] == '\0')
 				g_all->exit->e = makenumber(comm[1]);
 			else
