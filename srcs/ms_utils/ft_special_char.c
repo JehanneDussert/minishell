@@ -36,7 +36,7 @@ void	ft_check_hash(char ***commands)
 	int	i;
 
 	i = 0;
-	while ((*commands)[0][i])
+	while ((*commands)[0][i] && g_all.quotes != 1)
 	{
 		if ((*commands)[0][0] == '#' ||
 			(i > 0 && (*commands)[0][i - 1] == ' ' && (*commands)[0][i] == '#'))
