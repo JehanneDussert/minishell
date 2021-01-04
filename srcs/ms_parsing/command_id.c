@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/13 16:33:36 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/04 00:39:49 by ubuntu           ###   ########.fr       */
+/*   Created: 2021/01/04 16:02:46 by jehannedu         #+#    #+#             */
+/*   Updated: 2021/01/04 15:21:24 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 char	*command_id(char **comm, t_all *all, int mode)
 {
-	if (!ft_strcmp(comm[0], "echo"))
+	if (!comm[0])
+		;
+	else if (!ft_strcmp(comm[0], "echo"))
 		ft_echo(comm, all);
 	else if (!ft_strcmp(comm[0], "cd"))
 		cd_id(comm, all);

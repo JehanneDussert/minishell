@@ -36,7 +36,7 @@ int		pwdexist(t_all *all, int *catch, int mode, t_lst *tmp)
 
 	if (!(buf = ft_calloc(sizeof(buf), 1024)))
 		return (pwd_error(all, catch, 0));
-	if (!tmp->content && mode == 1)//mode 1 : cd -
+	if (!tmp->content && mode == 1)
 		pwd_error(all, catch, 1);
 	else if (tmp->content && mode == 1)
 	{
@@ -51,7 +51,7 @@ int		pwdexist(t_all *all, int *catch, int mode, t_lst *tmp)
 		ft_free((void **)&tmp->content);
 		tmp->content = buf;
 	}
-	if (!tmp->content && mode == 1) 
+	if (!tmp->content && mode == 1)
 		ft_free((void **)&buf);
 	return (1);
 }

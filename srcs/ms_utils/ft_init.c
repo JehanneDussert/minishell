@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emmadebanville <emmadebanville@student.    +#+  +:+       +#+        */
+/*   By: jehannedussert <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/21 11:17:46 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/01 22:18:14 by emmadebanvi      ###   ########.fr       */
+/*   Created: 2021/01/04 16:10:53 by jehannedu         #+#    #+#             */
+/*   Updated: 2021/01/04 16:10:55 by jehannedu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
