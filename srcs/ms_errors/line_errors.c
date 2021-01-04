@@ -99,8 +99,8 @@ int		check_double(char *str, char *charset)
 	int	i;
 	int	c;
 
-	i = -1;
-	while (str[++i])
+	i = 0;
+	while (str[i++])
 	{
 		c = 0;
 		if (!is_charset(str[i], charset))
