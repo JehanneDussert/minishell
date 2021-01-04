@@ -100,7 +100,7 @@ void	ft_redirection_out(t_all *all);
 void	ft_nb_backslash(char *comd);
 void	ft_check_hash(char ***commands);
 void	ft_backslash(char **comd, char ***tmp, int *i, int *j);
-int		ft_hash(char **comd, char ***tmp, char *charset, int *i, int *j);
+void	ft_hash(char **comd, char ***tmp, int *i, int *j);
 
 /*
 **MS_ERRORS
