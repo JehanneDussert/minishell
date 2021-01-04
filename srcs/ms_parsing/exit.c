@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emmadebanville <emmadebanville@student.    +#+  +:+       +#+        */
+/*   By: jehannedussert <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/01 21:47:41 by emmadebanvi       #+#    #+#             */
-/*   Updated: 2021/01/01 22:21:52 by emmadebanvi      ###   ########.fr       */
+/*   Created: 2021/01/04 16:01:47 by jehannedu         #+#    #+#             */
+/*   Updated: 2021/01/04 16:01:50 by jehannedu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
