@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 21:47:41 by emmadebanvi       #+#    #+#             */
-/*   Updated: 2021/01/04 15:21:57 by ubuntu           ###   ########.fr       */
+/*   Updated: 2021/01/04 18:43:26 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int		makenumber(char *number)
 		res = nb % 256;
 	else if (nb < 0)
 		res = 256 + (nb % 256);
+	else
+		res = nb;
 	return (res);
 }
 
