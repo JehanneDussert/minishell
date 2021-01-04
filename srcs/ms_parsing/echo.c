@@ -81,7 +81,7 @@ void	ft_echo_quote(char *comm)
 			while (comm[i] != '\'' && comm[i] != '$')
 				ft_putchar_fd(comm[i++], 1);
 		else if (d == 1)
-			while (comm[i] != '\"' && comm[i] != '$')
+			while (comm[i] != '\"' && comm[i] != '$') // change for echo "word\""
 			{
 				if (!comm[i])
 					return ;

@@ -53,6 +53,7 @@ typedef struct	s_all
 	int			copy_stdin;
 	int			env;
 	int			bs;
+	int			quotes;
 }				t_all;
 
 #endif

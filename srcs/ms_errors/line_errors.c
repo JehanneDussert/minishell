@@ -38,6 +38,8 @@ int		ft_quote_error(char *str)
 	c = 0;
 	while (str[i])
 	{
+		if (str[i] == '\"' || str[i] == '\'')
+			g_all.quotes = 1;
 		if (str[i] == '\"' && (i == 0 || str[i - 1] != '\\'))
 			q++;
 		else if (str[i] == '\'' && q % 2 != 0)
@@ -99,8 +101,8 @@ int		check_double(char *str, char *charset)
 	int	i;
 	int	c;
 
-	i = -1;
-	while (str[++i])
+	i = 0;
+	while (str[i++])
 	{
 		c = 0;
 		if (!is_charset(str[i], charset))
