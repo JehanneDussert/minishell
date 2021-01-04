@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 20:44:52 by ubuntu            #+#    #+#             */
-/*   Updated: 2021/01/04 15:32:36 by ubuntu           ###   ########.fr       */
+/*   Updated: 2021/01/04 18:51:58 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,7 @@ int		olddir(t_all *all, int *catch, int mode)
 		if (!(create_oldpwd(all, catch, &buf)))
 			return (0);
 	}
-	else if (mode == 1)/*
-		pwd_error(all, catch, 1);
-	if (mode == 1)*/
+	else if (mode == 1)
 		ft_free((void **)&buf);
 	return (mode == 1 ? pwd_error(all, catch, 1) : 1);
 }
