@@ -23,12 +23,12 @@ void	ft_redir_plus(char **comd, t_all *all, int *i)
 	if (tmp[j] == '>' && tmp[j + 1] == '>')
 	{
 		ft_create_file(tmp, &file, &j);
-		all->fd = open(file, O_WRONLY | O_APPEND | O_CREAT, S_IRWXU);
+		all->fd = open(file, O_RDWR | O_APPEND | O_CREAT, 0644);
 	}
 	else if (tmp[j] == '>')
 	{
 		ft_create_file(tmp, &file, &j);
-		all->fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
+		all->fd = open(file, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	}
 	if (comd[1])
 		ft_free((void **)&comd[1]);
@@ -68,7 +68,7 @@ int		ft_reverse(char **comd, int *i)
 		k += 2;
 	while (tmp[k] == ' ')
 		k++;
-	if ((open(&tmp[k], O_CREAT | O_WRONLY, S_IRWXU)) >= 0)
+	if ((open(&tmp[k], O_CREAT | O_WRONLY, 0644)) >= 0)
 	{
 		ft_free((void **)&tmp);
 		return (0);
