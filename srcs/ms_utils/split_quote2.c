@@ -20,6 +20,7 @@ void	if_in_quote(int *d, int *s, int *i, char *str)
 		*i += 2;
 	if (str[*i] == '\"')
 	{
+		g_all.quote = 1;
 		if (*d == 0 && *s == 0)
 			(*d)++;
 		else if (*d == 1 && *s == 0)
@@ -27,6 +28,7 @@ void	if_in_quote(int *d, int *s, int *i, char *str)
 	}
 	else if (str[*i] == '\'')
 	{
+		g_all.quote = 1;
 		if (*s == 0 && *d == 0)
 			(*s)++;
 		else if (*s == 1 && *d == 0)

@@ -89,6 +89,7 @@ void	ft_echo_quote(char *comm)
 			}
 		i++;
 	}
+	g_all.quote = 0;
 }
 
 void	ft_echo(char **comm, t_all *all)
