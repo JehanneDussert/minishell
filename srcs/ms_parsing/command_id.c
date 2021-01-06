@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 16:02:46 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/05 21:29:01 by ubuntu           ###   ########.fr       */
+/*   Updated: 2021/01/06 23:54:47 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,15 @@ char	*pipes_id(t_all *all)
 			all->err = 1;
 			return ("error");
 		}
+		else if (i != 0)
+		{
+			close(all->cmd[i - 1].pipe[0]);
+			close(all->cmd[i - 1].pipe[1]);
+		}
 	}
 	i = -1;
 	while (all->cmd[++i].cmd)
-	{
 		waitpid(all->cmd[i].pid, &status, 0);
-		close(all->cmd[i].pipe[0]);
-		close(all->cmd[i].pipe[1]);
-	}
 	free_commands(all);
 	return ("done");
 }
