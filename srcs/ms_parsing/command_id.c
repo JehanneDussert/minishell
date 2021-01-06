@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 16:02:46 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/04 15:21:24 by ubuntu           ###   ########.fr       */
+/*   Updated: 2021/01/05 21:29:01 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ char	*pipes_id(t_all *all)
 		{
 			error_msg("fork", "unable to create fork");
 			all->err = 1;
+			return ("error");
 		}
 	}
 	i = -1;
