@@ -62,7 +62,6 @@ void	ft_hash(char **comd, char ***tmp, int *i, int *j)
 
 void	ft_backslash(char **comd, char ***tmp, int *i, int *j)
 {
-	ft_putendl_fd("enter", 2);
 	if (g_all.bs == 0)
 		while (comd[0][*i])
 		{

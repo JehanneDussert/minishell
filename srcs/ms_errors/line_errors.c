@@ -39,7 +39,7 @@ int		ft_quote_error(char *str)
 	while (str[i])
 	{
 		if (str[i] == '\"' || str[i] == '\'')
-			g_all.quotes = 1;
+			g_all.quote = 1;
 		if (str[i] == '\"' && (i == 0 || str[i - 1] != '\\'))
 			q++;
 		else if (str[i] == '\'' && q % 2 != 0)
