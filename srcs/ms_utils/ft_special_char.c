@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_special_char.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jehannedussert <marvin@42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/04 15:47:39 by jehannedu         #+#    #+#             */
+/*   Updated: 2021/01/04 15:47:41 by jehannedu        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 void	ft_nb_backslash(char *comd)
@@ -41,18 +53,16 @@ void	ft_check_hash(char ***commands)
 	}
 }
 
-int		ft_hash(char **comd, char ***tmp, char *charset, int *i, int *j)
+void	ft_hash(char **comd, char ***tmp, int *i, int *j)
 {
-	if (charset[0] == '#' && comd[0][*i] == ' ' && comd[0][(*i) + 1] == '#')
-		return (0);
 	(*tmp)[0][*j] = comd[0][*i];
 	(*j)++;
 	(*i)++;
-	return (1);
 }
 
 void	ft_backslash(char **comd, char ***tmp, int *i, int *j)
 {
+	ft_putendl_fd("enter", 2);
 	if (g_all.bs == 0)
 		while (comd[0][*i])
 		{

@@ -102,7 +102,6 @@ int		ft_redirections(char **comd, t_all *all, int j, char *charset)
 			return (0);
 		i++;
 	}
-	(void)charset;
 	comd[0] = ft_return_new_comd(comd, charset);
 	return (1);
 }

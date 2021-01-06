@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/03 20:44:52 by ubuntu            #+#    #+#             */
-/*   Updated: 2021/01/03 20:50:49 by ubuntu           ###   ########.fr       */
+/*   Updated: 2021/01/04 18:51:58 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		pwdexist(t_all *all, int *catch, int mode, t_lst *tmp)
 
 	if (!(buf = ft_calloc(sizeof(buf), 1024)))
 		return (pwd_error(all, catch, 0));
-	if (!tmp->content && mode == 1)//mode 1 : cd -
+	if (!tmp->content && mode == 1)
 		pwd_error(all, catch, 1);
 	else if (tmp->content && mode == 1)
 	{
@@ -51,7 +51,7 @@ int		pwdexist(t_all *all, int *catch, int mode, t_lst *tmp)
 		ft_free((void **)&tmp->content);
 		tmp->content = buf;
 	}
-	if (!tmp->content && mode == 1) 
+	if (!tmp->content && mode == 1)
 		ft_free((void **)&buf);
 	return (1);
 }
@@ -99,8 +99,6 @@ int		olddir(t_all *all, int *catch, int mode)
 			return (0);
 	}
 	else if (mode == 1)
-		pwd_error(all, catch, 1);
-	if (mode == 1)
 		ft_free((void **)&buf);
-	return (1);
+	return (mode == 1 ? pwd_error(all, catch, 1) : 1);
 }

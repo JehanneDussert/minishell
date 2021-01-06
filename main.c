@@ -22,10 +22,7 @@ void	ft_command_exec(char *comm, t_all *all)
 		res = -1;
 	ft_check_hash(&commands);
 	if (!ft_check_redirection(commands, all, "><"))
-	{
-		free_read(&commands, NULL);
-		return ;
-	}
+		return (free_read(&commands, NULL));
 	if (res == 0 && !commands[1] &&
 	!(command_id((ft_split_quote(commands[0], "\t\n\r\v \f")), all, 1)))
 		res = -1;
@@ -36,8 +33,7 @@ void	ft_command_exec(char *comm, t_all *all)
 	{
 		all->err = 1;
 		ft_malloc_error(NULL);
-		free_read(&commands, NULL);
-		return ;
+		return (free_read(&commands, NULL));
 	}
 	free_read(&commands, NULL);
 }

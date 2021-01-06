@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jehannedussert <marvin@42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/29 16:51:36 by jehannedu         #+#    #+#             */
-/*   Updated: 2020/12/29 16:51:40 by jehannedu        ###   ########.fr       */
+/*   Created: 2021/01/04 16:21:48 by jehannedu         #+#    #+#             */
+/*   Updated: 2021/01/04 16:21:50 by jehannedu        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,11 @@ void	ft_copy_clean_comd(char **comd, char **tmp, char *charset)
 			ft_backslash(comd, &tmp, &i, &j);
 		while (comd[0][i] && ((charset[0] != '#'
 			&& !is_charset(comd[0][i], charset)) || (charset[0] == '#')))
-			if (!ft_hash(comd, &tmp, charset, &i, &j))
+		{
+			if (charset[0] == '#' && comd[0][i] == ' ' && comd[0][i + 1] == '#')
 				return ;
+			ft_hash(comd, &tmp, &i, &j);
+		}
 		while (comd[0][i] == '\\' && charset[0] == '\\')
 			ft_backslash(comd, &tmp, &i, &j);
 		ft_skip_redirection(comd, &i);
