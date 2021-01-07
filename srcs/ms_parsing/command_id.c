@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 16:02:46 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/06 23:54:47 by ubuntu           ###   ########.fr       */
+/*   Updated: 2021/01/07 00:11:55 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,37 @@ void	in_fork(t_all *all, int i)
 	{
 		dup2(all->cmd[i - 1].pipe[0], 0);
 		close(all->cmd[i - 1].pipe[1]);
+		close(all->cmd[i - 1].pipe[0]);
 	}
 	if (all->cmd[i + 1].cmd)
 		dup2(all->cmd[i].pipe[1], 1);
 	command_id(all->cmd[i].cmd, all, 0);
-	if (i != 0)
-		close(all->cmd[i - 1].pipe[0]);
-	close(all->cmd[i].pipe[1]);
 	if (!all->cmd[i + 1].cmd)
+	{
+		close(all->cmd[i].pipe[1]);
 		close(all->cmd[i].pipe[0]);
+	}
 	exit(0);
+}
+
+int		boucle_pipes(t_all *all, int *i)
+{
+	pipe(all->cmd[*i].pipe);
+	all->cmd[*i].pid = fork();
+	if (all->cmd[*i].pid == 0)
+		in_fork(all, *i);
+	else if (all->cmd[*i].pid == -1)
+	{
+		error_msg("fork", "unable to create fork");
+		all->err = 1;
+		return (0);
+	}
+	else if (*i != 0)
+	{
+		close(all->cmd[*i - 1].pipe[0]);
+		close(all->cmd[*i - 1].pipe[1]);
+	}
+	return (1);
 }
 
 char	*pipes_id(t_all *all)
@@ -64,23 +85,10 @@ char	*pipes_id(t_all *all)
 
 	i = -1;
 	while (all->cmd[++i].cmd)
-	{
-		pipe(all->cmd[i].pipe);
-		all->cmd[i].pid = fork();
-		if (all->cmd[i].pid == 0)
-			in_fork(all, i);
-		else if (all->cmd[i].pid == -1)
-		{
-			error_msg("fork", "unable to create fork");
-			all->err = 1;
+		if (!boucle_pipes(all, &i))
 			return ("error");
-		}
-		else if (i != 0)
-		{
-			close(all->cmd[i - 1].pipe[0]);
-			close(all->cmd[i - 1].pipe[1]);
-		}
-	}
+	close(all->cmd[i].pipe[0]);
+	close(all->cmd[i].pipe[1]);
 	i = -1;
 	while (all->cmd[++i].cmd)
 		waitpid(all->cmd[i].pid, &status, 0);
