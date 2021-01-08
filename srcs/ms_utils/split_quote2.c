@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   split_quote2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 12:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/26 12:43:47 by ede-banv         ###   ########.fr       */
+/*   Updated: 2021/01/08 16:00:16 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+//maybe creer un int *** dans all, qui va stocker les indices de ts les \(" ou ')") dans chaque mot
+//et le nb de backslashs seront comptes lors du compte pr la creation desmots.
+//puis il sra utilise ds la creation du char ** pour y inclure les caracteres backslashes
+//option 2 : une fct qui dans chauqe mot compte les \ et rajoute le nb au compte des malloc des mots
+//et ds tab_fill creer une condition avant if in quote qui va mettre le caractere saute ds le tab result
 
 void	if_in_quote(int *d, int *s, int *i, char *str)
 {

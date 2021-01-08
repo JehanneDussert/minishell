@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jehannedussert <marvin@42.fr>              +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 16:21:48 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/04 16:21:50 by jehannedu        ###   ########.fr       */
+/*   Updated: 2021/01/07 15:41:21 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char	*ft_return_new_comd(char **comd, char *charset)
 	if ((tmp = ft_calloc(w + 1, sizeof(char))) == NULL)
 		return (NULL);
 	ft_copy_clean_comd(comd, &tmp, charset);
+	ft_putendl_fd(comd[0], 1);
 	free_read(NULL, comd);
 	if (tmp)
 	{
