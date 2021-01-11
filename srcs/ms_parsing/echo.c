@@ -6,36 +6,37 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:18:45 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/11 11:20:43 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/11 14:05:02 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_echo_env(char *comm, t_lst *alst, int err)
+void	ft_echo_env(char *comm, t_lst *alst, int err, int *i)
 {
 	char	*tmp;
 	int		j;
-	int		i;
 
-	i = 1;
+	(*i) += 1;
 	tmp = comm;
-	while (comm[i])
+	while (comm[*i])
 	{
-		j = i;
-		while (comm[i] == '?' || comm[i] == '{' || comm[i] == '$')
+		j = *i;
+		while (comm[*i] == '?' || comm[*i] == '{' || comm[*i] == '$')
 		{
-			if (comm[i] == '?')
+			if (comm[*i] == '?')
 				ft_putnbr_fd(err, 1);
 			j++;
-			i++;
+			(*i)++;
 		}
-		while (comm[i] != ' ' && comm[i] != '$' && comm[i] != '\'' &&
-			comm[i] != '\"' && comm[i] != '=' && comm[i] != '\\' &&
-			comm[i] && comm[i] != '}' && comm[i])
-			i++;
-		tmp = ft_substr(&comm[j], 0, (i - 1));
+		while (comm[*i] && comm[*i] != ' ' && comm[*i] != '$' && comm[*i] != '\'' &&
+			comm[*i] != '\"' && comm[*i] != '=' && comm[*i] != '\\' &&
+			comm[*i] && comm[*i] != '}')
+			(*i)++;
+		tmp = ft_substr(&comm[j], 0, ((*i) - 1));
 		ft_check_env(alst, &tmp);
+		if (comm[*i] == '\"')
+			return ;
 	}
 }
 
@@ -73,7 +74,7 @@ void	ft_echo_quote(char *comm)
 	d = 0;
 	if_in_quote(&d, &s, &i, comm);
 	if (g_all.env == 1)
-		ft_echo_env(comm, g_all.alst, g_all.err);
+		ft_echo_env(comm, g_all.alst, g_all.err, 0);
 	while (comm && comm[i] && g_all.env != 1)
 	{
 		if (s == 1)
@@ -94,20 +95,23 @@ void	ft_echo_quote(char *comm)
 void	ft_echo(char **comm, t_all *all)
 {
 	int		i;
+	int		j = 0;
 	char	*opt;
 	int		res;
 
 	ft_init_echo(&i, &opt, &res);
 	while (comm[i])
 	{
-		if (comm[i][0] == '-')
+		if (comm[i][j] == '$')
+			ft_echo_env(comm[i], all->alst, all->err, &j);
+		if (comm[i][j] == '-')
 			ft_check_n(&i, &res, comm[i], &opt);
-		if ((comm[i][0] == '\"' || comm[i][0] == '\'') && !res)
-			ft_echo_quote(comm[i]);
-		else if (comm[i][0] == '$')
-			ft_echo_env(comm[i], all->alst, all->err);
-		else if (comm[i][0] != '-')
-			ft_putstr_fd(comm[i], 1);
+		if ((comm[i][j] == '\"' || comm[i][j] == '\'') && !res)
+			ft_echo_quote(&comm[i][j]);
+		//else if (comm[i][j] == '$')
+		//	ft_echo_env(comm[i], all->alst, all->err, &j);
+		else if (comm[i][j] != '-')
+			ft_putstr_fd(&comm[i][j], 1);
 		if (comm[i + 1] && ft_strncmp(opt, "-n", 2) && g_all.env != -1)
 			ft_putchar_fd(' ', 1);
 		i++;
