@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 14:33:43 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/26 16:40:11 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/11 10:30:00 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,22 @@ void	lst_add_env(char **env, t_all *all)
 		ft_lstadd_back_ms(&all->alst, tmp);
 		i++;
 	}
+}
+
+void	ft_check_env(t_lst *alst, char **tmp)
+{
+	while (alst)
+	{
+		if (!ft_strcmp(*tmp, alst->key))
+		{
+			g_all.env = 0;
+			ft_putstr_fd(alst->content, 1);
+			ft_free((void **)tmp);
+			return ;
+		}
+		else
+			g_all.env = -1;
+		alst = alst->next;
+	}
+	ft_free((void **)tmp);
 }

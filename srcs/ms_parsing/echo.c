@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:18:45 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/11 08:55:02 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/11 10:29:52 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,27 @@
 void	ft_echo_env(char *comm, t_lst *alst, int err)
 {
 	char	*tmp;
+	int		i;
+	int		j;
 
-	tmp = comm;
-	tmp = ft_strtrim(tmp, "{}\"$ ");
-	if (tmp[0] == '?')
+	i = 1;
+	while (comm[i])
 	{
-		ft_putnbr_fd(err, 1);
-		ft_free((void **)&tmp);
-		return ;
-	}
-	while (alst)
-	{
-		if (!ft_strcmp(tmp, alst->key))
+		j = i;
+		if (comm[i] == '?' || comm[i] == '{' || comm[i] == '$')
 		{
-			g_all.env = 0;
-			ft_putstr_fd(alst->content, 1);
-			ft_free((void **)&tmp);
-			return ;
+			if (comm[i] == '?')
+				ft_putnbr_fd(err, 1);
+			j++;
+			i++;
 		}
-		else
-			g_all.env = -1;
-		alst = alst->next;
+		while (comm[i] != ' ' && comm[i] != '$' && comm[i] != '\'' &&
+			comm[i] != '\"' && comm[i] != '=' && comm[i] != '\\' &&
+			comm[i] && comm[i] != '}' && comm[i])
+			i++;
+		tmp = ft_substr(&comm[j], 0, (i - 1));
+		ft_check_env(alst, &tmp);
 	}
-	ft_free((void **)&tmp);
 }
 
 int		ft_echo_n(char *comm, char **opt)
@@ -106,7 +104,7 @@ void	ft_echo(char **comm, t_all *all)
 		if ((comm[i][0] == '\"' || comm[i][0] == '\'') && !res)
 			ft_echo_quote(comm[i]);
 		else if (comm[i][0] == '$')
-			ft_echo_env(&comm[i][1], all->alst, all->err);
+			ft_echo_env(comm[i], all->alst, all->err);
 		else if (comm[i][0] != '-')
 			ft_putstr_fd(comm[i], 1);
 		if (comm[i + 1] && ft_strncmp(opt, "-n", 2) && g_all.env != -1)

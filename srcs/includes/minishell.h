@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/03 20:47:07 by ubuntu           ###   ########.fr       */
+/*   Updated: 2021/01/11 10:30:22 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	ft_nb_backslash(char *comd);
 void	ft_check_hash(char ***commands);
 void	ft_backslash(char **comd, char ***tmp, int *i, int *j);
 void	ft_hash(char **comd, char ***tmp, int *i, int *j);
+void	ft_check_env(t_lst *alst, char **tmp);
 
 /*
 **MS_ERRORS
