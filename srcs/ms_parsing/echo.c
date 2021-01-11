@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:18:45 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/11 14:05:02 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/11 14:44:34 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_echo_env(char *comm, t_lst *alst, int err, int *i)
 	tmp = comm;
 	while (comm[*i])
 	{
+		
 		j = *i;
 		while (comm[*i] == '?' || comm[*i] == '{' || comm[*i] == '$')
 		{
@@ -33,7 +34,8 @@ void	ft_echo_env(char *comm, t_lst *alst, int err, int *i)
 			comm[*i] != '\"' && comm[*i] != '=' && comm[*i] != '\\' &&
 			comm[*i] && comm[*i] != '}')
 			(*i)++;
-		tmp = ft_substr(&comm[j], 0, ((*i) - 1));
+		
+		tmp = ft_substr(comm, j, ((*i - j)));
 		ft_check_env(alst, &tmp);
 		if (comm[*i] == '\"')
 			return ;
@@ -95,21 +97,21 @@ void	ft_echo_quote(char *comm)
 void	ft_echo(char **comm, t_all *all)
 {
 	int		i;
-	int		j = 0;
+	int		j;
 	char	*opt;
 	int		res;
 
 	ft_init_echo(&i, &opt, &res);
 	while (comm[i])
 	{
+		j = 0;
+		skipspace(comm[i], &j);
 		if (comm[i][j] == '$')
 			ft_echo_env(comm[i], all->alst, all->err, &j);
 		if (comm[i][j] == '-')
 			ft_check_n(&i, &res, comm[i], &opt);
 		if ((comm[i][j] == '\"' || comm[i][j] == '\'') && !res)
 			ft_echo_quote(&comm[i][j]);
-		//else if (comm[i][j] == '$')
-		//	ft_echo_env(comm[i], all->alst, all->err, &j);
 		else if (comm[i][j] != '-')
 			ft_putstr_fd(&comm[i][j], 1);
 		if (comm[i + 1] && ft_strncmp(opt, "-n", 2) && g_all.env != -1)
