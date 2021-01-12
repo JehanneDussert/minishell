@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/11 11:20:20 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/12 09:23:09 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	ft_check_hash(char ***commands);
 void	ft_backslash(char **comd, char ***tmp, int *i, int *j);
 void	ft_hash(char **comd, char ***tmp, int *i, int *j);
 void	ft_check_env(t_lst *alst, char **tmp);
+int		ft_env_in_quote(char *comd);
 
 /*
 **MS_ERRORS

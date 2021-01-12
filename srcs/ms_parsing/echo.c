@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:18:45 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/11 14:47:43 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/12 09:25:43 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,15 @@ void	ft_echo_quote(char *comm)
 	s = 0;
 	d = 0;
 	if_in_quote(&d, &s, &i, comm);
-	if (g_all.env == 1)
-		ft_echo_env(comm, g_all.alst, g_all.err, 0);
-	while (comm && comm[i] && g_all.env != 1)
+	if (g_all.env == 1 && ft_env_in_quote(comm))
+		ft_echo_env(comm, g_all.alst, g_all.err, &i);
+	while (comm && comm[i])
 	{
 		if (s == 1)
-			while (comm[i] != '\'' && comm[i] != '$')
+			while (comm[i] != '\'')
 				ft_putchar_fd(comm[i++], 1);
 		else if (d == 1)
-			while (comm[i] != '\"' && comm[i] != '$') // change for echo "word\""
+			while (comm[i] != '\"') // change for echo "word\""
 			{
 				if (!comm[i])
 					return ;
@@ -113,12 +113,11 @@ void	ft_echo(char **comm, t_all *all)
 		if ((comm[i][j] == '\"' || comm[i][j] == '\'') && !res)
 			ft_echo_quote(&comm[i][j]);
 		else if (comm[i][j] != '-')
-			while (comm[i][j] != '\'' && comm[i][j] != '\"')
+			while (comm[i][j] && comm[i][j] != '\'' && comm[i][j] != '\"')
 				ft_putchar_fd(comm[i][j++], 1);
 		if (comm[i + 1] && ft_strncmp(opt, "-n", 2) && g_all.env != -1)
 			ft_putchar_fd(' ', 1);
-		if (!comm[i][j + 1])
-			i++;
+		i++;
 	}
 	if (!ft_strncmp(opt, "off", 3))
 		ft_putchar_fd('\n', 1);
