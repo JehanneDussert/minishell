@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/12 09:23:09 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/12 11:12:18 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int		skipspace(char *line, int *i);
 void	ft_skip_redirection(char **comd, int *i);
 char	**ft_skip_quote(char *str, char *charset);
 char	**ft_split_quote(char *str, char *charset);
-void	if_in_quote(int *d, int *s, int *i, char *str);
+void	if_in_quote(int *d, int *s, char *str);
 t_lst	*ft_lstnew_ms(void *w1, void *w2);
 t_lst	*ft_lstlast_ms(t_lst *lst);
 void	ft_lstadd_back_ms(t_lst **alst, t_lst *new);

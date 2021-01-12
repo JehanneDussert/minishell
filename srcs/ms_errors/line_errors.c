@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/26 15:30:03 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/12 11:45:06 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ int		ft_quote_error(char *str)
 	{
 		if (str[i] == '\"' || str[i] == '\'')
 			g_all.quote = 1;
-		if (str[i] == '\"' && (i == 0 || str[i - 1] != '\\'))
+		if (str[i] == '\"' && c % 2 != 0)
+			q += 2;
+		else if (str[i] == '\"' && (i == 0 || str[i - 1] != '\\'))
 			q++;
 		else if (str[i] == '\'' && q % 2 != 0)
 			c += 2;
@@ -77,7 +79,7 @@ int		check_chevrons(char *str)
 	ft_init_quote(&i, &s, &d, &c);
 	while (str[i])
 	{
-		if_in_quote(&d, &s, &i, str);
+		if_in_quote(&d, &s, str);
 		if (c == 0 && (s == 0 && d == 0) && is_charset(str[i], "><"))
 		{
 			i++;
