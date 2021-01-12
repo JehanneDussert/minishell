@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:18:45 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/11 14:44:34 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/11 14:47:43 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,12 @@ void	ft_echo(char **comm, t_all *all)
 		if ((comm[i][j] == '\"' || comm[i][j] == '\'') && !res)
 			ft_echo_quote(&comm[i][j]);
 		else if (comm[i][j] != '-')
-			ft_putstr_fd(&comm[i][j], 1);
+			while (comm[i][j] != '\'' && comm[i][j] != '\"')
+				ft_putchar_fd(comm[i][j++], 1);
 		if (comm[i + 1] && ft_strncmp(opt, "-n", 2) && g_all.env != -1)
 			ft_putchar_fd(' ', 1);
-		i++;
+		if (!comm[i][j + 1])
+			i++;
 	}
 	if (!ft_strncmp(opt, "off", 3))
 		ft_putchar_fd('\n', 1);
