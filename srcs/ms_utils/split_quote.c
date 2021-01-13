@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 17:43:38 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/26 12:12:06 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/13 12:09:34 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ int		word_count(char *str, char *charset)
 	s = 0;
 	while (str && str[i])
 	{
-		if_in_quote(&d, &s, &i, str);
+		//if_in_quote(&d, &s, str);
 		while (d == 0 && s == 0 && is_a_sep(str[i], charset) && str[i])
 			i++;
 		if (((d == 1 || s == 1) || !(is_a_sep(str[i], charset))) && str[i])
 			w++;
 		while (((d == 1 || s == 1) || !(is_a_sep(str[i], charset))) && str[i])
 		{
-			if_in_quote(&d, &s, &i, str);
+			//if_in_quote(&d, &s, str);
 			i++;
 		}
 	}
@@ -64,13 +64,13 @@ int		malloc_w_len(char *str, char *charset, char **result)
 	ft_init_quote(&i, &k, &d, &s);
 	while (str && str[i])
 	{
-		if_in_quote(&d, &s, &i, str);
+		//if_in_quote(&d, &s, str);
 		while (d == 0 && s == 0 && is_a_sep(str[i], charset) && str[i])
 			i++;
 		len = 0;
 		while (((d == 1 || s == 1) || !(is_a_sep(str[i], charset))) && str[i])
 		{
-			if_in_quote(&d, &s, &i, str);
+			//if_in_quote(&d, &s, str);
 			i++;
 			len++;
 		}
@@ -96,13 +96,13 @@ char	**tab_fill(char *str, char *charset, char **result)
 	s = 0;
 	while (str && str[i])
 	{
-		if_in_quote(&d, &s, &i, str);
+		//if_in_quote(&d, &s, str);
 		while (d == 0 && s == 0 && is_a_sep(str[i], charset) && str[i])
 			i++;
 		l = 0;
 		while (((d == 1 || s == 1) || !(is_a_sep(str[i], charset))) && str[i])
 		{
-			if_in_quote(&d, &s, &i, str);
+			//if_in_quote(&d, &s, str);
 			result[k][l++] = str[i++];
 		}
 		if (!(is_a_sep(str[i - 1], charset)) && str[i - 1])

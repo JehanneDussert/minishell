@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:18:45 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/12 12:13:28 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/13 12:41:28 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,52 +65,6 @@ void	ft_check_n(int *i, int *res, char *comm, char **opt)
 	*res = 0;
 }
 
-void	ft_echo_quote(char **comm, int *i)
-{
-	int	j;
-	int	s;
-	int	d;
-
-	j = 0;
-	while (comm[j])
-	{
-		s = 0;
-		d = 0;
-		*i = 0;
-		if_in_quote(&d, &s, comm[j]);
-		if (g_all.env == 1 && ft_env_in_quote(comm[j]))
-			ft_echo_env(comm[j], g_all.alst, g_all.err, i);
-		while (comm[j][*i])
-		{
-			if (comm[j][*i] == '\"')
-			{
-				while (d > 0 && comm[j][*i])
-				{
-					ft_putchar_fd(comm[j][++(*i)], 1);
-					d--;
-				}
-			}
-			else if (comm[j][*i] == '\'')
-			{
-				while (s > 0 && comm[j][*i])
-				{
-					ft_putchar_fd(comm[j][++(*i)], 1);
-					s--;
-				}
-			}
-			else if (comm[j][*i])
-				ft_putchar_fd(comm[j][*(i)], 1);
-			(*i)++;
-		}
-		if (comm[j + 1] && (comm[j + 1][0] == '\'' || comm[j + 1][0] == '\"'))
-			ft_putchar_fd(' ', 1);
-		else if (comm[j + 1] && !(comm[j + 1][0] == '\'' || comm[j + 1][0] == '\"'))
-			return ;
-		j++;
-	}
-	g_all.quote = 0;
-}
-
 void	ft_echo(char **comm, t_all *all)
 {
 	int		i;
@@ -127,10 +81,8 @@ void	ft_echo(char **comm, t_all *all)
 			ft_echo_env(comm[i], all->alst, all->err, &j);
 		if (comm[i][j] == '-')
 			ft_check_n(&i, &res, comm[i], &opt);
-		if ((comm[i][j] == '\"' || comm[i][j] == '\'') && !res && g_all.quote)
-			ft_echo_quote(&comm[i], &j);
-		else if (comm[i][j] != '-')
-			while (comm[i][j] && comm[i][j] != '\'' && comm[i][j] != '\"')
+		if (comm[i][j] != '-')
+			while (comm[i][j])
 				ft_putchar_fd(comm[i][j++], 1);
 		if (comm[i + 1] && ft_strncmp(opt, "-n", 2) && g_all.env != -1)
 			ft_putchar_fd(' ', 1);

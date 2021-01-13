@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/12 11:12:18 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/13 10:02:07 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	c_handler(int sigld);
 void	d_handler(int sigld);
 int		ft_check_redirection(char **comm, t_all *all, char *charset);
 int		ft_redirections(char **comd, t_all *all, int j, char *charset);
+char	*ft_clear_quotes(char **comd);
+void	ft_check_quotes(char ***comm);
 
 /*
 **UTILS FCTS
