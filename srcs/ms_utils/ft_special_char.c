@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:47:39 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/12 09:24:22 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/14 10:33:56 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,12 @@
 void	ft_nb_backslash(char *comd)
 {
 	int i;
-	int nb;
 
 	i = 0;
-	nb = 0;
 	while (comd[i])
 	{
 		if (is_charset(comd[i], "\\"))
-		{
-			nb++;
-			if (i > 0 && comd[i - 1] == '\\' && nb % 2 == 0)
-				g_all.bs++;
-		}
+			g_all.bs++;
 		i++;
 	}
 }

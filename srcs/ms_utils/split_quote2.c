@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 12:10:47 by idussert          #+#    #+#             */
-/*   Updated: 2021/01/13 14:36:59 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/14 11:16:45 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ void	if_in_quote(int *d, int *s, char *str)
 	{
 		if (str[i] == '$')
 			g_all.env = 1;
-		//if (str[i] == '\\' && (str[i + 1] == '\'' || str[i + 1] == '\"'))
-		//	i += 2;
-		if (str[i] == '\"')
+		else if (str[i] == '\"')
 			while (str[i] && str[++i] != '\"')
 			{
 				g_all.quote = 1;
@@ -48,7 +46,7 @@ void	ft_delete_quotes(char comm, char ***tmp, int *j, char c)
 	if (comm != c)
 	{
 		//if (c == '\"' && comm[0][*i] == '$')
-		//	;//ft_env();
+		//	ft_env();
 		(*tmp)[0][*j] = comm;
 		(*j)++;
 	}
@@ -58,13 +56,26 @@ void	ft_copy_comd(char **comm, char **new, int d, int s)
 {
 	int	i;
 	int	j;
+	int res;
 
 	i = 0;
 	j = 0;
 	if_in_quote(&d, &s, comm[0]);
 	while (comm[0] && comm[0][i])
 	{
-		if (comm[0][i] == '\"')
+		res = 0;
+		if (comm[0][i] == '#')
+		{
+			new[0][j] = '\0';
+			return ;
+		}
+		else if (comm[0][i] == '\\' && (i == 0 || comm[0][i - 1] != '\\'))
+		{
+			++i;
+			res = 1;
+			ft_hash(comm, &new, &i, &j);
+		}
+		else if (comm[0][i] == '\"')
 		{
 			++i;
 			while (comm[0][i] && comm[0][i] != '\"' && d >= 0)
@@ -86,7 +97,8 @@ void	ft_copy_comd(char **comm, char **new, int d, int s)
 			}
 			i++;
 		}
-		while (comm[0][i] && comm[0][i] != '\'' && comm[0][i] != '\"')
+		while (comm [0][i] && ((comm[0][i] != '#' && comm[0][i] != '\\') 
+			|| res == 1) && comm[0][i] != '\'' && comm[0][i] != '\"')
 			ft_hash(comm, &new, &i, &j);
 	}
 }
@@ -116,11 +128,9 @@ void	ft_check_quotes(char ***comm)
 	i = 0;
 	while ((*comm)[i])
 	{
-		if (ft_strchr((*comm)[i], '\'') || ft_strchr((*comm)[i], '\"'))
-		{
-			(*comm)[i] = ft_clear_quotes(&((*comm)[i]));
-			return ;
-		}
+		ft_nb_backslash((*comm)[i]);
+		(*comm)[i] = ft_clear_quotes(&((*comm)[i]));
+		return ;
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/13 11:56:47 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/14 10:31:56 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	ft_command_exec(char *comm, t_all *all)
 	res = 0;
 	if (!(commands = ft_split_quote(comm, "|")))
 		res = -1;
-	ft_check_hash(&commands);
+	//ft_check_hash(&commands);
+	//ft_putendl_fd(commands[0], 2);
 	ft_check_quotes(&commands);
 	if (!ft_check_redirection(commands, all, "><"))
 		return (free_read(&commands, NULL));
