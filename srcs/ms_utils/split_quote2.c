@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 12:10:47 by idussert          #+#    #+#             */
-/*   Updated: 2021/01/14 12:08:57 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/14 14:00:29 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,17 @@ void	if_in_quote(int *d, int *s, char *str)
 	*d = 0;
 	while (str[i])
 	{
-		//ft_putstr_fd("ici :", 2);
-		//ft_putchar_fd(str[i], 2);
-		//ft_putendl_fd("", 2);
 		if (str[i] == '$')
 			g_all.env = 1;
 		else if (str[i] == '\"')
-			while (str[++i] && ((str[i] == '\"' && str[i - 1] == '\\') || str[i] != '\"'))
+			while (str[i] && str[i + 1] && str[++i] != '\"')
 			{
-				//ft_putchar_fd(str[i], 2);
 				g_all.quote = 1;
 				(*d)++;
 			}
 		else if (str[i] == '\'')
 		{
-			while (str[i] && str[++i] != '\'')
+			while (str[i] && str[i + 1] && str[++i] != '\'')
 			{
 				g_all.quote = 1;
 				(*s)++;
@@ -60,14 +56,12 @@ void	ft_copy_comd(char **comm, char **new, int d, int s)
 {
 	int	i;
 	int	j;
-	int res;
 
 	i = 0;
 	j = 0;
 	if_in_quote(&d, &s, comm[0]);
 	while (comm[0] && comm[0][i])
 	{
-		res = 0;
 		if (comm[0][i] == '#')
 		{
 			new[0][j] = '\0';
@@ -76,7 +70,6 @@ void	ft_copy_comd(char **comm, char **new, int d, int s)
 		else if (comm[0][i] == '\\' && (i == 0 || comm[0][i - 1] != '\\'))
 		{
 			++i;
-			res = 1;
 			ft_cmd_fill(comm, &new, &i, &j);
 		}
 		else if (comm[0][i] == '\"')
@@ -101,9 +94,11 @@ void	ft_copy_comd(char **comm, char **new, int d, int s)
 			}
 			i++;
 		}
-		while (comm [0][i] && ((comm[0][i] != '#' && comm[0][i] != '\\') 
-			|| res == 1) && comm[0][i] != '\'' && comm[0][i] != '\"')
+		while (comm[0][i] && (comm[0][i] != '#' && comm[0][i] != '\\')
+			&& comm[0][i] != '\'' && comm[0][i] != '\"')
+		{
 			ft_cmd_fill(comm, &new, &i, &j);
+		}
 	}
 }
 
