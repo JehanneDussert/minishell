@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 14:33:43 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/11 14:04:51 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/14 16:09:55 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,26 @@ void	lst_add_env(char **env, t_all *all)
 	}
 }
 
-void	ft_check_env(t_lst *alst, char **tmp)
+void	ft_check_env(t_all *all, char **tmp, char **new, int *j)
 {
-	while (alst)
+	int i;
+
+	i = 0;
+	while (all->alst)
 	{
-		if (!ft_strcmp(*tmp, alst->key))
+		if (!ft_strcmp(*tmp, all->alst->key))
 		{
-			g_all.env = 0;
-			ft_putstr_fd(alst->content, 1);
+			all->env = 0;
+			while (all->alst->content[i])
+				ft_cmd_fill(&all->alst->content, &new, j, &i);
+			ft_putstr_fd(*new, 1);
+			ft_putendl_fd("ici", 2);
 			ft_free((void **)tmp);
 			return ;
 		}
 		else
-			g_all.env = -1;
-		alst = alst->next;
+			all->env = -1;
+		all->alst = all->alst->next;
 	}
 	ft_free((void **)tmp);
 }

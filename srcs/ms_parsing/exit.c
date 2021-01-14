@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 21:47:41 by emmadebanvi       #+#    #+#             */
-/*   Updated: 2021/01/04 18:43:26 by ubuntu           ###   ########.fr       */
+/*   Updated: 2021/01/14 16:06:57 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ int		makenumber(char *number)
 	return (res);
 }
 
-void	ft_exit_fct(t_all *g_all, char **comm)
+void	ft_exit_fct(t_all *all, char **comm)
 {
 	int	i;
 
 	i = 0;
 	if (!comm[1])
 	{
-		g_all->exit->e = 0;
+		all->exit->e = 0;
 		return ;
 	}
 	else
@@ -58,9 +58,9 @@ void	ft_exit_fct(t_all *g_all, char **comm)
 				if (!ft_isdigit(comm[1][i++]))
 					break ;
 			if (comm[1][i] == '\0')
-				g_all->exit->e = makenumber(comm[1]);
+				all->exit->e = makenumber(comm[1]);
 			else
-				g_all->exit->e = 2;
+				all->exit->e = 2;
 		}
 		else
 			error_msg("exit", "Too many arguments");

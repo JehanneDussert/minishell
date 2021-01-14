@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 17:08:31 by jdussert          #+#    #+#             */
-/*   Updated: 2020/10/26 14:23:17 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/14 16:19:35 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		ft_check_errors_line(char *line, t_all *all)
 		return (ft_syntax_error("pipe", all));
 	else if (!ft_quote_error(line))
 		return (ft_syntax_error("quote", all));
-	else if (!check_chevrons(line))
+	else if (!check_chevrons(line, all))
 		return (ft_syntax_error("chevrons", all));
 	return (1);
 }

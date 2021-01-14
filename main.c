@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/14 11:54:57 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/14 16:06:25 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_command_exec(char *comm, t_all *all)
 	if (!(commands = ft_split_quote(comm, "|")))
 		res = -1;
 	//ft_check_hash(&commands);
-	ft_check_quotes(&commands);
+	ft_check_quotes(&commands, all);
 	if (!ft_check_redirection(commands, all, "><"))
 		return (free_read(&commands, NULL));
 	// il faut d'abordsplit quote puis check_quotes puis command id
@@ -116,25 +116,26 @@ int		main(void)
 {
 	int		x;
 	char	*tmp;
+	t_all	all;
 
 	x = 1;
 	welcomer();
-	ft_bzero(&g_all, sizeof(t_all));
-	ft_init_all(&g_all);
+	ft_bzero(&all, sizeof(t_all));
+	ft_init_all(&all);
 	signal(SIGINT, c_handler);
 	signal(SIGQUIT, d_handler);
-	g_all.prog = 0;
+	all.prog = 0;
 	tmp = NULL;
 	while (x > 0)
 	{
-		ft_redirection_out(&g_all);
+		ft_redirection_out(&all);
 		ft_putstr_fd("~:", 1);
-		if ((tmp = ft_read(&g_all)) == NULL)
-			x = (g_all.exit->e == -1 ? -1 : 0);
+		if ((tmp = ft_read(&all)) == NULL)
+			x = (all.exit->e == -1 ? -1 : 0);
 	}
 	if (x == 0)
-		exit(g_all.exit->e);
-	free_all(&g_all);
+		exit(all.exit->e);
+	free_all(&all);
 	byebye();
 	return (1);
 }

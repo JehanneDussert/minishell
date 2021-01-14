@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 16:21:48 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/14 11:39:03 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/14 16:11:22 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,11 @@ int		ft_nb_to_print(char **comd, char *charset)
 
 	w = 0;
 	i = 0;
-	ft_nb_backslash(comd[0]);
 	while (comd[0] && comd[0][i++])
 	{
-		w += g_all.bs;
 		if (charset[0] == '#' && comd[0][i] == '#')
 			return (w);
-		if (charset[0] == '\\' && g_all.bs == 0 && comd[0][i] == '\\')
+		if (charset[0] == '\\' && comd[0][i] == '\\')
 			i++;
 		w++;
 	}
@@ -41,8 +39,6 @@ void	ft_copy_clean_comd(char **comd, char **tmp, char *charset)
 	j = 0;
 	while (comd[0] && comd[0][i])
 	{
-		//while (comd[0][i] == '\\' && charset[0] == '\\')
-		//	ft_backslash(comd, &tmp, &i, &j);
 		while (comd[0][i] && ((charset[0] != '#'
 			&& !is_charset(comd[0][i], charset)) || (charset[0] == '#')))
 		{
@@ -50,8 +46,6 @@ void	ft_copy_clean_comd(char **comd, char **tmp, char *charset)
 				return ;
 			ft_cmd_fill(comd, &tmp, &i, &j);
 		}
-		//while (comd[0][i] == '\\' && charset[0] == '\\')
-		//	ft_backslash(comd, &tmp, &i, &j);
 		ft_skip_redirection(comd, &i);
 	}
 }

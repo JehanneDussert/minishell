@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 14:21:15 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/13 09:53:16 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/14 16:04:46 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ int		ft_check_redirection(char **comm, t_all *all, char *charset)
 	while (comm[j])
 	{
 		i = 0;
-		g_all.bs = 0;
 		while (comm[j][i])
 		{
 			if (comm[j] && is_charset(comm[j][i], "><"))

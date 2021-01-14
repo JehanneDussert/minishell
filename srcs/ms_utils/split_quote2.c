@@ -6,13 +6,13 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 12:10:47 by idussert          #+#    #+#             */
-/*   Updated: 2021/01/14 14:09:32 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/14 16:17:52 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	if_in_quote(int *d, int *s, char *str)
+void	if_in_quote(int *d, int *s, char *str, t_all *all)
 {
 	int i;
 
@@ -22,18 +22,18 @@ void	if_in_quote(int *d, int *s, char *str)
 	while (str[i])
 	{
 		if (str[i] == '$')
-			g_all.env = 1;
+			all->env = 1;
 		else if (str[i] == '\"')
 			while (str[i] && str[i + 1] && str[++i] != '\"')
 			{
-				g_all.quote = 1;
+				//all->quote = 1;
 				(*d)++;
 			}
 		else if (str[i] == '\'')
 		{
 			while (str[i] && str[i + 1] && str[++i] != '\'')
 			{
-				g_all.quote = 1;
+				//all->quote = 1;
 				(*s)++;
 			}
 		}
@@ -41,18 +41,46 @@ void	if_in_quote(int *d, int *s, char *str)
 	}
 }
 
+void	ft_env(char *comm, char *new, t_all *all)
+{
+	char	*tmp;
+	int		i;
+	int		j;
+
+	i = 1;
+	j = 0;
+	tmp = comm;
+	while (comm[i])
+	{
+		while (comm[i] == '?' || comm[i] == '{' || comm[i] == '$')
+		{
+			if (comm[i] == '?' || comm[i] == '$')
+				new[j] = comm[i];
+			(j)++;
+			(i)++;
+		}
+		while (comm[i] && comm[i] != ' ' && comm[i] != '$' && comm[i] != '\'' &&
+			comm[i] != '\"' && comm[i] != '=' && comm[i] != '\\' &&
+			comm[i] && comm[i] != '}')
+			(i)++;
+		tmp = ft_substr(comm, j, ((i - j)));
+		ft_putendl_fd("lo", 2);
+		ft_check_env(all, &tmp, &new, &j);
+		if (comm[i] == '\"')
+			return ;
+	}
+}
+
 void	ft_delete_quotes(char comm, char ***tmp, int *j, char c)
 {
 	if (comm != c)
 	{
-		//if (c == '\"' && comm[0][*i] == '$')
-		//	ft_env();
 		(*tmp)[0][*j] = comm;
 		(*j)++;
 	}
 }
 
-void	ft_copy_comd(char **comm, char **new, int d, int s)
+void	ft_copy_comd(char **comm, char **new, int d, int s, t_all *all)
 {
 	int	i;
 	int	j;
@@ -61,7 +89,7 @@ void	ft_copy_comd(char **comm, char **new, int d, int s)
 	i = 0;
 	j = 0;
 	res = 0;
-	if_in_quote(&d, &s, comm[0]);
+	if_in_quote(&d, &s, comm[0], all);
 	while (comm[0] && comm[0][i])
 	{
 		if (comm[0][i] == '#')
@@ -80,6 +108,8 @@ void	ft_copy_comd(char **comm, char **new, int d, int s)
 		else if (comm[0][i] == '\"')
 		{
 			++i;
+			if (comm[0][i] == '$')
+				ft_env(&comm[0][i], &new[0][j], all);
 			while (comm[0][i] && comm[0][i] != '\\' && comm[0][i] != '\"' && d >= 0)
 			{
 				ft_delete_quotes(comm[0][i], &new, &j, '\"');
@@ -91,6 +121,8 @@ void	ft_copy_comd(char **comm, char **new, int d, int s)
 		else if (comm[0][i] == '\'')
 		{
 			++i;
+			if (comm[0][i] == '$')
+				ft_env(&comm[0][i], &new[0][j], all);
 			while (comm[0][i] != '\'' && s >= 0)
 			{
 				ft_delete_quotes(comm[0][i], &new, &j, '\'');
@@ -105,7 +137,7 @@ void	ft_copy_comd(char **comm, char **new, int d, int s)
 	}
 }
 
-char	*ft_clear_quotes(char **comm)
+char	*ft_clear_quotes(char **comm, t_all *all)
 {
 	int		w;
 	char	*new;
@@ -113,7 +145,7 @@ char	*ft_clear_quotes(char **comm)
 	w = ft_strlen(comm[0]);
 	if ((new = ft_calloc(w + 1, sizeof(char))) == NULL)
 		return (NULL);
-	ft_copy_comd(comm, &new, 0, 0);
+	ft_copy_comd(comm, &new, 0, 0, all);
 	free_read(NULL, comm);
 	if (new)
 	{
@@ -123,15 +155,14 @@ char	*ft_clear_quotes(char **comm)
 	return (comm[0]);
 }
 
-void	ft_check_quotes(char ***comm)
+void	ft_check_quotes(char ***comm, t_all *all)
 {
 	int	i;
 
 	i = 0;
 	while ((*comm)[i])
 	{
-		ft_nb_backslash((*comm)[i]);
-		(*comm)[i] = ft_clear_quotes(&((*comm)[i]));
+		(*comm)[i] = ft_clear_quotes(&((*comm)[i]), all);
 		return ;
 		i++;
 	}

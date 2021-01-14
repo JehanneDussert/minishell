@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/14 11:39:00 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/14 16:19:27 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,15 @@ int		ft_exec(char **comm, t_all *all);
 int		execve_fct(char **comm, char *path, t_all *all);
 char	**make_envp(t_all *all);
 void	path_id(char **comm, t_all *all);
-void	ft_exit_fct(t_all *g_all, char **comm);
+void	ft_exit_fct(t_all *all, char **comm);
 void	ft_check_n(int *i, int *res, char *comm, char **opt);
 int		ft_echo_n(char *comm, char **opt);
 void	c_handler(int sigld);
 void	d_handler(int sigld);
 int		ft_check_redirection(char **comm, t_all *all, char *charset);
 int		ft_redirections(char **comd, t_all *all, int j, char *charset);
-char	*ft_clear_quotes(char **comd);
-void	ft_check_quotes(char ***comm);
+char	*ft_clear_quotes(char **comd, t_all *all);
+void	ft_check_quotes(char ***comm, t_all *all);
 
 /*
 **UTILS FCTS
@@ -83,7 +83,7 @@ int		skipspace(char *line, int *i);
 void	ft_skip_redirection(char **comd, int *i);
 char	**ft_skip_quote(char *str, char *charset);
 char	**ft_split_quote(char *str, char *charset);
-void	if_in_quote(int *d, int *s, char *str);
+void	if_in_quote(int *d, int *s, char *str, t_all *all);
 t_lst	*ft_lstnew_ms(void *w1, void *w2);
 t_lst	*ft_lstlast_ms(t_lst *lst);
 void	ft_lstadd_back_ms(t_lst **alst, t_lst *new);
@@ -99,11 +99,10 @@ void	ft_copy_clean_comd(char **comd, char **tmp, char *charset);
 char	*ft_return_new_comd(char **comd, char *charset);
 char	*ft_create_file(char *str, char **file, int *j);
 void	ft_redirection_out(t_all *all);
-void	ft_nb_backslash(char *comd);
 void	ft_check_hash(char ***commands);
 void	ft_backslash(char **comd, char ***tmp, int *i, int *j);
 void	ft_cmd_fill(char **comd, char ***tmp, int *i, int *j);
-void	ft_check_env(t_lst *alst, char **tmp);
+void	ft_check_env(t_all *all, char **tmp, char **new, int *j);
 int		ft_env_in_quote(char *comd);
 
 /*
@@ -111,7 +110,7 @@ int		ft_env_in_quote(char *comd);
 */
 int		ft_error_ps(char *str);
 int		ft_quote_error(char *str);
-int		check_chevrons(char *str);
+int		check_chevrons(char *str, t_all *all);
 int		check_double(char *str, char *charset);
 int		ft_check_errors_line(char *line, t_all *all);
 int		ft_path_error(t_all *all, char **comm);

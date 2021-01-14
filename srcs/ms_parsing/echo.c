@@ -6,12 +6,12 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:18:45 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/13 12:41:28 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/14 16:07:41 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
+/*
 void	ft_echo_env(char *comm, t_lst *alst, int err, int *i)
 {
 	char	*tmp;
@@ -40,7 +40,7 @@ void	ft_echo_env(char *comm, t_lst *alst, int err, int *i)
 		if (comm[*i] == '\"')
 			return ;
 	}
-}
+}*/
 
 int		ft_echo_n(char *comm, char **opt)
 {
@@ -77,14 +77,15 @@ void	ft_echo(char **comm, t_all *all)
 	{
 		j = 0;
 		skipspace(comm[i], &j);
-		if (comm[i][j] == '$')
-			ft_echo_env(comm[i], all->alst, all->err, &j);
+		if (comm[i][j] == '$' && comm[i][j + 1] == '?')
+			ft_putnbr_fd(all->err, 1);
+			//ft_echo_env(comm[i], all->alst, all->err, &j);
 		if (comm[i][j] == '-')
 			ft_check_n(&i, &res, comm[i], &opt);
-		if (comm[i][j] != '-')
+		if (comm[i][j] != '-' && comm[i][j] != '$' && comm[i][j + 1] != '?')
 			while (comm[i][j])
 				ft_putchar_fd(comm[i][j++], 1);
-		if (comm[i + 1] && ft_strncmp(opt, "-n", 2) && g_all.env != -1)
+		if (comm[i + 1] && ft_strncmp(opt, "-n", 2) && all->env != -1)
 			ft_putchar_fd(' ', 1);
 		i++;
 	}
