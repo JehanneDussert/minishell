@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 12:10:47 by idussert          #+#    #+#             */
-/*   Updated: 2021/01/14 14:00:29 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/14 14:09:32 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,11 @@ void	ft_copy_comd(char **comm, char **new, int d, int s)
 {
 	int	i;
 	int	j;
+	int res;
 
 	i = 0;
 	j = 0;
+	res = 0;
 	if_in_quote(&d, &s, comm[0]);
 	while (comm[0] && comm[0][i])
 	{
@@ -67,10 +69,13 @@ void	ft_copy_comd(char **comm, char **new, int d, int s)
 			new[0][j] = '\0';
 			return ;
 		}
-		else if (comm[0][i] == '\\' && (i == 0 || comm[0][i - 1] != '\\'))
+		else if (comm[0][i] == '\\' && (i == 0 || comm[0][i - 1] != '\\' || res == 1))
 		{
+			if (res == 1)
+				res = 0;
 			++i;
 			ft_cmd_fill(comm, &new, &i, &j);
+			res = 1;
 		}
 		else if (comm[0][i] == '\"')
 		{
@@ -94,11 +99,9 @@ void	ft_copy_comd(char **comm, char **new, int d, int s)
 			}
 			i++;
 		}
-		while (comm[0][i] && (comm[0][i] != '#' && comm[0][i] != '\\')
+		while (comm[0][i] && comm[0][i] != '#' && comm[0][i] != '\\'
 			&& comm[0][i] != '\'' && comm[0][i] != '\"')
-		{
 			ft_cmd_fill(comm, &new, &i, &j);
-		}
 	}
 }
 
