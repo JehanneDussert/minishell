@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:47:39 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/14 10:33:56 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/14 11:39:02 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_nb_backslash(char *comd)
 		i++;
 	}
 }
-
+/*
 void	ft_check_hash(char ***commands)
 {
 	int	i;
@@ -46,14 +46,14 @@ void	ft_check_hash(char ***commands)
 		i++;
 	}
 }
-
-void	ft_hash(char **comd, char ***tmp, int *i, int *j)
+*/
+void	ft_cmd_fill(char **comd, char ***tmp, int *i, int *j)
 {
 	(*tmp)[0][*j] = comd[0][*i];
 	(*j)++;
 	(*i)++;
 }
-
+/*
 void	ft_backslash(char **comd, char ***tmp, int *i, int *j)
 {
 	if (g_all.bs == 0)
@@ -72,7 +72,7 @@ void	ft_backslash(char **comd, char ***tmp, int *i, int *j)
 			(*tmp)[0][*j] = comd[0][*i];
 			(*j)++;
 		}
-}
+}*/
 
 int		ft_env_in_quote(char *comd)
 {
