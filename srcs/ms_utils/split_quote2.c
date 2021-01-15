@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 12:10:47 by idussert          #+#    #+#             */
-/*   Updated: 2021/01/14 16:17:52 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/15 10:25:16 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	ft_copy_comd(char **comm, char **new, int d, int s, t_all *all)
 			ft_cmd_fill(comm, &new, &i, &j);
 			res = 1;
 		}
-		else if (comm[0][i] == '\"')
+		if (comm[0][i] == '\"')
 		{
 			++i;
 			if (comm[0][i] == '$')
@@ -116,20 +116,22 @@ void	ft_copy_comd(char **comm, char **new, int d, int s, t_all *all)
 				d--;
 				i++;
 			}
-			i++;
+			if (comm[0][i] && comm[0][i] != '\\')
+				i++;
 		}
-		else if (comm[0][i] == '\'')
+		if (comm[0][i] == '\'')
 		{
 			++i;
 			if (comm[0][i] == '$')
 				ft_env(&comm[0][i], &new[0][j], all);
-			while (comm[0][i] != '\'' && s >= 0)
+			while (comm[0][i] && comm[0][i] != '\\' && comm[0][i] != '\'' && s >= 0)
 			{
 				ft_delete_quotes(comm[0][i], &new, &j, '\'');
 				s--;
 				i++;
 			}
-			i++;
+			if (comm[0][i] && comm[0][i] != '\\')
+				i++;
 		}
 		while (comm[0][i] && comm[0][i] != '#' && comm[0][i] != '\\'
 			&& comm[0][i] != '\'' && comm[0][i] != '\"')

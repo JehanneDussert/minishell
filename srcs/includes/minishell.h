@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/14 16:19:27 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/15 09:42:46 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,6 @@ void	ft_copy_clean_comd(char **comd, char **tmp, char *charset);
 char	*ft_return_new_comd(char **comd, char *charset);
 char	*ft_create_file(char *str, char **file, int *j);
 void	ft_redirection_out(t_all *all);
-void	ft_check_hash(char ***commands);
-void	ft_backslash(char **comd, char ***tmp, int *i, int *j);
 void	ft_cmd_fill(char **comd, char ***tmp, int *i, int *j);
 void	ft_check_env(t_all *all, char **tmp, char **new, int *j);
 int		ft_env_in_quote(char *comd);

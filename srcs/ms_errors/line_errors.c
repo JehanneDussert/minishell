@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/14 16:18:16 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/15 10:16:59 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,13 @@ int		ft_quote_error(char *str)
 	c = 0;
 	while (str[i])
 	{
-		//if (str[i] == '\"' || str[i] == '\'')
-		//	all->quote = 1;
 		if (str[i] == '\"' && c % 2 != 0)
 			q += 2;
 		else if (str[i] == '\"' && (i == 0 || str[i - 1] != '\\'))
 			q++;
 		else if (str[i] == '\'' && q % 2 != 0)
 			c += 2;
-		else if (str[i] == '\'')
+		else if (str[i] == '\'' && (i == 0 || str[i - 1] != '\\'))
 			c++;
 		i++;
 	}
