@@ -6,60 +6,11 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 12:10:47 by idussert          #+#    #+#             */
-/*   Updated: 2021/01/15 11:44:03 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/15 11:58:02 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	ft_delete_quotes(char comm, char ***tmp, int *j, char c)
-{
-	if (comm != c)
-	{
-		(*tmp)[0][*j] = comm;
-		(*j)++;
-	}
-}
-
-void	if_in_quote(int *d, int *s, char *str, t_all *all)
-{
-	int i;
-
-	i = 0;
-	*s = 0;
-	*d = 0;
-	while (str[i])
-	{
-		if (str[i] == '$')
-			all->env = 1;
-		else if (str[i] == '\"')
-			while (str[i] && str[i + 1] && str[++i] != '\"')
-				(*d)++;
-		else if (str[i] == '\'')
-		{
-			while (str[i] && str[i + 1] && str[++i] != '\'')
-				(*s)++;
-		}
-		i++;
-	}
-}
-
-void	ft_err_nb(char *comm, char ***new, int *j, int *i, t_all *all)
-{
-	char *nb;
-
-	while (comm[*i] == '?' || comm[*i] == '{' || comm[*i] == '$' || comm[*i] == '}')
-	{
-		if (comm[*i] == '?')
-		{
-			nb = ft_itoa(all->err);
-			if (nb)
-				(*new)[0] = ft_strjoin_free((*new)[0], nb, 1);
-		}
-		(*j)++;
-		(*i)++;
-	}
-}
 
 void	ft_env(char *comm, char ***new, int *j, t_all *all)
 {
@@ -82,17 +33,6 @@ void	ft_env(char *comm, char ***new, int *j, t_all *all)
 		if (comm[i] == '\"')
 			return ;
 	}
-}
-
-int	ft_check_special_case(char **comm, char ***new, int *j, int *i, t_all *all)
-{
-	if (comm[0][*i] == '#')
-	{
-		(*new)[0][*j] = '\0';
-		return (0);
-	}
-	ft_err_nb(comm[0], new, j, i, all);
-	return (1);
 }
 
 void	ft_copy_comd(char **comm, char **new, int d, int s, t_all *all)

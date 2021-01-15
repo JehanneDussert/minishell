@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/15 09:42:46 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/15 11:57:59 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,14 @@ void	ft_redirection_out(t_all *all);
 void	ft_cmd_fill(char **comd, char ***tmp, int *i, int *j);
 void	ft_check_env(t_all *all, char **tmp, char **new, int *j);
 int		ft_env_in_quote(char *comd);
+
+/*
+**QUOTES UTILS FCTS
+*/
+void	ft_delete_quotes(char comm, char ***tmp, int *j, char c);
+void	if_in_quote(int *d, int *s, char *str, t_all *all);
+int	ft_check_special_case(char **comm, char ***new, int *j, int *i, t_all *all);
+void	ft_err_nb(char *comm, char ***new, int *j, int *i, t_all *all);
 
 /*
 **MS_ERRORS
