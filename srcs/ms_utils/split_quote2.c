@@ -6,32 +6,45 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 12:10:47 by idussert          #+#    #+#             */
-/*   Updated: 2021/01/15 11:58:02 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/15 16:45:15 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_env(char *comm, char ***new, int *j, t_all *all)
+void	ft_env(char *comm, char ***new, int *j, int *i, t_all *all)
 {
 	char	*tmp;
-	int		i;
+	int 	k;
+	int 	res;
 
-	i = 0;
-	tmp = comm;
-	while (comm[i])
+	++(*i);
+	k = *i;
+	tmp = &comm[*i];
+	if (comm[*i])
 	{
-		if ((comm[i] == '?' && (comm[i - 1] == '$' || comm[i - 1] == '{'))
-			|| (comm[i] == '{' && comm[i - 1] == '$') || comm[i] == '$')
-			ft_err_nb(comm, new, j, &i, all);
-		while (comm[i] && comm[i] != ' ' && comm[i] != '$' && comm[i] != '\'' &&
-			comm[i] != '\"' && comm[i] != '=' && comm[i] != '\\' &&
-			comm[i] && comm[i] != '}')
-			(i)++;
-		//tmp = ft_substr(comm, j, ((i - j)));
-		//ft_check_env(all, &tmp, new, &j);
-		if (comm[i] == '\"')
+		if ((comm[*i] == '?' && (comm[*i - 1] == '$' || comm[*i - 1] == '{'))
+			|| (comm[*i] == '{' && comm[*i - 1] == '$') || comm[*i] == '$')
+			ft_err_nb(comm, new, j, i, all);
+		while (comm[*i] && comm[*i] != ' ' && comm[*i] != '$' && comm[*i] != '\'' &&
+			comm[*i] != '\"' && comm[*i] != '=' && comm[*i] != '\\' &&
+			comm[*i] && comm[*i] != '}')
+			(*i)++;
+		tmp = ft_substr(comm, k, (*i - k));
+		res = ft_check_env(all->alst, tmp, new);
+		if (*i - k < res)
+			all->cmd_len += res;
+		if (comm[*i] == '\"')
+			++(*i);
+		tmp = ft_strdup((*new)[0]);
+		free_read(NULL, (*new));
+		k = 0;
+		*j = 0;
+		if (((*new)[0] = ft_calloc(all->cmd_len + 1, sizeof(char))) == NULL)
 			return ;
+		while (tmp[k])
+			ft_cmd_fill(&tmp, new, &k, j);
+		ft_free((void **)&tmp);
 	}
 }
 
@@ -61,7 +74,7 @@ void	ft_copy_comd(char **comm, char **new, int d, int s, t_all *all)
 		{
 			++i;
 			if (comm[0][i] == '$')
-				ft_env(&comm[0][i], &new, &j, all);
+				ft_env(comm[0], &new, &j, &i, all);
 			while (comm[0][i] && comm[0][i] != '\\' && comm[0][i] != '\"' && d >= 0)
 			{
 				ft_delete_quotes(comm[0][i], &new, &j, '\"');
@@ -83,19 +96,23 @@ void	ft_copy_comd(char **comm, char **new, int d, int s, t_all *all)
 			if (comm[0][i] && comm[0][i] != '\\')
 				i++;
 		}
-		while (comm[0][i] && !is_charset(comm[0][i], "#?$") && comm[0][i] != '\\'
+		while (comm[0][i] && !is_charset(comm[0][i], "#?") && comm[0][i] != '\\'
 			&& comm[0][i] != '\'' && comm[0][i] != '\"')
-			ft_cmd_fill(comm, &new, &i, &j);
+		{
+			if (comm[0][i] == '$')
+				ft_env(comm[0], &new, &j, &i, all);
+			else
+				ft_cmd_fill(comm, &new, &i, &j);
+		}
 	}
 }
 
 char	*ft_clear_quotes(char **comm, t_all *all)
 {
-	int		w;
 	char	*new;
 
-	w = ft_strlen(comm[0]);
-	if ((new = ft_calloc(w + 1, sizeof(char))) == NULL)
+	all->cmd_len = ft_strlen(comm[0]);
+	if ((new = ft_calloc(all->cmd_len + 1, sizeof(char))) == NULL)
 		return (NULL);
 	ft_copy_comd(comm, &new, 0, 0, all);
 	free_read(NULL, comm);

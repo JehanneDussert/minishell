@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 14:33:43 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/14 16:09:55 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/15 15:19:45 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,26 +63,18 @@ void	lst_add_env(char **env, t_all *all)
 	}
 }
 
-void	ft_check_env(t_all *all, char **tmp, char **new, int *j)
+int	ft_check_env(t_lst *alst, char *tmp, char ***new)
 {
-	int i;
-
-	i = 0;
-	while (all->alst)
+	while (alst)
 	{
-		if (!ft_strcmp(*tmp, all->alst->key))
+		if (!ft_strcmp(tmp, alst->key))
 		{
-			all->env = 0;
-			while (all->alst->content[i])
-				ft_cmd_fill(&all->alst->content, &new, j, &i);
-			ft_putstr_fd(*new, 1);
-			ft_putendl_fd("ici", 2);
-			ft_free((void **)tmp);
-			return ;
+			(*new)[0] = ft_strjoin_free((*new)[0], alst->content, 1);
+			ft_free((void **)&tmp);
+			return (ft_strlen(alst->content));
 		}
-		else
-			all->env = -1;
-		all->alst = all->alst->next;
+		alst = alst->next;
 	}
-	ft_free((void **)tmp);
+	ft_free((void **)&tmp);
+	return (0);
 }

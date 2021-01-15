@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:11:39 by jdussert          #+#    #+#             */
-/*   Updated: 2020/12/07 11:15:58 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/15 16:21:44 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct	s_all
 	int			copy_stdin;
 	int			env;
 	int			bs;
-	int			quote;
+	int			cmd_len;
 }				t_all;
 
 #endif
