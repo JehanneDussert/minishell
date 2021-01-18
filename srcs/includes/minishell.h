@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/15 15:05:19 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/18 16:40:40 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int		skipspace(char *line, int *i);
 void	ft_skip_redirection(char **comd, int *i);
 char	**ft_skip_quote(char *str, char *charset);
 char	**ft_split_quote(char *str, char *charset);
-void	if_in_quote(int *d, int *s, char *str, t_all *all);
 t_lst	*ft_lstnew_ms(void *w1, void *w2);
 t_lst	*ft_lstlast_ms(t_lst *lst);
 void	ft_lstadd_back_ms(t_lst **alst, t_lst *new);
@@ -107,16 +106,21 @@ int		ft_env_in_quote(char *comd);
 **QUOTES UTILS FCTS
 */
 void	ft_delete_quotes(char comm, char ***tmp, int *j, char c);
-void	if_in_quote(int *d, int *s, char *str, t_all *all);
-int	    ft_check_special_case(char **comm, char ***new, int *j, int *i, t_all *all);
-void	ft_err_nb(char *comm, char ***new, int *j, int *i, t_all *all);
+void	if_in_quote(int *d, int *s, char *str);
+int	    ft_check_special_case(char **comm, char ***new, t_copy *copy, t_all *all);
+void	ft_err_nb(char *comm, char ***new, t_copy *copy, t_all *all);
+void	ft_init_copy(t_copy *copy);
+void	ft_no_quote(char **comm, char ***new, t_copy *copy, t_all *all);
+void	ft_simple_quote(char **comm, t_copy *copy, char ***new);
+void	ft_double_quote(char **comm, t_copy *copy, char ***new, t_all *all);
+void	ft_env(char *comm, char ***new, t_copy *copy, t_all *all);
 
 /*
 **MS_ERRORS
 */
 int		ft_error_ps(char *str);
 int		ft_quote_error(char *str);
-int		check_chevrons(char *str, t_all *all);
+int		check_chevrons(char *str);
 int		check_double(char *str, char *charset);
 int		ft_check_errors_line(char *line, t_all *all);
 int		ft_path_error(t_all *all, char **comm);

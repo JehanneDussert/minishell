@@ -9,7 +9,7 @@ void	ft_delete_quotes(char comm, char ***tmp, int *j, char c)
 	}
 }
 
-void	if_in_quote(int *d, int *s, char *str, t_all *all)
+void	if_in_quote(int *d, int *s, char *str)
 {
 	int i;
 
@@ -18,9 +18,7 @@ void	if_in_quote(int *d, int *s, char *str, t_all *all)
 	*d = 0;
 	while (str[i])
 	{
-		if (str[i] == '$')
-			all->env = 1;
-		else if (str[i] == '\"')
+		if (str[i] == '\"')
 			while (str[i] && str[i + 1] && str[++i] != '\"')
 				(*d)++;
 		else if (str[i] == '\'')
@@ -30,30 +28,30 @@ void	if_in_quote(int *d, int *s, char *str, t_all *all)
 	}
 }
 
-int	ft_check_special_case(char **comm, char ***new, int *j, int *i, t_all *all)
+int	ft_check_special_case(char **comm, char ***new, t_copy *copy, t_all *all)
 {
-	if (comm[0][*i] == '#')
+	if (comm[0][copy->i] == '#')
 	{
-		(*new)[0][*j] = '\0';
+		(*new)[0][copy->j] = '\0';
 		return (0);
 	}
-	ft_err_nb(comm[0], new, j, i, all);
+	ft_err_nb(comm[0], new, copy, all);
 	return (1);
 }
 
-void	ft_err_nb(char *comm, char ***new, int *j, int *i, t_all *all)
+void	ft_err_nb(char *comm, char ***new, t_copy *copy, t_all *all)
 {
 	char *nb;
 
-	while (comm[*i] == '?' || comm[*i] == '{' || comm[*i] == '$' || comm[*i] == '}')
+	while (comm[copy->i] == '?' || comm[copy->i] == '{' || comm[copy->i] == '$' || comm[copy->i] == '}')
 	{
-		if (comm[*i] == '?')
+		if (comm[copy->i] == '?')
 		{
 			nb = ft_itoa(all->err);
 			if (nb)
 				(*new)[0] = ft_strjoin_free((*new)[0], nb, 1);
 		}
-		(*j)++;
-		(*i)++;
+		copy->j++;
+		copy->i++;
 	}
 }

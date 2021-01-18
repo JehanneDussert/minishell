@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/15 10:16:59 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/18 15:09:39 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		is_charset(char c, char *charset)
 	return (0);
 }
 
-int		check_chevrons(char *str, t_all *all)
+int		check_chevrons(char *str)
 {
 	int	i;
 	int	s;
@@ -77,7 +77,7 @@ int		check_chevrons(char *str, t_all *all)
 	ft_init_quote(&i, &s, &d, &c);
 	while (str[i])
 	{
-		if_in_quote(&d, &s, str, all);
+		if_in_quote(&d, &s, str);
 		if (c == 0 && (s == 0 && d == 0) && is_charset(str[i], "><"))
 		{
 			i++;
