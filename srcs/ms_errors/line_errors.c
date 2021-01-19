@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/18 15:09:39 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/19 15:41:17 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,23 @@ int		ft_quote_error(char *str)
 	int	i;
 	int	q;
 	int c;
+	int bs;
 
 	i = 0;
 	q = 0;
 	c = 0;
+	bs = 0;
 	while (str[i])
 	{
+		if (str[i] == '\\')
+			bs++;
 		if (str[i] == '\"' && c % 2 != 0)
 			q += 2;
-		else if (str[i] == '\"' && (i == 0 || str[i - 1] != '\\'))
+		else if (str[i] == '\"' && (i == 0 || str[i - 1] != '\\' || !(bs % 2)))
 			q++;
 		else if (str[i] == '\'' && q % 2 != 0)
 			c += 2;
-		else if (str[i] == '\'' && (i == 0 || str[i - 1] != '\\'))
+		else if (str[i] == '\'' && (i == 0 || str[i - 1] != '\\' || !(bs % 2)))
 			c++;
 		i++;
 	}
@@ -78,19 +82,34 @@ int		check_chevrons(char *str)
 	while (str[i])
 	{
 		if_in_quote(&d, &s, str);
-		if (c == 0 && (s == 0 && d == 0) && is_charset(str[i], "><"))
+		if (is_charset(str[i], "><") && i > 0 && str[i - 1] == '\\')
+		{
+			i++;
+			if (str[i] == '\0')
+				return (1);
+		}
+		else if (c == 0 && (s == 0 && d == 0) && is_charset(str[i], "><"))
 		{
 			i++;
 			c++;
 		}
 		if ((s == 0 && d == 0) && c > 0 && (str[i] == '<' && str[i - 1] == '>'))
+		{
+			ft_putnbr_fd(1, 2);
 			return (0);
+		}
 		if ((s == 0 && d == 0) && c > 0 && (str[i - 1] == '<' && str[i] == ' '
 			&& skipspace(str, &i) && str[i] == '>'))
+		{
+			ft_putnbr_fd(2, 2);
 			return (0);
+		}
 		if (s == 0 && d == 0 && i > 0 && str[i - 1] == '>' && skipspace(str, &i)
 		&& (str[i] == ';' || str[i] == '|' || str[i] == '\0'))
+		{
+			ft_putnbr_fd(3, 2);
 			return (0);
+		}
 		i++;
 	}
 	return (1);
