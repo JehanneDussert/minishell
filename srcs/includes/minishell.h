@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/18 16:40:40 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/19 10:14:02 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	ft_delete_quotes(char comm, char ***tmp, int *j, char c);
 void	if_in_quote(int *d, int *s, char *str);
 int	    ft_check_special_case(char **comm, char ***new, t_copy *copy, t_all *all);
 void	ft_err_nb(char *comm, char ***new, t_copy *copy, t_all *all);
-void	ft_init_copy(t_copy *copy);
+void	ft_init_copy(t_copy *copy, char *comm);
 void	ft_no_quote(char **comm, char ***new, t_copy *copy, t_all *all);
 void	ft_simple_quote(char **comm, t_copy *copy, char ***new);
 void	ft_double_quote(char **comm, t_copy *copy, char ***new, t_all *all);
