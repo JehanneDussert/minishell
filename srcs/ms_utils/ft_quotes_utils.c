@@ -4,7 +4,10 @@ void	ft_delete_quotes(char comm, char ***tmp, int *j, char c)
 {
 	if (comm != c)
 	{
-		(*tmp)[0][*j] = comm;
+		if (comm == ' ')
+			(*tmp)[0][*j] = 1;
+		else
+			(*tmp)[0][*j] = comm;
 		(*j)++;
 	}
 }
