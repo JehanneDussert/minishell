@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:11:39 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/15 16:21:44 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/19 10:12:50 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,16 @@ typedef struct	s_all
 	int			prog;
 	int			copy_stdout;
 	int			copy_stdin;
-	int			env;
-	int			bs;
 	int			cmd_len;
 }				t_all;
+
+typedef struct s_copy
+{
+	int			j;
+	int			i;
+	int			s;
+	int			d;
+}				t_copy;
+
 
 #endif
