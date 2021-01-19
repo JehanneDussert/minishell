@@ -20,11 +20,14 @@ void	ft_simple_quote(char **comm, t_copy *copy, char ***new)
 	++copy->i;
 	while (comm[0][copy->i] && comm[0][copy->i] != '\\' && comm[0][copy->i] != '\'' && copy->s-- >= 0)
 		ft_delete_quotes(comm[0][(copy->i)++], new, &copy->j, '\'');
-	if (comm[0][copy->i] && comm[0][copy->i] != '\\')
+	if (comm[0][copy->i] && comm[0][copy->i] == '\\')
 	{
-		copy->i++;
-		return ;
+		++copy->i;
+		ft_cmd_fill(comm, new, &copy->i, &copy->j);
 	}
+	if (comm[0][copy->i] && comm[0][copy->i] == '\'')
+		copy->i++;
+	
 }
 
 void	ft_double_quote(char **comm, t_copy *copy, char ***new, t_all *all)
@@ -34,9 +37,11 @@ void	ft_double_quote(char **comm, t_copy *copy, char ***new, t_all *all)
 		ft_env(comm[0], new, copy, all);
 	while (comm[0][copy->i] && comm[0][copy->i] != '\\' && comm[0][copy->i] != '\"' && copy->d-- >= 0)
 		ft_delete_quotes(comm[0][(copy->i)++], new, &copy->j, '\"');
-	if (comm[0][copy->i] && comm[0][copy->i] != '\\')
+	if (comm[0][copy->i] && comm[0][copy->i] == '\\')
 	{
-		copy->i++;
-		return ;
+		++copy->i;
+		ft_cmd_fill(comm, new, &copy->i, &copy->j);
 	}
+	if (comm[0][copy->i] && comm[0][copy->i] == '\"')
+		copy->i++;
 }

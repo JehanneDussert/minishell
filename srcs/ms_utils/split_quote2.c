@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 12:10:47 by idussert          #+#    #+#             */
-/*   Updated: 2021/01/19 10:21:21 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/19 10:38:19 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,25 +58,11 @@ void	ft_copy_comd(char **comm, char **new, t_all *all)
 		if (!ft_check_special_case(comm, &new, &copy, all))
 			return ;
 		else if (comm[0][copy.i] == '\\' && (copy.i == 0 || comm[0][copy.i - 1] != '\\') && ++(copy.i))
-		{
 			ft_cmd_fill(comm, &new, &copy.i, &copy.j);
-			ft_putstr_fd("in \\ :", 2);
-			ft_putendl_fd(&comm[0][copy.i], 2);
-		}
 		if (comm[0][copy.i] == '\"')
-		{
-			ft_putendl_fd("in", 2);
 			ft_double_quote(comm, &copy, &new, all);
-			ft_putendl_fd(&comm[0][copy.i], 2);
-		}
 		if (comm[0][copy.i] == '\'')
-		{
-			ft_putstr_fd("in ' :", 2);
-			ft_putendl_fd(&comm[0][copy.i], 2);
 			ft_simple_quote(comm, &copy, &new);
-			ft_putstr_fd("after :", 2);
-			ft_putendl_fd(&comm[0][copy.i], 2);
-		}
 		while (comm[0][copy.i] && !is_charset(comm[0][copy.i], "#?") && comm[0][copy.i] != '\\'
 			&& comm[0][copy.i] != '\'' && comm[0][copy.i] != '\"')
 			ft_no_quote(comm, &new, &copy, all);
