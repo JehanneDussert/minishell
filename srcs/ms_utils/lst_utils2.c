@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 14:33:43 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/15 15:19:45 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/19 10:46:06 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	lst_add_env(char **env, t_all *all)
 	}
 }
 
-int	ft_check_env(t_lst *alst, char *tmp, char ***new)
+int		ft_check_env(t_lst *alst, char *tmp, char ***new)
 {
 	while (alst)
 	{

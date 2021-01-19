@@ -28,7 +28,8 @@ void	if_in_quote(int *d, int *s, char *str)
 	}
 }
 
-int	ft_check_special_case(char **comm, char ***new, t_copy *copy, t_all *all)
+int		ft_check_special_case(char **comm, char ***new, t_copy *copy,
+		t_all *all)
 {
 	if (comm[0][copy->i] == '#')
 	{
@@ -43,7 +44,8 @@ void	ft_err_nb(char *comm, char ***new, t_copy *copy, t_all *all)
 {
 	char *nb;
 
-	while (comm[copy->i] == '?' || comm[copy->i] == '{' || comm[copy->i] == '$' || comm[copy->i] == '}')
+	while (comm[copy->i] == '?' || comm[copy->i] == '{' || comm[copy->i] == '$'
+		|| comm[copy->i] == '}')
 	{
 		if (comm[copy->i] == '?')
 		{

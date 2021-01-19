@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 12:10:47 by idussert          #+#    #+#             */
-/*   Updated: 2021/01/19 10:38:19 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/19 10:49:00 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,22 @@
 void	ft_env(char *comm, char ***new, t_copy *copy, t_all *all)
 {
 	char	*tmp;
-	int 	k;
-	int 	res;
+	int		k;
+	int		res;
 
 	++(copy->i);
 	k = copy->i;
 	tmp = &comm[copy->i];
 	if (comm[copy->i])
 	{
-		if ((comm[copy->i] == '?' && (comm[copy->i - 1] == '$' || comm[copy->i - 1] == '{'))
-			|| (comm[copy->i] == '{' && comm[copy->i - 1] == '$') || comm[copy->i] == '$')
+		if ((comm[copy->i] == '?' && (comm[copy->i - 1] == '$' ||
+			comm[copy->i - 1] == '{')) || (comm[copy->i] == '{' &&
+			comm[copy->i - 1] == '$') || comm[copy->i] == '$')
 			ft_err_nb(comm, new, copy, all);
-		while (comm[copy->i] && comm[copy->i] != ' ' && comm[copy->i] != '$' && comm[copy->i] != '\'' &&
-			comm[copy->i] != '\"' && comm[copy->i] != '=' && comm[copy->i] != '\\' &&
-			comm[copy->i] && comm[copy->i] != '}')
+		while (comm[copy->i] && comm[copy->i] != ' ' && comm[copy->i] != '$'
+			&& comm[copy->i] != '\'' && comm[copy->i] != '\"' &&
+			comm[copy->i] != '=' && comm[copy->i] != '\\' && comm[copy->i] &&
+			comm[copy->i] != '}')
 			(copy->i)++;
 		tmp = ft_substr(comm, k, (copy->i - k));
 		res = ft_check_env(all->alst, tmp, new);
@@ -51,19 +53,21 @@ void	ft_env(char *comm, char ***new, t_copy *copy, t_all *all)
 void	ft_copy_comd(char **comm, char **new, t_all *all)
 {
 	t_copy	copy;
-	
+
 	ft_init_copy(&copy, comm[0]);
 	while (comm[0] && comm[0][copy.i])
 	{
 		if (!ft_check_special_case(comm, &new, &copy, all))
 			return ;
-		else if (comm[0][copy.i] == '\\' && (copy.i == 0 || comm[0][copy.i - 1] != '\\') && ++(copy.i))
+		else if (comm[0][copy.i] == '\\' && (copy.i == 0 ||
+			comm[0][copy.i - 1] != '\\') && ++(copy.i))
 			ft_cmd_fill(comm, &new, &copy.i, &copy.j);
 		if (comm[0][copy.i] == '\"')
 			ft_double_quote(comm, &copy, &new, all);
 		if (comm[0][copy.i] == '\'')
 			ft_simple_quote(comm, &copy, &new);
-		while (comm[0][copy.i] && !is_charset(comm[0][copy.i], "#?") && comm[0][copy.i] != '\\'
+		while (comm[0][copy.i] && !is_charset(comm[0][copy.i], "#?")
+			&& comm[0][copy.i] != '\\'
 			&& comm[0][copy.i] != '\'' && comm[0][copy.i] != '\"')
 			ft_no_quote(comm, &new, &copy, all);
 	}
