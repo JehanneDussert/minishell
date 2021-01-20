@@ -94,41 +94,54 @@ void	ft_s_char(char **comm, char **new, int *i, int *j)
 	}
 }
 
+void	ft_init_check_sep(int *i, int *j, int *d, int *s)
+{
+	*i = 0;
+    *j = 0;
+    *s = 0;
+	*d = 0;
+}
+
+int		ft_check_bs(char *comm, int i)
+{
+	int bs;
+
+	bs = 0;
+	while (comm[i] && comm[i] == '\\' && i > 0)
+	{
+		bs++;
+		i--;
+	}
+	if (bs % 2)
+		return (0);
+	return (1);
+}
+
 void	ft_check_sep(char **comm)
 {
     int		i;
-    int		q;
+    int		s;
+	int		d;
     char	*new;
     int		j;
 
-    i = 0;
-    j = 0;
-    q = 0;
+	ft_init_check_sep(&i, &j, &d, &s);
 	if ((new = ft_calloc(ft_strlen(*comm) + 1, sizeof(char))) == NULL)
 		return ;
 	while ((*comm)[i])
 	{
-		if ((*comm)[i] == '\'' || (*comm)[i] == '\"')
-			q++;
-		if ((*comm)[i] && ((*comm)[i] == '\'' || (*comm)[i] == '\"') && !(q % 2))
+		if ((s % 2 || d % 2) && is_charset((*comm)[i], ";|><"))
+			ft_s_char(comm, &new, &i, &j);
+		else
 		{
-			while ((*comm)[i] && !is_charset((*comm)[i], "><;|"))
-			{
-				new[j] = (*comm)[i];
-            	i++;
-            	j++;
-			}
-			ft_s_char(comm, &new, &i, &j);
+			if ((*comm)[i] == '\'' && ft_check_bs(*comm, i - 1))
+				s++;
+			else if ((*comm)[i] == '\"' && ft_check_bs(*comm, i - 1))
+				d++;
+			new[j] = (*comm)[i];
+			i++;
+			j++;
 		}
-		if ((*comm)[i] && !is_charset(comm[0][i], "><;|\'\""))
-        {
-            new[j] = (*comm)[i];
-            i++;
-            j++;
-        }
-		if ((*comm)[i] && !(q % 2))
-			ft_s_char(comm, &new, &i, &j);
-		
 	}
 	free_read(NULL, comm);
 	if (new)
@@ -136,5 +149,4 @@ void	ft_check_sep(char **comm)
 		(*comm) = ft_strdup(new);
 		ft_free((void **)&new);
 	}
-	ft_putendl_fd(*comm, 2);
 }
