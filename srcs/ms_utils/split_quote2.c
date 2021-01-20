@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 12:10:47 by idussert          #+#    #+#             */
-/*   Updated: 2021/01/19 15:14:51 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/20 10:43:07 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	ft_check_quotes(char ***comm, t_all *all)
 	int	i;
 
 	i = 0;
+	ft_restablish_char(comm);
 	while ((*comm)[i])
 	{
 		(*comm)[i] = ft_clear_quotes(&((*comm)[i]), all);

@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/19 15:33:00 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/20 12:21:03 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_command_exec(char *comm, t_all *all)
 	ft_check_quotes(&commands, all);
 	if (!ft_check_redirection(commands, all, "><"))
 		return (free_read(&commands, NULL));
-	ft_restablish_char(&commands, all);
+	ft_restablish_redir(&commands, all);
 	// il faut d'abordsplit quote puis check_quotes puis command id
 	if (res == 0 && !commands[1] &&
 	!(command_id((ft_split_quote(commands[0], "\t\n\r\v \f")), all, 1)))
@@ -45,7 +45,8 @@ char	*read_checks(t_all *all, int *count, char ***buf, char *line)
 	int		i;
 
 	i = 0;
-	ft_check_sep(&line);
+	if (ft_strchr(line, '\'') || ft_strchr(line, '\"'))
+		ft_check_sep(&line);
 	if (!(ft_check_errors_line(line, all)))
 	{
 		free_read(buf, &line);

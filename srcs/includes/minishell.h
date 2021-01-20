@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/19 14:37:33 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/20 10:21:44 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,8 @@ void	ft_simple_quote(char **comm, t_copy *copy, char ***new);
 void	ft_double_quote(char **comm, t_copy *copy, char ***new, t_all *all);
 void	ft_env(char *comm, char ***new, t_copy *copy, t_all *all);
 void	ft_special_char(char **comm, char ***new, t_copy *copy);
-void	ft_restablish_char(char ***comm, t_all *all);
+void	ft_restablish_char(char ***comm);
+void    ft_restablish_redir(char ***comm, t_all *all);
 void    ft_check_sep(char **comm);
 
 /*
