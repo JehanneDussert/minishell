@@ -30,29 +30,25 @@ int		ft_error_ps(char *str)
 int		ft_quote_error(char *str)
 {
 	int	i;
-	int	q;
-	int c;
-	int bs;
+	int	d;
+	int s;
 
 	i = 0;
-	q = 0;
-	c = 0;
-	bs = 0;
+	d = 0;
+	s = 0;
 	while (str[i])
 	{
-		if (str[i] == '\\')
-			bs++;
-		if (str[i] == '\"' && c % 2 != 0)
-			q += 2;
-		else if (str[i] == '\"' && (i == 0 || str[i - 1] != '\\' || !(bs % 2)))
-			q++;
-		else if (str[i] == '\'' && q % 2 != 0)
-			c += 2;
-		else if (str[i] == '\'' && (i == 0 || str[i - 1] != '\\' || !(bs % 2)))
-			c++;
+		if (str[i] == '\"' && s % 2)
+			d += 2;
+		else if (str[i] == '\"' && ft_check_bs(str, i - 1))
+			d++;
+		else if (str[i] == '\'' && d % 2)
+			s += 2;
+		else if (str[i] == '\'' && ft_check_bs(str, i - 1))
+			s++;
 		i++;
 	}
-	if (q % 2 != 0 || c % 2 != 0)
+	if (d % 2 || s % 2)
 		return (0);
 	return (1);
 }

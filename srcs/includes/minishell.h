@@ -118,6 +118,7 @@ void	ft_special_char(char **comm, char ***new, t_copy *copy);
 void	ft_restablish_char(char ***comm);
 void    ft_restablish_redir(char ***comm, t_all *all);
 void    ft_check_sep(char **comm);
+int		ft_check_bs(char *comm, int i);
 
 /*
 **MS_ERRORS

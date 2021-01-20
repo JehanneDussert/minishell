@@ -40,20 +40,3 @@ int		ft_env_in_quote(char *comd)
 	}
 	return (0);
 }
-/*
-void	ft_special_char(char **comm, char ***new, t_copy *copy)
-{
-	if (is_charset(comm[0][copy->i], "><|;"))
-	{
-		if (is_charset(comm[0][copy->i], "<"))
-			(*new)[0][copy->j] = 2;
-		else if (is_charset(comm[0][copy->i], ">"))
-			(*new)[0][copy->j] = 3;
-		else if (is_charset(comm[0][copy->i], ";"))
-			(*new)[0][copy->j] = 4;
-		else if (is_charset(comm[0][copy->i], "|"))
-			(*new)[0][copy->j] = 5;
-		copy->j++;
-		copy->i++;
-	}
-}*/
