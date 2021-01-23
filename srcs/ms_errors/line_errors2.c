@@ -26,3 +26,16 @@ int		ft_check_errors_line(char *line, t_all *all)
 		return (ft_syntax_error("chevrons", all));
 	return (1);
 }
+
+int		check_chevrons_cdts(char *str, int *i, int *c)
+{
+	if (*c > 0 && (str[*i] == '<' && str[*i - 1] == '>'))
+		return (0);
+	if (*c > 0 && (str[*i - 1] == '<' && str[*i] == ' '
+	&& skipspace(str, i) && str[*i] == '>'))
+		return (0);
+	if (*i > 0 && str[*i - 1] == '>' && skipspace(str, i)
+	&& (str[*i] == ';' || str[*i] == '|' || str[*i] == '\0'))
+		return (0);
+	return (1);
+}

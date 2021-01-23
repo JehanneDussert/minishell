@@ -80,8 +80,7 @@ int		check_chevrons(char *str)
 		if_in_quote(&d, &s, str);
 		if (is_charset(str[i], "><") && i > 0 && str[i - 1] == '\\')
 		{
-			i++;
-			if (str[i] == '\0')
+			if (str[i + 1] == '\0')
 				return (1);
 		}
 		else if (c == 0 && (s == 0 && d == 0) && is_charset(str[i], "><"))
@@ -89,23 +88,8 @@ int		check_chevrons(char *str)
 			i++;
 			c++;
 		}
-		if ((s == 0 && d == 0) && c > 0 && (str[i] == '<' && str[i - 1] == '>'))
-		{
-			ft_putnbr_fd(1, 2);
+		if ((s == 0 && d == 0) && !check_chevrons_cdts(str, &i, &c))
 			return (0);
-		}
-		if ((s == 0 && d == 0) && c > 0 && (str[i - 1] == '<' && str[i] == ' '
-			&& skipspace(str, &i) && str[i] == '>'))
-		{
-			ft_putnbr_fd(2, 2);
-			return (0);
-		}
-		if (s == 0 && d == 0 && i > 0 && str[i - 1] == '>' && skipspace(str, &i)
-		&& (str[i] == ';' || str[i] == '|' || str[i] == '\0'))
-		{
-			ft_putnbr_fd(3, 2);
-			return (0);
-		}
 		i++;
 	}
 	return (1);

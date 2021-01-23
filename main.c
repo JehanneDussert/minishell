@@ -24,7 +24,6 @@ void	ft_command_exec(char *comm, t_all *all)
 	if (!ft_check_redirection(commands, all, "><"))
 		return (free_read(&commands, NULL));
 	ft_restablish_redir(&commands, all);
-	// il faut d'abordsplit quote puis check_quotes puis command id
 	if (res == 0 && !commands[1] &&
 	!(command_id((ft_split_quote(commands[0], "\t\n\r\v \f")), all, 1)))
 		res = -1;
@@ -108,7 +107,6 @@ char	*ft_read(t_all *all)
 		free_read(NULL, &line);
 		return (NULL);
 	}
-	//free_read(&buf, &line);
 	if (all->exit->e != -1 || all->exit->d == 1)
 		return (NULL);
 	return ("done");

@@ -54,13 +54,12 @@ typedef struct	s_all
 	int			cmd_len;
 }				t_all;
 
-typedef struct s_copy
+typedef struct	s_copy
 {
 	int			j;
 	int			i;
 	int			s;
 	int			d;
 }				t_copy;
-
 
 #endif

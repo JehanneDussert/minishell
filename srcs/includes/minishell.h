@@ -99,7 +99,7 @@ char	*ft_return_new_comd(char **comd, char *charset);
 char	*ft_create_file(char *str, char **file, int *j);
 void	ft_redirection_out(t_all *all);
 void	ft_cmd_fill(char **comd, char ***tmp, int *i, int *j);
-int 	ft_check_env(t_lst *alst, char *tmp, char ***new);
+int		ft_check_env(t_lst *alst, char *tmp, char ***new);
 int		ft_env_in_quote(char *comd);
 
 /*
@@ -107,7 +107,8 @@ int		ft_env_in_quote(char *comd);
 */
 void	ft_delete_quotes(char comm, char ***tmp, int *j, char c);
 void	if_in_quote(int *d, int *s, char *str);
-int	    ft_check_special_case(char **comm, char ***new, t_copy *copy, t_all *all);
+int		ft_check_special_case(char **comm, char ***new,
+t_copy *copy, t_all *all);
 void	ft_err_nb(char *comm, char ***new, t_copy *copy, t_all *all);
 void	ft_init_copy(t_copy *copy, char *comm);
 void	ft_no_quote(char **comm, char ***new, t_copy *copy, t_all *all);
@@ -116,8 +117,8 @@ void	ft_double_quote(char **comm, t_copy *copy, char ***new, t_all *all);
 void	ft_env(char *comm, char ***new, t_copy *copy, t_all *all);
 void	ft_special_char(char **comm, char ***new, t_copy *copy);
 void	ft_restablish_char(char ***comm);
-void    ft_restablish_redir(char ***comm, t_all *all);
-void    ft_check_sep(char **comm);
+void	ft_restablish_redir(char ***comm, t_all *all);
+void	ft_check_sep(char **comm);
 int		ft_check_bs(char *comm, int i);
 
 /*
@@ -126,6 +127,7 @@ int		ft_check_bs(char *comm, int i);
 int		ft_error_ps(char *str);
 int		ft_quote_error(char *str);
 int		check_chevrons(char *str);
+int		check_chevrons_cdts(char *str, int *i, int *c);
 int		check_double(char *str, char *charset);
 int		ft_check_errors_line(char *line, t_all *all);
 int		ft_path_error(t_all *all, char **comm);
