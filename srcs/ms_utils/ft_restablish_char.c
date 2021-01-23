@@ -73,11 +73,7 @@ void	ft_restablish_redir(char ***comm, t_all *all)
 			(*comm)[0][i] == 3)
 			ft_replace((*comm)[0], &new, &i, &j);
 		else
-		{
-			new[j] = (*comm)[0][i];
-			i++;
-			j++;
-		}
+			new[j++] = (*comm)[0][i++];
 	}
 	free_read(NULL, *comm);
 	if (new)
@@ -112,53 +108,4 @@ void	ft_init_check_sep(int *i, int *j, int *d, int *s)
 	*j = 0;
 	*s = 0;
 	*d = 0;
-}
-
-int		ft_check_bs(char *comm, int i)
-{
-	int bs;
-
-	bs = 0;
-	while (comm[i] && comm[i] == '\\' && i > 0)
-	{
-		bs++;
-		i--;
-	}
-	if (bs % 2)
-		return (0);
-	return (1);
-}
-
-void	ft_check_sep(char **comm)
-{
-	int		i;
-	int		s;
-	int		d;
-	char	*new;
-	int		j;
-
-	ft_init_check_sep(&i, &j, &d, &s);
-	if ((new = ft_calloc(ft_strlen(*comm) + 1, sizeof(char))) == NULL)
-		return ;
-	while ((*comm)[i])
-	{
-		if ((s % 2 || d % 2) && is_charset((*comm)[i], ";|><"))
-			ft_s_char(comm, &new, &i, &j);
-		else
-		{
-			if ((*comm)[i] == '\'' && ft_check_bs(*comm, i - 1))
-				s++;
-			else if ((*comm)[i] == '\"' && ft_check_bs(*comm, i - 1))
-				d++;
-			new[j] = (*comm)[i];
-			i++;
-			j++;
-		}
-	}
-	free_read(NULL, comm);
-	if (new)
-	{
-		(*comm) = ft_strdup(new);
-		ft_free((void **)&new);
-	}
 }
