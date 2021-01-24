@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 21:47:41 by emmadebanvi       #+#    #+#             */
-/*   Updated: 2021/01/14 16:06:57 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/24 16:31:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,20 @@ int		makenumber(char *number)
 	return (res);
 }
 
+void	ft_exit_error(t_all *all, int mode)
+{
+	if (mode == 1)
+	{
+		all->exit->e = 2;
+		error_msg("exit", "Numeric argument needed.");
+	}
+	else
+	{
+		all->exit->e = 1;
+		error_msg("exit", "Too many arguments");
+	}
+}
+
 void	ft_exit_fct(t_all *all, char **comm)
 {
 	int	i;
@@ -45,7 +59,7 @@ void	ft_exit_fct(t_all *all, char **comm)
 	i = 0;
 	if (!comm[1])
 	{
-		all->exit->e = 0;
+		all->err = 0;
 		return ;
 	}
 	else
@@ -60,9 +74,9 @@ void	ft_exit_fct(t_all *all, char **comm)
 			if (comm[1][i] == '\0')
 				all->exit->e = makenumber(comm[1]);
 			else
-				all->exit->e = 2;
+				ft_exit_error(all, 1);
 		}
 		else
-			error_msg("exit", "Too many arguments");
+			ft_exit_error(all, 2);
 	}
 }
