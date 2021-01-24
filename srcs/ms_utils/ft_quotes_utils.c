@@ -65,6 +65,7 @@ void	ft_err_nb(char *comm, char ***new, t_copy *copy, t_all *all)
 		if (comm[copy->i] == '?')
 		{
 			nb = ft_itoa(all->err);
+			all->cmd_len += ft_strlen(nb);
 			if (nb)
 			{
 				(*new)[0] = ft_strjoin_free((*new)[0], nb, 1);
