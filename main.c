@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/20 12:21:03 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/24 00:23:09 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,26 +117,26 @@ int		main(void)
 {
 	int		x;
 	char	*tmp;
-	t_all	all;
+	//t_all	all;
 
 	x = 1;
 	welcomer();
-	ft_bzero(&all, sizeof(t_all));
-	ft_init_all(&all);
+	ft_bzero(&g_all, sizeof(t_all));
+	ft_init_all(&g_all);
 	signal(SIGINT, c_handler);
 	signal(SIGQUIT, d_handler);
-	all.prog = 0;
+	g_all.prog = 0;
 	tmp = NULL;
 	while (x > 0)
 	{
-		ft_redirection_out(&all);
+		ft_redirection_out(&g_all);
 		ft_putstr_fd("~:", 1);
-		if ((tmp = ft_read(&all)) == NULL)
-			x = (all.exit->e == -1 ? -1 : 0);
+		if ((tmp = ft_read(&g_all)) == NULL)
+			x = (g_all.exit->e == -1 ? -1 : 0);
 	}
 	if (x == 0)
-		exit(all.exit->e);
-	free_all(&all);
+		exit(g_all.exit->e);
+	free_all(&g_all);
 	byebye();
 	return (1);
 }
