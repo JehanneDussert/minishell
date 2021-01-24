@@ -66,7 +66,10 @@ void	ft_err_nb(char *comm, char ***new, t_copy *copy, t_all *all)
 		{
 			nb = ft_itoa(all->err);
 			if (nb)
+			{
 				(*new)[0] = ft_strjoin_free((*new)[0], nb, 1);
+				ft_free((void **)&nb);
+			}
 		}
 		copy->j++;
 		copy->i++;
