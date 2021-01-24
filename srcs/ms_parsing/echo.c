@@ -46,7 +46,7 @@ void	ft_echo(char **comm, t_all *all)
 	while (comm[i])
 	{
 		j = 0;
-		if (comm[i][j] == '-')
+		if (comm[i][j] == '-' && (i == 1 || opt[0] == '-'))
 			ft_check_n(&i, &res, comm[i], &opt);
 		if (comm[i][j] != '-')
 			while (comm[i][j])
