@@ -50,6 +50,25 @@ void	ft_check_sep_cdt(char **comm, int *i, int *s, int *d)
 		(*d)++;
 }
 
+int		ft_len_without_quotes(char *comm)
+{
+	int	d;
+	int	s;
+	int	len;
+
+	s = 0;
+	d = 0;
+	len = 0;
+	while (comm[len] != '\'' && comm[len] != '\"')
+		len++;
+	if_in_quote(&d, &s, comm);
+	if (d > s)
+		len += d;
+	else
+		len += s;
+	return (len);
+}
+
 void	ft_check_sep(char **comm)
 {
 	int		i;
@@ -59,7 +78,7 @@ void	ft_check_sep(char **comm)
 	int		j;
 
 	ft_init_check_sep(&i, &j, &d, &s);
-	if ((new = ft_calloc(ft_strlen(*comm) + 1, sizeof(char))) == NULL)
+	if ((new = ft_calloc(ft_len_without_quotes(*comm) + 1, sizeof(char))) == NULL)
 		return ;
 	while ((*comm)[i])
 	{
@@ -74,7 +93,7 @@ void	ft_check_sep(char **comm)
 	free_read(NULL, comm);
 	if (new)
 	{
-		(*comm) = ft_strdup(new);
-		ft_free((void **)&new);
+		(*comm) = (new);
+		//ft_free((void **)&new);
 	}
 }
