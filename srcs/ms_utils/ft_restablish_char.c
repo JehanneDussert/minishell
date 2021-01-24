@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_restablish_char.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jehannedussert <marvin@42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 20:57:56 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/20 20:57:57 by jehannedu        ###   ########.fr       */
+/*   Updated: 2021/01/24 00:05:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,31 +81,4 @@ void	ft_restablish_redir(char ***comm, t_all *all)
 		(*comm)[0] = ft_strdup(new);
 		ft_free((void **)&new);
 	}
-}
-
-void	ft_s_char(char **comm, char **new, int *i, int *j)
-{
-	while (is_charset(comm[0][*i], "><;|"))
-	{
-		if (is_charset(comm[0][*i], "<"))
-			new[0][*j] = 2;
-		else if (is_charset(comm[0][*i], ">"))
-			new[0][*j] = 3;
-		else if (is_charset(comm[0][*i], ";"))
-			new[0][*j] = 4;
-		else if (is_charset(comm[0][*i], "|"))
-			new[0][*j] = 5;
-		else if (is_charset(comm[0][*i], "\'\""))
-			return ;
-		(*j)++;
-		(*i)++;
-	}
-}
-
-void	ft_init_check_sep(int *i, int *j, int *d, int *s)
-{
-	*i = 0;
-	*j = 0;
-	*s = 0;
-	*d = 0;
 }

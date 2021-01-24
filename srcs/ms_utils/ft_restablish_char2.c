@@ -15,6 +15,33 @@ int		ft_check_bs(char *comm, int i)
 	return (1);
 }
 
+void	ft_s_char(char **comm, char **new, int *i, int *j)
+{
+	while (is_charset(comm[0][*i], "><;|"))
+	{
+		if (is_charset(comm[0][*i], "<"))
+			new[0][*j] = 2;
+		else if (is_charset(comm[0][*i], ">"))
+			new[0][*j] = 3;
+		else if (is_charset(comm[0][*i], ";"))
+			new[0][*j] = 4;
+		else if (is_charset(comm[0][*i], "|"))
+			new[0][*j] = 5;
+		else if (is_charset(comm[0][*i], "\'\""))
+			return ;
+		(*j)++;
+		(*i)++;
+	}
+}
+
+void	ft_init_check_sep(int *i, int *j, int *d, int *s)
+{
+	*i = 0;
+	*j = 0;
+	*s = 0;
+	*d = 0;
+}
+
 void	ft_check_sep_cdt(char **comm, int *i, int *s, int *d)
 {
 	if ((*comm)[*i] == '\'' && ft_check_bs(*comm, *i - 1))
