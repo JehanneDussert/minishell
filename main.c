@@ -102,12 +102,13 @@ char	*ft_read(t_all *all)
 			return ("error");
 	if ((d = read_d(all, &line, buf, n)) != 1)
 		return (d == 0 ? NULL : "error");
-	if (!buf)
+	if (!buf && line)
 	{
 		free_read(NULL, &line);
 		return (NULL);
 	}
-	//free_read(&buf, &line);
+	if (buf && line)
+		free_read(&buf, &line);
 	if (all->exit->e != -1 || all->exit->d == 1)
 		return (NULL);
 	return ("done");
@@ -117,7 +118,6 @@ int		main(void)
 {
 	int		x;
 	char	*tmp;
-	//t_all	all;
 
 	x = 1;
 	welcomer();
