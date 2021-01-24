@@ -107,8 +107,7 @@ char	*ft_read(t_all *all)
 		free_read(NULL, &line);
 		return (NULL);
 	}
-	if (buf)
-		free_read(&buf, NULL);
+	// free manquant ?
 	if (all->exit->e != -1 || all->exit->d == 1)
 		return (NULL);
 	return ("done");
