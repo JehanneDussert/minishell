@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 21:47:41 by emmadebanvi       #+#    #+#             */
-/*   Updated: 2021/01/24 17:38:34 by marvin           ###   ########.fr       */
+/*   Updated: 2021/01/24 17:45:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_exit_fct(t_all *all, char **comm)
 	i = 0;
 	if (!comm[1])
 	{
-		all->err = 0;
+		all->exit->e = 0;
 		return ;
 	}
 	else
