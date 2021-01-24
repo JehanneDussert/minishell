@@ -11,6 +11,7 @@ SRCS = ft_memset.c ft_bzero.c ft_strlen.c ft_toupper.c ft_tolower.c \
 
 OBJS = ${SRCS:.c=.o}
 
+CC = gcc
 
 CFLAGS += -Werror -Wall -Wextra -g3 -fsanitize=address
 
