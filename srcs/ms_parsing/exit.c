@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/01 21:47:41 by emmadebanvi       #+#    #+#             */
-/*   Updated: 2021/01/24 16:31:44 by marvin           ###   ########.fr       */
+/*   Updated: 2021/01/24 17:38:34 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_exit_error(t_all *all, int mode)
 	}
 	else
 	{
-		all->exit->e = 1;
+		all->err = 1;
 		error_msg("exit", "Too many arguments");
 	}
 }
