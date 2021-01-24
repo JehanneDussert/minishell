@@ -84,6 +84,7 @@ char	*ft_clear_quotes(char **comm, t_all *all)
 	free_read(NULL, comm);
 	if (new)
 	{
+		ft_putendl_fd(new, 2);
 		comm[0] = ft_strdup(new);
 		ft_free((void **)&new);
 	}
