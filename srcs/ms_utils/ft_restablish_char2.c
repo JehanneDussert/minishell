@@ -74,8 +74,6 @@ char	*ft_sep(char **comm)
 	if (comm[0] && new)
 	{
 		free(comm[0]);
-		printf("ici ca va pas :\n");
-		printf("%p\n", new);
 		comm[0] = ft_strdup(new);
 		ft_free((void **)&new);
 	}
@@ -91,7 +89,7 @@ int		ft_check_sep(char **comm)
 	{
 		if (!is_charset(comm[0][i], "\'\""))
 			continue ;
-		while (comm[0][i] && !is_charset(comm[0][i], ";|><"))
+		while (comm[0][i] && !is_charset(comm[0][i], ";|>< "))
 			i++;
 		if (comm[0][i] && !(comm[0] = ft_sep(comm)))
 			return (0);
