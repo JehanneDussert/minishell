@@ -6,78 +6,110 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 20:57:56 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/25 14:40:08 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/25 15:50:55 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_replace(char *comm, char **new, int *i, int *j)
+void	ft_replace(char **comm, char **new, int *i, int *j)
 {
-	if (comm[*i] && comm[*i] == 1)
-		new[0][*j] = ' ';
-	else if (comm[*i] && comm[*i] == 2)
-		new[0][*j] = '<';
-	else if (comm[*i] && comm[*i] == 3)
-		new[0][*j] = '>';
-	else if (comm[*i] && comm[*i] == 4)
-		new[0][*j] = ';';
-	else if (comm[*i] && comm[*i] == 5)
-		new[0][*j] = '|';
+	if ((*comm)[*i] && (*comm)[*i] == 1)
+		(*new)[*j] = ' ';
+	else if ((*comm)[*i] && (*comm)[*i] == 2)
+		(*new)[*j] = '<';
+	else if ((*comm)[*i] && (*comm)[*i] == 3)
+		(*new)[*j] = '>';
+	else if ((*comm)[*i] && (*comm)[*i] == 4)
+		(*new)[*j] = ';';
+	else if ((*comm)[*i] && (*comm)[*i] == 5)
+		(*new)[*j] = '|';
 	(*j)++;
 	(*i)++;
+}
+
+int		ft_len(char **comm)
+{
+	int	len;
+
+	len = 0;
+	while (comm[len])
+		len++;
+	return (len);
 }
 
 void	ft_restablish_char(char ***comm)
 {
 	int		i;
 	int		j;
-	char	*new;
+	int		k;
+	char	**new;
 
-	i = 0;
-	j = 0;
-	if ((new = ft_calloc(ft_strlen((*comm)[0]) + 1, sizeof(char))) == NULL)
+	k = 0;
+	if ((new = ft_calloc(ft_len((*comm)) + 1, sizeof(char *))) == NULL)
 		return ;
-	while ((*comm)[0][i])
+	while ((*comm)[k])
 	{
-		if ((*comm)[0][i] == 4 || (*comm)[0][i] == 5)
-			ft_replace((*comm)[0], &new, &i, &j);
-		else
+		i = 0;
+		j = 0;
+		if ((new[k] = ft_calloc(ft_strlen((*comm)[k]) + 1, sizeof(char))) == NULL)
+			return ;
+		while ((*comm)[k][i])
 		{
-			new[j] = (*comm)[0][i];
-			i++;
-			j++;
+			if ((*comm)[k][i] == 4 || (*comm)[k][i] == 5)
+				ft_replace(&((*comm)[k]), &new[k], &i, &j);
+			else
+				new[k][j++] = (*comm)[k][i++];
 		}
+		k++;
 	}
-	free_read(NULL, *comm);
-	if (new)
+	free_read(comm, NULL);
+	k = 0;
+	if (((*comm) = ft_calloc(ft_len(new) + 1, sizeof(char *))) == NULL)
+		return ;
+	while (new[k])
 	{
-		(*comm)[0] = ft_strdup(new);
-		ft_free((void **)&new);
+		(*comm)[k] = ft_strdup(new[k]);
+		k++;
 	}
+	free_read(&new, NULL);
 }
 
 void	ft_restablish_redir(char ***comm, t_all *all)
 {
 	int		i;
 	int		j;
-	char	*new;
+	int		k;
+	char	**new;
 
-	i = 0;
-	j = 0;
-	if ((new = ft_calloc(all->cmd_len + 1, sizeof(char))) == NULL)
+	k = 0;
+	(void)all;
+	if ((new = ft_calloc(ft_len((*comm)) + 1, sizeof(char *))) == NULL)
 		return ;
-	while ((*comm)[0][i])
+	while ((*comm)[k])
 	{
-		if ((*comm)[0][i] == 2 || (*comm)[0][i] == 3)
-			ft_replace((*comm)[0], &new, &i, &j);
-		else
-			new[j++] = (*comm)[0][i++];
+		i = 0;
+		j = 0;
+		if ((new[k] = ft_calloc(ft_strlen((*comm)[k]) + 1, sizeof(char))) == NULL)
+			return ;
+		while ((*comm)[k][i])
+		{
+			if ((*comm)[k][i] == 1 || (*comm)[k][i] == 2 
+				|| (*comm)[k][i] == 3)
+				ft_replace(&((*comm)[k]), &new[k], &i, &j);
+			else
+				new[k][j++] = (*comm)[k][i++];
+		}
+		k++;
 	}
-	free_read(NULL, *comm);
-	if (new)
+	free_read(comm, NULL);
+	k = 0;
+	if (((*comm) = ft_calloc(ft_len(new) + 1, sizeof(char *))) == NULL)
+		return ;
+	while (new[k])
 	{
-		(*comm)[0] = ft_strdup(new);
-		ft_free((void **)&new);
+		(*comm)[k] = ft_strdup(new[k]);
+		k++;
 	}
+	free_read(&new, NULL);
 }

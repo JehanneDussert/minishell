@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/25 11:59:21 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/25 15:53:31 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*if_pipes(char **commands, t_all *all, int *res);
 **MS_PARSING
 */
 char	*pipes_id(t_all *all);
-char	*command_id(char **comm, t_all *all, int mode);
+char	*command_id(char **comm, t_all *all);
 void	ft_echo(char **comm, t_all *all);
 void	cd_id(char **cmd, t_all *all);
 void	cd_chdir(char *path, int *catch, t_all *all);

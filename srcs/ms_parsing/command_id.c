@@ -6,14 +6,15 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 16:02:46 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/25 14:43:41 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/25 15:53:19 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*command_id(char **comm, t_all *all, int mode)
+char	*command_id(char **comm, t_all *all)
 {
+	ft_restablish_redir(&comm, all);
 	if (!comm[0])
 		;
 	else if (!ft_strcmp(comm[0], "echo"))
@@ -34,8 +35,7 @@ char	*command_id(char **comm, t_all *all, int mode)
 		ft_exec(comm, all);
 	else
 		path_id(comm, all);
-	if (mode == 1)
-		free_read(&comm, NULL);
+	free_read(&comm, NULL);
 	return ("done");
 }
 
@@ -49,7 +49,7 @@ void	in_fork(t_all *all, int i)
 	}
 	if (all->cmd[i + 1].cmd)
 		dup2(all->cmd[i].pipe[1], 1);
-	command_id(all->cmd[i].cmd, all, 0);
+	command_id(all->cmd[i].cmd, all);
 	if (!all->cmd[i + 1].cmd)
 	{
 		close(all->cmd[i].pipe[1]);
