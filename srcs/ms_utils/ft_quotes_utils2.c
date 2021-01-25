@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 20:57:06 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/25 16:26:49 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/25 16:32:39 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	ft_double_quote(char **comm, t_copy *copy, char ***new, t_all *all)
 			is_charset(comm[0][copy->i + 1], "\\\""))
 			++copy->i;
 		ft_cmd_fill(comm, new, &copy->i, &copy->j);
-		//copy->i++;
 	}
 	if (comm[0][copy->i] && comm[0][copy->i] == '\"')
 		copy->i++;
