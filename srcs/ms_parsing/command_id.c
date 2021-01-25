@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_id.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 16:02:46 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/07 00:11:55 by ubuntu           ###   ########.fr       */
+/*   Updated: 2021/01/25 14:36:09 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 char	*command_id(char **comm, t_all *all, int mode)
 {
+	ft_putstr_fd("this is command id :", 2);
+	ft_putstr_fd(comm[0], 2);
+	ft_putendl_fd(comm[1], 2);
 	if (!comm[0])
 		;
 	else if (!ft_strcmp(comm[0], "echo"))
