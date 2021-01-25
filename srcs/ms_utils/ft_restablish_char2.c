@@ -50,7 +50,7 @@ void	ft_check_sep_cdt(char **comm, int *i, int *s, int *d)
 		(*d)++;
 }
 
-void	ft_check_sep(char **comm)
+char	*ft_sep(char **comm)
 {
 	int		i;
 	int		s;
@@ -60,8 +60,8 @@ void	ft_check_sep(char **comm)
 
 	ft_init_check_sep(&i, &j, &d, &s);
 	if ((new = ft_calloc(ft_strlen(*comm) + 1, sizeof(char))) == NULL)
-		return ;
-	while ((*comm)[i])
+		return (NULL);
+	while ((comm)[0][i])
 	{
 		if ((s % 2 || d % 2) && is_charset((*comm)[i], ";|><"))
 			ft_s_char(comm, &new, &i, &j);
@@ -71,10 +71,32 @@ void	ft_check_sep(char **comm)
 			new[j++] = (*comm)[i++];
 		}
 	}
-	free_read(NULL, comm);
-	if (new)
+	if (comm[0] && new)
 	{
-		(*comm) = (new);
-		//ft_free((void **)&new);
+		free(comm[0]);
+		printf("ici ca va pas :\n");
+		printf("%p\n", new);
+		comm[0] = ft_strdup(new);
+		ft_free((void **)&new);
 	}
+	return (comm[0]);
+}
+
+int		ft_check_sep(char **comm)
+{
+	int	i;
+
+	i = -1;
+	while (comm[0][++i])
+	{
+		if (!is_charset(comm[0][i], "\'\""))
+			continue ;
+		while (comm[0][i] && !is_charset(comm[0][i], ";|><"))
+			i++;
+		if (comm[0][i] && !(comm[0] = ft_sep(comm)))
+			return (0);
+		else
+			return (1);
+	}
+	return (1);
 }

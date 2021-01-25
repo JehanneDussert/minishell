@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/24 19:30:03 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/25 12:25:54 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,22 @@ void	ft_command_exec(char *comm, t_all *all)
 	free_read(&commands, NULL);
 }
 
-char	*read_checks(t_all *all, int *count, char ***buf, char *line)
+char	*read_checks(t_all *all, int *count, char ***buf, char **line)
 {
 	int		i;
 
 	i = 0;
-	if (ft_strchr(line, '\'') || ft_strchr(line, '\"'))
-		ft_check_sep(&line);
-	if (!(ft_check_errors_line(line, all)))
+	if (!ft_check_sep(line) || !(ft_check_errors_line(line[0], all)))
 	{
-		free_read(buf, &line);
+		free_read(buf, line);
 		return (NULL);
 	}
-	*buf = ft_split_quote(line, ";");
+	*buf = ft_split_quote(line[0], ";");
 	if (*buf)
 		ft_count_commands(count, *buf);
 	else
 	{
-		free_read(buf, &line);
+		free_read(buf, line);
 		all->err = 1;
 		ft_malloc_error(NULL);
 		return (NULL);
@@ -80,7 +78,7 @@ int		read_d(t_all *all, char **line, char **buf, int n)
 		}
 		n = get_next_line(1, &line_d);
 		*line = ft_strjoin_free(*line, line_d, 3);
-		if (!(read_checks(all, &count, &buf, *line)))
+		if (!(read_checks(all, &count, &buf, line)))
 			return (2);
 	}
 	return (1);
@@ -98,7 +96,7 @@ char	*ft_read(t_all *all)
 	buf = NULL;
 	line = NULL;
 	if ((n = get_next_line(1, &line)) == 1)
-		if (!(read_checks(all, &count, &buf, line)))
+		if (!(read_checks(all, &count, &buf, &line)))
 			return ("error");
 	if ((d = read_d(all, &line, buf, n)) != 1)
 		return (d == 0 ? NULL : "error");
@@ -107,7 +105,9 @@ char	*ft_read(t_all *all)
 		free_read(NULL, &line);
 		return (NULL);
 	}
-	if (buf && line)
+	printf("%p\n", line);
+	printf("%ld\n", (long int)line);
+	if (buf)
 		free_read(&buf, &line);
 	if (all->exit->e != -1 || all->exit->d == 1)
 		return (NULL);
