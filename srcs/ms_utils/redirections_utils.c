@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 16:21:48 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/14 16:11:22 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/26 11:34:50 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,20 @@ char	*ft_return_new_comd(char **comd, char *charset)
 char	*ft_create_file(char *str, char **file, int *j)
 {
 	int		i;
+	char	*tmp;
 
 	i = 0;
 	while (is_charset(str[*j], "> "))
 		(*j)++;
-	while (str[i + (*j)] && str[i + (*j)] != ' ')
+	while (str[i + (*j)] && str[i + (*j)] != ' ' && str[i + (*j)] != '\\')
 		i++;
 	(*file) = ft_substr(str, *j, i);
+	if (str[i + (*j)] == ' ')
+	{
+		i++;
+		tmp = &str[i + (*j)];
+		(*file) = ft_strjoin_free(*file, tmp, 1);
+	}
 	return (*file);
 }
 

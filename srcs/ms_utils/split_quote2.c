@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 12:10:47 by idussert          #+#    #+#             */
-/*   Updated: 2021/01/25 11:33:12 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/26 11:59:08 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,14 @@ void	ft_env(char *comm, char ***new, t_copy *copy, t_all *all)
 			comm[copy->i] != '}')
 			(copy->i)++;
 		tmp = ft_substr(comm, k, (copy->i - k));
-		res = ft_check_env(all->alst, tmp, new);
+		if ((res = ft_check_env(all->alst, tmp, new)) == 0 && (ft_strchr(comm, '>') || (ft_strchr(comm, '>'))))
+		{
+			error_msg(tmp, "ambiguous redirection");
+			ft_free((void **)&tmp);
+			free_read(NULL, (*new));
+			return ;
+		}
+		ft_free((void **)&tmp);
 		if (copy->i - k < res)
 			all->cmd_len += res;
 		if (comm[copy->i] == '\"')
