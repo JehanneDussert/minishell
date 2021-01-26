@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/19 15:41:17 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/26 15:11:57 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ int		ft_quote_error(char *str)
 			d++;
 		else if (str[i] == '\'' && d % 2)
 			s += 2;
-		else if (str[i] == '\'' && ft_check_bs(str, i - 1))
-			s++;
 		i++;
 	}
 	if (d % 2 || s % 2)

@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 12:10:47 by idussert          #+#    #+#             */
-/*   Updated: 2021/01/26 12:37:23 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/26 15:15:44 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,12 @@ void	ft_copy_comd(char **comm, char **new, t_all *all)
 	{
 		if (!ft_check_special_case(comm, &new, &copy, all))
 			return ;
-		else if (comm[0][copy.i] == '\\' && (copy.i == 0 ||
-			comm[0][copy.i - 1] != '\\') && ++(copy.i))
+		else if (comm[0][copy.i] == '\\' && !ft_check_bs((*comm), copy.i) && ++(copy.i))
+		{
+			if (!(comm[0][copy.i]))
+				return ;
 			ft_cmd_fill(comm, &new, &copy.i, &copy.j);
+		}
 		if (comm[0][copy.i] == '\"')
 			ft_double_quote(comm, &copy, &new, all);
 		if (comm[0][copy.i] == '\'')
