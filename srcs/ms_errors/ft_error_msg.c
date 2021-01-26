@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error_msg.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ede-banv <ede-banv@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 15:11:25 by ede-banv          #+#    #+#             */
-/*   Updated: 2020/10/26 12:37:19 by ede-banv         ###   ########.fr       */
+/*   Updated: 2021/01/26 12:04:08 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,11 @@ int		ft_malloc_error(char *bin)
 {
 	error_msg(bin, "memory allocation error.");
 	return (0);
+}
+
+void	ft_ambiguous_redir(char ***new, char **tmp)
+{
+	error_msg(*tmp, "ambiguous redirection");
+	ft_free((void **)tmp);
+	free_read(NULL, (*new));
 }

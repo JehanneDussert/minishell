@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 14:33:43 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/26 11:57:04 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/26 12:41:22 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,9 @@ int		ft_check_env(t_lst *alst, char *tmp, char ***new)
 		if (!ft_strcmp(tmp, alst->key))
 		{
 			(*new)[0] = ft_strjoin_free((*new)[0], alst->content, 1);
-			//ft_free((void **)&tmp);
 			return (ft_strlen(alst->content));
 		}
 		alst = alst->next;
 	}
-	//ft_free((void **)&tmp);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/25 15:53:31 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/26 12:43:20 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	ft_check_quotes(char ***comm, t_all *all);
 **UTILS FCTS
 */
 void	ft_init_all(t_all *all);
+void	ft_init_check_sep(int *i, int *j, int *d, int *s);
 void	ft_init_echo(int *i, char **opt, int *res);
 void	ft_init_quote(int *i, int *k, int *d, int *s);
 int		skipspace(char *line, int *i);
@@ -138,6 +139,7 @@ int		ft_path_error(t_all *all, char **comm);
 int		ft_syntax_error(char *error, t_all *all);
 int		ft_malloc_error(char *bin);
 void	error_msg(char *bin, char *message);
+void	ft_ambiguous_redir(char ***new, char **tmp);
 
 /*
 **FREE

@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 16:10:53 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/15 12:20:24 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/26 12:42:30 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,12 @@ void	ft_init_quote(int *i, int *k, int *d, int *s)
 	*k = 0;
 	*d = 0;
 	*s = 0;
+}
+
+void	ft_init_check_sep(int *i, int *j, int *d, int *s)
+{
+	*i = 0;
+	*j = 0;
+	*s = 0;
+	*d = 0;
 }

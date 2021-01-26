@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 20:57:56 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/25 15:50:55 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/26 12:44:13 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	ft_restablish_char(char ***comm)
 	{
 		i = 0;
 		j = 0;
-		if ((new[k] = ft_calloc(ft_strlen((*comm)[k]) + 1, sizeof(char))) == NULL)
+		if ((new[k] = ft_calloc(ft_strlen((*comm)[k]) + 1,
+			sizeof(char))) == NULL)
 			return ;
 		while ((*comm)[k][i])
 		{
@@ -90,11 +91,12 @@ void	ft_restablish_redir(char ***comm, t_all *all)
 	{
 		i = 0;
 		j = 0;
-		if ((new[k] = ft_calloc(ft_strlen((*comm)[k]) + 1, sizeof(char))) == NULL)
+		if ((new[k] = ft_calloc(ft_strlen((*comm)[k]) + 1,
+			sizeof(char))) == NULL)
 			return ;
 		while ((*comm)[k][i])
 		{
-			if ((*comm)[k][i] == 1 || (*comm)[k][i] == 2 
+			if ((*comm)[k][i] == 1 || (*comm)[k][i] == 2
 				|| (*comm)[k][i] == 3)
 				ft_replace(&((*comm)[k]), &new[k], &i, &j);
 			else

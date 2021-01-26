@@ -34,14 +34,6 @@ void	ft_s_char(char **comm, char **new, int *i, int *j)
 	}
 }
 
-void	ft_init_check_sep(int *i, int *j, int *d, int *s)
-{
-	*i = 0;
-	*j = 0;
-	*s = 0;
-	*d = 0;
-}
-
 void	ft_check_sep_cdt(char **comm, int *i, int *s, int *d)
 {
 	if ((*comm)[*i] == '\'' && ft_check_bs(*comm, *i - 1))
