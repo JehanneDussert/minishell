@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 20:57:06 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/26 12:36:51 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/27 17:15:16 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	ft_double_quote(char **comm, t_copy *copy, char ***new, t_all *all)
 	++copy->i;
 	if (comm[0][copy->i] == '$' && ++copy->i)
 		ft_env(comm[0], new, copy, all);
+	if (comm[0][copy->i] == '\'')
+		ft_simple_quote(comm, copy, new);
 	while (comm[0][copy->i] && comm[0][copy->i] != '\\' &&
 		comm[0][copy->i] != '\"' && copy->d-- >= 0)
 		ft_delete_quotes(comm[0][(copy->i)++], new, &copy->j, '\"');
