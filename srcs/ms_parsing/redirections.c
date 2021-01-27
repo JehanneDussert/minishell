@@ -48,14 +48,16 @@ void	ft_redir_plus(char **comd, t_all *all, int *i)
 
 int		ft_redir_less(char **comd, t_all *all, int *i)
 {
-	(*i)++;
+	char *file;
+
+	file = ft_create_file(comd[0], &file, i);
 	while (comd[0][*i] == ' ')
 		(*i)++;
-	if ((all->fd = open(&comd[0][*i], O_RDONLY)) < 0)
+	if ((all->fd = open(file, O_RDONLY)) < 0)
 	{
 		if (all->redir == 1)
 			ft_redirection_out(all);
-		error_msg(&comd[0][*i], "No such file or directory");
+		error_msg(file, "No such file or directory");
 		all->redir = 1;
 		all->err = 1;
 		return (0);

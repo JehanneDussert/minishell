@@ -69,7 +69,7 @@ char	*ft_create_file(char *str, char **file, int *j)
 	int		i;
 
 	i = 0;
-	while (is_charset(str[*j], "> "))
+	while (is_charset(str[*j], ">< "))
 		(*j)++;
 	while (str[*j + i] && !is_charset(str[*j + i], " \\><"))
 		i++;
