@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 16:21:48 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/26 16:39:17 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/27 14:43:49 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,11 @@ void	ft_copy_clean_comd(char **comd, char **tmp, char *charset)
 
 	i = 0;
 	j = 0;
+	skipspace(comd[0], &i);
 	while (comd[0] && comd[0][i])
 	{
-		while (comd[0][i] && ((charset[0] != '#'
-			&& !is_charset(comd[0][i], charset)) || (charset[0] == '#')))
-		{
-			if (charset[0] == '#' && comd[0][i] == ' ' && comd[0][i + 1] == '#')
-				return ;
+		while (comd[0][i] && (!is_charset(comd[0][i], charset)))
 			ft_cmd_fill(comd, &tmp, &i, &j);
-		}
 		ft_skip_redirection(comd, &i);
 	}
 }
@@ -53,29 +49,13 @@ char	*ft_return_new_comd(char **comd, char *charset)
 char	*ft_create_file(char *str, char **file, int *j)
 {
 	int		i;
-	int		k;
-	char	*tmp;
 
 	i = 0;
-	// prbl there fichier\ .txt
-	ft_putendl_fd(str, 2);
-	while (is_charset(str[*j], ">"))
+	while (is_charset(str[*j], ">< "))
 		(*j)++;
-	while (str[i + (*j)] && str[i + (*j)] != ' ' && str[i + (*j)] != '\\')
+	while (str[*j + i] && !is_charset(str[*j + i], " \\><"))
 		i++;
 	(*file) = ft_substr(str, *j, i);
-	ft_putstr_fd(*file, 2);
-	if (str[i + (*j)] == ' ')
-	{
-		++i;
-		k = i;
-		while (str[(*j) + i] && str[(*j) + i] != ' ')
-			i++;
-		tmp = ft_substr(str, k, i);
-		ft_putendl_fd(tmp, 2);
-		(*file) = ft_strjoin_free(*file, tmp, 2);
-	}
-	ft_putendl_fd(*file, 2);
 	return (*file);
 }
 
@@ -91,4 +71,5 @@ void	ft_redirection_out(t_all *all)
 		dup2(all->copy_stdin, STDIN);
 		close(all->copy_stdin);
 	}
+	all->redir = 0;
 }
