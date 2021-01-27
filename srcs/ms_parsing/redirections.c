@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 14:21:15 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/14 16:04:46 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/27 14:54:30 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ void	ft_redir_plus(char **comd, t_all *all, int *i)
 		ft_create_file(tmp, &file, &j);
 		all->fd = open(file, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	}
-	//if (comd[1])
-	//	ft_free((void **)&comd[1]);
 	all->redir = 1;
 	ft_free((void **)&tmp);
 	ft_free((void **)&file);
@@ -62,6 +60,7 @@ int		ft_redir_less(char **comd, t_all *all, int *i)
 		all->err = 1;
 		return (0);
 	}
+	ft_free((void **)&file);
 	all->copy_stdin = dup(STDIN);
 	dup2(all->fd, STDIN);
 	close(all->fd);
