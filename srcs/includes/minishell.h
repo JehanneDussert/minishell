@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/26 15:27:16 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/27 15:55:34 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,11 @@ void	ft_redirection_out(t_all *all);
 void	ft_cmd_fill(char **comd, char ***tmp, int *i, int *j);
 int		ft_check_env(t_lst *alst, char *tmp, char ***new);
 int		ft_env_in_quote(char *comd);
+void	ft_check_if_err_nb(char *comm, t_copy *copy, char ***new, t_all *all);
+void	ft_end_of_env(char *comm, int *i);
+void	ft_tmp(char ***new, char **tmp, t_copy *copy, int *k);
+void	ft_replace(char **comm, char **new, int *i, int *j);
+int		ft_len(char **comm);
 
 /*
 **QUOTES UTILS FCTS
@@ -117,7 +122,7 @@ void	ft_double_quote(char **comm, t_copy *copy, char ***new, t_all *all);
 void	ft_env(char *comm, char ***new, t_copy *copy, t_all *all);
 void	ft_special_char(char **comm, char ***new, t_copy *copy);
 void	ft_restablish_char(char ***comm);
-void	ft_restablish_redir(char ***comm, t_all *all);
+void	ft_restablish_redir(char ***comm);
 int		ft_check_sep(char **comm);
 int		ft_check_bs(char *comm, int i);
 

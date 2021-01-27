@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_quotes_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jehannedussert <marvin@42.fr>              +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 21:02:20 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/20 21:02:22 by jehannedu        ###   ########.fr       */
+/*   Updated: 2021/01/27 15:41:18 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,12 @@ void	ft_err_nb(char *comm, char ***new, t_copy *copy, t_all *all)
 		copy->j++;
 		copy->i++;
 	}
+}
+
+void	ft_check_if_err_nb(char *comm, t_copy *copy, char ***new, t_all *all)
+{
+	if ((comm[copy->i] == '?' && (comm[copy->i - 1] == '$' ||
+		comm[copy->i - 1] == '{')) || (comm[copy->i] == '{' &&
+		comm[copy->i - 1] == '$') || comm[copy->i] == '$')
+		ft_err_nb(comm, new, copy, all);
 }

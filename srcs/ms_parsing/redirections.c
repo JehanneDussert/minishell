@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 14:21:15 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/27 15:28:37 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/27 15:36:30 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,15 @@ void	ft_redir_plus(char **comd, t_all *all, int *i)
 
 	j = 0;
 	tmp = ft_strtrim(&comd[0][*i], " ");
+	if (all->redir == 1)
+		ft_redirection_out(all);
 	if (tmp[j] == '>' && tmp[j + 1] == '>')
 	{
-		if (all->redir == 1)
-			ft_redirection_out(all);
 		ft_create_file(tmp, &file, &j);
 		all->fd = open(file, O_RDWR | O_APPEND | O_CREAT, 0644);
 	}
 	else if (tmp[j] == '>')
 	{
-		if (all->redir == 1)
-			ft_redirection_out(all);
 		ft_create_file(tmp, &file, &j);
 		all->fd = open(file, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	}

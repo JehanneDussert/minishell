@@ -6,36 +6,25 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 20:57:56 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/26 12:44:13 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/27 16:02:28 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_replace(char **comm, char **new, int *i, int *j)
+void	ft_restablish_comd(char ***comm, char ***new)
 {
-	if ((*comm)[*i] && (*comm)[*i] == 1)
-		(*new)[*j] = ' ';
-	else if ((*comm)[*i] && (*comm)[*i] == 2)
-		(*new)[*j] = '<';
-	else if ((*comm)[*i] && (*comm)[*i] == 3)
-		(*new)[*j] = '>';
-	else if ((*comm)[*i] && (*comm)[*i] == 4)
-		(*new)[*j] = ';';
-	else if ((*comm)[*i] && (*comm)[*i] == 5)
-		(*new)[*j] = '|';
-	(*j)++;
-	(*i)++;
-}
+	int	i;
 
-int		ft_len(char **comm)
-{
-	int	len;
-
-	len = 0;
-	while (comm[len])
-		len++;
-	return (len);
+	i = 0;
+	if (((*comm) = ft_calloc(ft_len(*new) + 1, sizeof(char *))) == NULL)
+		return ;
+	while ((*new)[i])
+	{
+		(*comm)[i] = ft_strdup((*new)[i]);
+		i++;
+	}
+	free_read(new, NULL);
 }
 
 void	ft_restablish_char(char ***comm)
@@ -45,10 +34,10 @@ void	ft_restablish_char(char ***comm)
 	int		k;
 	char	**new;
 
-	k = 0;
+	k = -1;
 	if ((new = ft_calloc(ft_len((*comm)) + 1, sizeof(char *))) == NULL)
 		return ;
-	while ((*comm)[k])
+	while ((*comm)[++k])
 	{
 		i = 0;
 		j = 0;
@@ -62,32 +51,22 @@ void	ft_restablish_char(char ***comm)
 			else
 				new[k][j++] = (*comm)[k][i++];
 		}
-		k++;
 	}
 	free_read(comm, NULL);
-	k = 0;
-	if (((*comm) = ft_calloc(ft_len(new) + 1, sizeof(char *))) == NULL)
-		return ;
-	while (new[k])
-	{
-		(*comm)[k] = ft_strdup(new[k]);
-		k++;
-	}
-	free_read(&new, NULL);
+	ft_restablish_comd(comm, &new);
 }
 
-void	ft_restablish_redir(char ***comm, t_all *all)
+void	ft_restablish_redir(char ***comm)
 {
 	int		i;
 	int		j;
 	int		k;
 	char	**new;
 
-	k = 0;
-	(void)all;
+	k = -1;
 	if ((new = ft_calloc(ft_len((*comm)) + 1, sizeof(char *))) == NULL)
 		return ;
-	while ((*comm)[k])
+	while ((*comm)[++k])
 	{
 		i = 0;
 		j = 0;
@@ -95,23 +74,12 @@ void	ft_restablish_redir(char ***comm, t_all *all)
 			sizeof(char))) == NULL)
 			return ;
 		while ((*comm)[k][i])
-		{
 			if ((*comm)[k][i] == 1 || (*comm)[k][i] == 2
 				|| (*comm)[k][i] == 3)
 				ft_replace(&((*comm)[k]), &new[k], &i, &j);
 			else
 				new[k][j++] = (*comm)[k][i++];
-		}
-		k++;
 	}
 	free_read(comm, NULL);
-	k = 0;
-	if (((*comm) = ft_calloc(ft_len(new) + 1, sizeof(char *))) == NULL)
-		return ;
-	while (new[k])
-	{
-		(*comm)[k] = ft_strdup(new[k]);
-		k++;
-	}
-	free_read(&new, NULL);
+	ft_restablish_comd(comm, &new);
 }

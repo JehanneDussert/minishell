@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 16:02:46 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/25 15:53:19 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/27 15:55:39 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*command_id(char **comm, t_all *all)
 {
-	ft_restablish_redir(&comm, all);
+	ft_restablish_redir(&comm);
 	if (!comm[0])
 		;
 	else if (!ft_strcmp(comm[0], "echo"))

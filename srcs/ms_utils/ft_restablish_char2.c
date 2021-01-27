@@ -66,8 +66,7 @@ char	*ft_sep(char **comm)
 	if (comm[0] && new)
 	{
 		free(comm[0]);
-		comm[0] = ft_strdup(new);
-		ft_free((void **)&new);
+		comm[0] = new;
 	}
 	return (comm[0]);
 }
