@@ -26,7 +26,6 @@ void	ft_redir_plus(char **comd, t_all *all, int *i)
 			ft_redirection_out(all);
 		ft_create_file(tmp, &file, &j);
 		all->fd = open(file, O_RDWR | O_APPEND | O_CREAT, 0644);
-		all->redir = 1;
 	}
 	else if (tmp[j] == '>')
 	{
@@ -34,10 +33,10 @@ void	ft_redir_plus(char **comd, t_all *all, int *i)
 			ft_redirection_out(all);
 		ft_create_file(tmp, &file, &j);
 		all->fd = open(file, O_RDWR | O_CREAT | O_TRUNC, 0644);
-		all->redir = 1;
 	}
 	//if (comd[1])
 	//	ft_free((void **)&comd[1]);
+	all->redir = 1;
 	ft_free((void **)&tmp);
 	ft_free((void **)&file);
 	all->copy_stdout = dup(STDOUT);
@@ -53,22 +52,24 @@ int		ft_redir_less(char **comd, t_all *all, int *i)
 	file = ft_create_file(comd[0], &file, i);
 	while (comd[0][*i] == ' ')
 		(*i)++;
+	if (all->redir == 1)
+		ft_redirection_out(all);
 	if ((all->fd = open(file, O_RDONLY)) < 0)
 	{
 		if (all->redir == 1)
 			ft_redirection_out(all);
 		error_msg(file, "No such file or directory");
-		all->redir = 1;
 		all->err = 1;
 		return (0);
 	}
 	all->copy_stdin = dup(STDIN);
 	dup2(all->fd, STDIN);
 	close(all->fd);
+	all->redir = 1;
 	return (1);
 }
 
-int		ft_reverse(char **comd, int *i)
+int		ft_reverse(char **comd, int *i, t_all *all)
 {
 	char	*tmp;
 	int		k;
@@ -79,6 +80,8 @@ int		ft_reverse(char **comd, int *i)
 		k += 2;
 	while (tmp[k] == ' ')
 		k++;
+	if (all->redir == 1)
+		ft_redirection_out(all);
 	if ((open(&tmp[k], O_CREAT | O_WRONLY, 0644)) >= 0)
 	{
 		ft_free((void **)&tmp);
@@ -86,6 +89,7 @@ int		ft_reverse(char **comd, int *i)
 	}
 	ft_free((void **)&tmp);
 	(*i) += k;
+	all->redir = 1;
 	return (1);
 }
 
@@ -99,7 +103,7 @@ int		ft_redirections(char **comd, t_all *all, int j, char *charset)
 	{
 		if (comd[0][i] == '<' && comd[0][i + 1] == '>')
 		{
-			ft_reverse(comd, &i);
+			ft_reverse(comd, &i, all);
 			if (j > 0)
 			{
 				ft_free((void **)&comd[0]);
@@ -123,7 +127,6 @@ int		ft_check_redirection(char **comm, t_all *all, char *charset)
 	int	j;
 
 	j = 0;
-	ft_redirection_out(all);
 	while (comm[j])
 	{
 		i = 0;
