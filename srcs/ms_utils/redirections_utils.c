@@ -6,29 +6,11 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 16:21:48 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/26 11:34:50 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/26 16:39:17 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int		ft_nb_to_print(char **comd, char *charset)
-{
-	int	w;
-	int	i;
-
-	w = 0;
-	i = 0;
-	while (comd[0] && comd[0][i++])
-	{
-		if (charset[0] == '#' && comd[0][i] == '#')
-			return (w);
-		if (charset[0] == '\\' && comd[0][i] == '\\')
-			i++;
-		w++;
-	}
-	return (w);
-}
 
 void	ft_copy_clean_comd(char **comd, char **tmp, char *charset)
 {
@@ -55,7 +37,7 @@ char	*ft_return_new_comd(char **comd, char *charset)
 	char	*tmp;
 	int		w;
 
-	w = ft_nb_to_print(comd, charset);
+	w = ft_strlen(comd[0]);
 	if ((tmp = ft_calloc(w + 1, sizeof(char))) == NULL)
 		return (NULL);
 	ft_copy_clean_comd(comd, &tmp, charset);
@@ -71,20 +53,29 @@ char	*ft_return_new_comd(char **comd, char *charset)
 char	*ft_create_file(char *str, char **file, int *j)
 {
 	int		i;
+	int		k;
 	char	*tmp;
 
 	i = 0;
-	while (is_charset(str[*j], "> "))
+	// prbl there fichier\ .txt
+	ft_putendl_fd(str, 2);
+	while (is_charset(str[*j], ">"))
 		(*j)++;
 	while (str[i + (*j)] && str[i + (*j)] != ' ' && str[i + (*j)] != '\\')
 		i++;
 	(*file) = ft_substr(str, *j, i);
+	ft_putstr_fd(*file, 2);
 	if (str[i + (*j)] == ' ')
 	{
-		i++;
-		tmp = &str[i + (*j)];
-		(*file) = ft_strjoin_free(*file, tmp, 1);
+		++i;
+		k = i;
+		while (str[(*j) + i] && str[(*j) + i] != ' ')
+			i++;
+		tmp = ft_substr(str, k, i);
+		ft_putendl_fd(tmp, 2);
+		(*file) = ft_strjoin_free(*file, tmp, 2);
 	}
+	ft_putendl_fd(*file, 2);
 	return (*file);
 }
 
