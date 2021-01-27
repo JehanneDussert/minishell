@@ -52,6 +52,7 @@ typedef struct	s_all
 	int			copy_stdout;
 	int			copy_stdin;
 	int			cmd_len;
+	int			redir;
 }				t_all;
 
 typedef struct	s_copy

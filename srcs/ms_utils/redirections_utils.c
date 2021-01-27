@@ -37,15 +37,11 @@ void	ft_copy_clean_comd(char **comd, char **tmp, char *charset)
 
 	i = 0;
 	j = 0;
+	skipspace(comd[0], &i);
 	while (comd[0] && comd[0][i])
 	{
-		while (comd[0][i] && ((charset[0] != '#'
-			&& !is_charset(comd[0][i], charset)) || (charset[0] == '#')))
-		{
-			if (charset[0] == '#' && comd[0][i] == ' ' && comd[0][i + 1] == '#')
-				return ;
+		while (comd[0][i] && (!is_charset(comd[0][i], charset)))
 			ft_cmd_fill(comd, &tmp, &i, &j);
-		}
 		ft_skip_redirection(comd, &i);
 	}
 }
@@ -71,20 +67,13 @@ char	*ft_return_new_comd(char **comd, char *charset)
 char	*ft_create_file(char *str, char **file, int *j)
 {
 	int		i;
-	char	*tmp;
 
 	i = 0;
 	while (is_charset(str[*j], "> "))
 		(*j)++;
-	while (str[i + (*j)] && str[i + (*j)] != ' ' && str[i + (*j)] != '\\')
+	while (str[*j + i] && !is_charset(str[*j + i], " \\><"))
 		i++;
 	(*file) = ft_substr(str, *j, i);
-	if (str[i + (*j)] == ' ')
-	{
-		i++;
-		tmp = &str[i + (*j)];
-		(*file) = ft_strjoin_free(*file, tmp, 1);
-	}
 	return (*file);
 }
 
@@ -100,4 +89,5 @@ void	ft_redirection_out(t_all *all)
 		dup2(all->copy_stdin, STDIN);
 		close(all->copy_stdin);
 	}
+	all->redir = 0;
 }

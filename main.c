@@ -29,6 +29,7 @@ void	ft_command_exec(char *comm, t_all *all)
 	if (res == 0 && commands[1])
 		if (!(if_pipes(commands, all, &res)))
 			return ;
+	ft_redirection_out(&g_all);
 	if (res == -1)
 	{
 		all->err = 1;
@@ -126,7 +127,6 @@ int		main(void)
 	tmp = NULL;
 	while (x > 0)
 	{
-		ft_redirection_out(&g_all);
 		ft_putstr_fd("~:", 1);
 		if ((tmp = ft_read(&g_all)) == NULL)
 			x = (g_all.exit->e == -1 ? -1 : 0);

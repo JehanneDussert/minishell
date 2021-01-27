@@ -22,16 +22,22 @@ void	ft_redir_plus(char **comd, t_all *all, int *i)
 	tmp = ft_strtrim(&comd[0][*i], " ");
 	if (tmp[j] == '>' && tmp[j + 1] == '>')
 	{
+		if (all->redir == 1)
+			ft_redirection_out(all);
 		ft_create_file(tmp, &file, &j);
 		all->fd = open(file, O_RDWR | O_APPEND | O_CREAT, 0644);
+		all->redir = 1;
 	}
 	else if (tmp[j] == '>')
 	{
+		if (all->redir == 1)
+			ft_redirection_out(all);
 		ft_create_file(tmp, &file, &j);
 		all->fd = open(file, O_RDWR | O_CREAT | O_TRUNC, 0644);
+		all->redir = 1;
 	}
-	if (comd[1])
-		ft_free((void **)&comd[1]);
+	//if (comd[1])
+	//	ft_free((void **)&comd[1]);
 	ft_free((void **)&tmp);
 	ft_free((void **)&file);
 	all->copy_stdout = dup(STDOUT);
@@ -47,7 +53,10 @@ int		ft_redir_less(char **comd, t_all *all, int *i)
 		(*i)++;
 	if ((all->fd = open(&comd[0][*i], O_RDONLY)) < 0)
 	{
+		if (all->redir == 1)
+			ft_redirection_out(all);
 		error_msg(&comd[0][*i], "No such file or directory");
+		all->redir = 1;
 		all->err = 1;
 		return (0);
 	}
@@ -112,6 +121,7 @@ int		ft_check_redirection(char **comm, t_all *all, char *charset)
 	int	j;
 
 	j = 0;
+	ft_redirection_out(all);
 	while (comm[j])
 	{
 		i = 0;
