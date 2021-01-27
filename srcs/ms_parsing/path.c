@@ -25,7 +25,11 @@ char	*find_path(t_all *all)
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->key, "PATH"))
+		{
+			if (tmp->content[0] == 0)
+				return (NULL);
 			return (tmp->content);
+		}
 		tmp = tmp->next;
 	}
 	return (NULL);
