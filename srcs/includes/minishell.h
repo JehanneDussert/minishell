@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/28 14:30:09 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/28 15:28:06 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ void	ft_restablish_redir(char ***comm);
 int		ft_check_sep(char **comm);
 int		ft_check_bs(char *comm, int i);
 int		ft_check_if_special_char(char **comm, int i, int s, int d);
+int		is_in_quote(char **comm, int index);
 
 /*
 **MS_ERRORS

@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:06:27 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/28 15:25:35 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/28 15:27:33 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,32 +25,6 @@ int		ft_check_bs(char *comm, int i)
 	if (bs % 2)
 		return (0);
 	return (1);
-}
-
-int		is_in_quote(char **comm, int index)
-{
-	int i;
-	int	d;
-	int	s;
-
-	i = 0;
-	d = 0;
-	s = 0;
-	while (i < index)
-	{
-		if ((*comm)[i] == '\"' && s % 2)
-			d += 2;
-		else if ((*comm)[i] == '\"' && ft_check_bs((*comm), i - 1))
-			d++;
-		else if ((*comm)[i] == '\'' && d % 2)
-			s += 2;
-		else if ((*comm)[i] == '\'')
-			s++;
-		i++;
-	}
-	if (d % 2 || s % 2)
-		return (1);
-	return (0);
 }
 
 void	ft_s_char(char **comm, char **new, int *i, int *j)

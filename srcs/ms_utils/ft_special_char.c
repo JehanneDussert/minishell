@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:47:39 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/19 15:27:18 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/28 15:27:51 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,31 @@ int		ft_env_in_quote(char *comd)
 			return (1);
 		i++;
 	}
+	return (0);
+}
+
+int		is_in_quote(char **comm, int index)
+{
+	int i;
+	int	d;
+	int	s;
+
+	i = 0;
+	d = 0;
+	s = 0;
+	while (i < index)
+	{
+		if ((*comm)[i] == '\"' && s % 2)
+			d += 2;
+		else if ((*comm)[i] == '\"' && ft_check_bs((*comm), i - 1))
+			d++;
+		else if ((*comm)[i] == '\'' && d % 2)
+			s += 2;
+		else if ((*comm)[i] == '\'')
+			s++;
+		i++;
+	}
+	if (d % 2 || s % 2)
+		return (1);
 	return (0);
 }
