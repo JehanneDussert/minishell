@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_special_char_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:05:51 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/28 12:50:50 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/28 19:48:45 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ int		ft_len(char **comm)
 
 int		ft_check_if_special_char(char **comm, int i, int s, int d)
 {
-	if (((s % 2 || d % 2) && is_charset((*comm)[i], ";|><")) ||
-		(is_charset((*comm)[i], "\\") && is_charset((*comm)[i + 1], "><")
-		&& !ft_check_bs(comm[0], i)))
+	if (((s % 2 || d % 2) && is_charset((*comm)[i], ";|><")
+		&& is_in_quote(comm, i)) || (is_charset((*comm)[i], "\\")
+		&& is_charset((*comm)[i + 1], "><") && !ft_check_bs(comm[0], i)))
 		return (1);
 	return (0);
 }
