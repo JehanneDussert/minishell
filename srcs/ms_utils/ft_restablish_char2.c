@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_restablish_char2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:06:27 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/27 16:06:28 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/28 12:27:45 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int		ft_check_bs(char *comm, int i)
 
 void	ft_s_char(char **comm, char **new, int *i, int *j)
 {
-	while (is_charset(comm[0][*i], "><;|"))
+
+	while (is_charset(comm[0][*i], "><;|\\"))
 	{
 		if (is_charset(comm[0][*i], "<"))
 			new[0][*j] = 2;
@@ -39,6 +40,8 @@ void	ft_s_char(char **comm, char **new, int *i, int *j)
 			new[0][*j] = 4;
 		else if (is_charset(comm[0][*i], "|"))
 			new[0][*j] = 5;
+		else if (is_charset(comm[0][*i], "\\"))
+				new[0][*j] = 6;
 		else if (is_charset(comm[0][*i], "\'\""))
 			return ;
 		(*j)++;
@@ -67,7 +70,8 @@ char	*ft_sep(char **comm)
 		return (NULL);
 	while ((comm)[0][i])
 	{
-		if ((s % 2 || d % 2) && is_charset((*comm)[i], ";|><"))
+		if (((s % 2 || d % 2) && is_charset((*comm)[i], ";|><")) ||
+		(is_charset((*comm)[i], "\\") && is_charset((*comm)[i + 1], "><") && !ft_check_bs(comm[0], i)))
 			ft_s_char(comm, &new, &i, &j);
 		else
 		{
@@ -90,9 +94,9 @@ int		ft_check_sep(char **comm)
 	i = -1;
 	while (comm[0][++i])
 	{
-		if (!is_charset(comm[0][i], "\'\""))
+		if (!is_charset(comm[0][i], "\'\"\\"))
 			continue ;
-		while (comm[0][i] && !is_charset(comm[0][i], ";|>< "))
+		while (comm[0][i] && !is_charset(comm[0][i], ";|><\\ "))
 			i++;
 		if (comm[0][i] && !(comm[0] = ft_sep(comm)))
 			return (0);

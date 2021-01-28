@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 20:57:56 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/27 16:02:28 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/28 11:33:05 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	ft_restablish_redir(char ***comm)
 			return ;
 		while ((*comm)[k][i])
 			if ((*comm)[k][i] == 1 || (*comm)[k][i] == 2
-				|| (*comm)[k][i] == 3)
+				|| (*comm)[k][i] == 3 || (*comm)[k][i] == 6)
 				ft_replace(&((*comm)[k]), &new[k], &i, &j);
 			else
 				new[k][j++] = (*comm)[k][i++];

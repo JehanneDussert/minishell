@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_special_char_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:05:51 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/27 16:05:55 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/28 11:33:09 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ void	ft_replace(char **comm, char **new, int *i, int *j)
 		(*new)[*j] = ';';
 	else if ((*comm)[*i] && (*comm)[*i] == 5)
 		(*new)[*j] = '|';
+	else if ((*comm)[*i] && (*comm)[*i] == 6)
+	{
+		(*i)++;
+		return ;
+	}
 	(*j)++;
 	(*i)++;
 }
