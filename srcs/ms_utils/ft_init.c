@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 16:10:53 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/26 12:42:30 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/28 14:24:04 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void	ft_init_all(t_all *all)
 	all->exit->e = -1;
 }
 
-void	ft_init_echo(int *i, char **opt, int *res)
+void	ft_init_echo(int *i, char *opt, int *res)
 {
 	*i = 1;
 	*res = 0;
-	*opt = "off";
+	*opt = 0;
 }
 
 void	ft_init_quote(int *i, int *k, int *d, int *s)

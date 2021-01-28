@@ -6,57 +6,42 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 13:18:45 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/27 17:07:52 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/28 14:29:58 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		ft_echo_n(char *comm, char **opt)
+int		ft_one_char(char *str, char c)
 {
-	int i;
+	int		i;
 
-	i = 1;
-	while (comm[i])
-	{
-		if (comm[i] != 'n' && comm[i] != '-' && comm[i] != ' ')
-			return (0);
+	i = 0;
+	while (str[i] == c)
 		i++;
-	}
-	*opt = "-n";
-	return (i);
-}
-
-void	ft_check_n(int *i, int *res, char *comm, char **opt)
-{
-	*res = ft_echo_n(comm, opt);
-	if (*res != 0)
-		(*i)++;
-	*res = 1;
+	if (str[i] == '\0')
+		return (1);
+	return (0);
 }
 
 void	ft_echo(char **comm, t_all *all)
 {
 	int		i;
-	int		j;
-	char	*opt;
+	char	opt;
 	int		res;
 
 	ft_init_echo(&i, &opt, &res);
+	while (comm[i] && comm[i][0] == '-' && ft_one_char(&comm[i][1], 'n'))
+		i++;
+	if (i > 1)
+		opt = 1;
 	while (comm[i])
 	{
-		j = 0;
-		if (comm[i][j] == '-' && (i == 1 || opt[0] == '-') && res != 1)
-			ft_check_n(&i, &res, comm[i], &opt);
-		if (res == 1 && !ft_strncmp(comm[i], "-n", 2))
+		ft_putstr_fd(comm[i], 1);
+		if (comm[++i])
 			ft_putchar_fd(' ', 1);
-		while (comm[i][j] && comm[i][j] != 1)
-			ft_putchar_fd(comm[i][j++], 1);
-		if (comm[i + 1] && ft_strncmp(opt, "-n", 2))
-			ft_putchar_fd(' ', 1);
-		i++;
 	}
-	if (!ft_strncmp(opt, "off", 3))
+	if (!opt)
 		ft_putchar_fd('\n', 1);
 	all->err = 0;
 }

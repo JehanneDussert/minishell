@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/28 12:51:01 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/28 14:30:09 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ int		execve_fct(char **comm, char *path, t_all *all);
 char	**make_envp(t_all *all);
 void	path_id(char **comm, t_all *all);
 void	ft_exit_fct(t_all *all, char **comm);
-void	ft_check_n(int *i, int *res, char *comm, char **opt);
-int		ft_echo_n(char *comm, char **opt);
 void	c_handler(int sigld);
 void	d_handler(int sigld);
 int		ft_check_redirection(char **comm, t_all *all, char *charset);
@@ -78,7 +76,7 @@ void	ft_check_quotes(char ***comm, t_all *all);
 */
 void	ft_init_all(t_all *all);
 void	ft_init_check_sep(int *i, int *j, int *d, int *s);
-void	ft_init_echo(int *i, char **opt, int *res);
+void	ft_init_echo(int *i, char *opt, int *res);
 void	ft_init_quote(int *i, int *k, int *d, int *s);
 int		skipspace(char *line, int *i);
 void	ft_skip_redirection(char **comd, int *i);
