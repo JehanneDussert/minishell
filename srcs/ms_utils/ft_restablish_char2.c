@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:06:27 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/28 12:46:41 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/28 12:50:41 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,7 @@ char	*ft_sep(char **comm)
 		return (NULL);
 	while ((comm)[0][i])
 	{
-		if (((s % 2 || d % 2) && is_charset((*comm)[i], ";|><")) ||
-		(is_charset((*comm)[i], "\\") && is_charset((*comm)[i + 1], "><")
-		&& !ft_check_bs(comm[0], i)))
+		if (ft_check_if_special_char(comm, i, s, d))
 			ft_s_char(comm, &new, &i, &j);
 		else
 		{
