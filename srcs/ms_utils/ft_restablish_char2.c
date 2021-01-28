@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:06:27 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/28 12:50:41 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/28 15:25:35 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,35 @@ int		ft_check_bs(char *comm, int i)
 	return (1);
 }
 
+int		is_in_quote(char **comm, int index)
+{
+	int i;
+	int	d;
+	int	s;
+
+	i = 0;
+	d = 0;
+	s = 0;
+	while (i < index)
+	{
+		if ((*comm)[i] == '\"' && s % 2)
+			d += 2;
+		else if ((*comm)[i] == '\"' && ft_check_bs((*comm), i - 1))
+			d++;
+		else if ((*comm)[i] == '\'' && d % 2)
+			s += 2;
+		else if ((*comm)[i] == '\'')
+			s++;
+		i++;
+	}
+	if (d % 2 || s % 2)
+		return (1);
+	return (0);
+}
+
 void	ft_s_char(char **comm, char **new, int *i, int *j)
 {
-	while (is_charset(comm[0][*i], "><;|\\"))
+	while (is_charset(comm[0][*i], "><;|\\") && is_in_quote(comm, *i))
 	{
 		if (is_charset(comm[0][*i], "<"))
 			new[0][*j] = 2;
@@ -69,7 +95,7 @@ char	*ft_sep(char **comm)
 		return (NULL);
 	while ((comm)[0][i])
 	{
-		if (ft_check_if_special_char(comm, i, s, d))
+		if (ft_check_if_special_char(comm, i, s, d) && is_in_quote(comm, i))
 			ft_s_char(comm, &new, &i, &j);
 		else
 		{
