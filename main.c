@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/29 16:54:46 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/29 17:11:34 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,21 +67,22 @@ char	*read_checks(t_all *all, int *count, char ***buf, char **line)
 int		read_d(t_all *all, char **line, char ***buf, int n)
 {
 	int		count;
-	char	*save_ctrl_d;
+	char	*save_if_ctrl_d;
 
-	save_ctrl_d = ft_strdup("");
+	save_if_ctrl_d = ft_strdup("\0");
 	while ((n = get_next_line(0, line)) != 1)
 	{
-		if (*line && *line[0] == '\0' && n == 0 && save_ctrl_d[0] != '\0')
+		if (*line && *line[0] == '\0' && n == 0 && save_if_ctrl_d[0] == '\0')
 		{
+			//ft_putendl_fd("on va partir", 2);
 			ft_free((void **)line);
 			g_all.exit->e = -1;
 			return (0);
 		}
 		else if (n == 0)
-			save_ctrl_d = ft_strjoin_free(save_ctrl_d, *line, 1);
+			save_if_ctrl_d = ft_strjoin_free(save_if_ctrl_d, *line, 1);
 	}
-	*line = ft_strjoin_free(save_ctrl_d, *line, 3);
+	*line = ft_strjoin_free(save_if_ctrl_d, *line, 3);
 	if (!(read_checks(all, &count, buf, line)))
 			return (2);
 	return (1);
