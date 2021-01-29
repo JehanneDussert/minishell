@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/29 15:10:00 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/29 16:52:46 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,29 +64,28 @@ char	*read_checks(t_all *all, int *count, char ***buf, char **line)
 	return ("done");
 }
 
-int		read_d(t_all *all, char **line, char **buf, int n)
+int		read_d(t_all *all, char **line, char ***buf, int n)
 {
 	int		count;
-	char	*line_d;
+	char	*save_ctrl_d;
 
-	line_d = NULL;
-	while (n == 0)
+	save_ctrl_d = ft_strdup("");
+	while ((n = get_next_line(0, line)) != 1)
 	{
-		if (*line && *line[0] == '\0')
+		if (*line && *line[0] == '\0' && n == 0 && save_ctrl_d[0] != '\0')
 		{
 			ft_free((void **)line);
+			g_all.exit->e = -1;
 			return (0);
 		}
-		if (!line_d)
+		else if (n == 0)
 		{
-			ft_free((void **)line);
-			n = -1;
+			save_ctrl_d = ft_strjoin_free(save_ctrl_d, *line, 1);
 		}
-		n = get_next_line(1, &line_d);
-		*line = ft_strjoin_free(*line, line_d, 3);
-		if (n == -1 || !(read_checks(all, &count, &buf, line)))
-			return (2);
 	}
+	*line = ft_strjoin_free(save_ctrl_d, *line, 3);
+	if (!(read_checks(all, &count, buf, line)))
+			return (2);
 	return (1);
 }
 
@@ -94,17 +93,14 @@ char	*ft_read(t_all *all)
 {
 	char	*line;
 	char	**buf;
-	int		count;
 	int		n;
 	int		d;
 
-	count = 0;
+	n = 0;
 	buf = NULL;
 	line = NULL;
-	if ((n = get_next_line(1, &line)) == 1)
-		if (!(read_checks(all, &count, &buf, &line)))
-			return ("error");
-	if ((d = read_d(all, &line, buf, n)) != 1)
+	d = 0;
+	if ((d = read_d(all, &line, &buf, n)) != 1)
 		return (d == 0 ? NULL : "error");
 	if (!buf && line)
 	{
@@ -137,6 +133,7 @@ int		main(void)
 		if ((tmp = ft_read(&g_all)) == NULL)
 			x = (g_all.exit->e == -1 ? -1 : 0);
 	}
+	
 	if (x == 0)
 		exit(g_all.exit->e);
 	free_all(&g_all);
