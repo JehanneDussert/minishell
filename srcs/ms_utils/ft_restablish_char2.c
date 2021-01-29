@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_restablish_char2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:06:27 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/29 11:05:56 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/29 14:54:04 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int		ft_check_sep(char **comm)
 	int	i;
 
 	i = -1;
-	while (comm[0][++i])
+	while (comm[0] && comm[0][++i])
 	{
 		if (!is_charset(comm[0][i], "\'\"\\"))
 			continue ;
