@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/29 15:10:00 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/29 15:11:54 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int		read_d(t_all *all, char **line, char **buf, int n)
 			n = -1;
 		}
 		n = get_next_line(1, &line_d);
+		// prbl ici ?
 		*line = ft_strjoin_free(*line, line_d, 3);
 		if (n == -1 || !(read_checks(all, &count, &buf, line)))
 			return (2);
