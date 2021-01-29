@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_quote2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 12:10:47 by idussert          #+#    #+#             */
-/*   Updated: 2021/01/27 15:45:32 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/29 10:56:33 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ void	ft_copy_comd(char **comm, char **new, t_all *all)
 			ft_double_quote(comm, &copy, &new, all);
 		if (comm[0][copy.i] == '\'')
 			ft_simple_quote(comm, &copy, &new);
-		while (comm[0][copy.i] && !is_charset(comm[0][copy.i], "#?")
+		while ((comm[0][copy.i] && !is_charset(comm[0][copy.i], "#?")
 			&& comm[0][copy.i] != '\\'
-			&& comm[0][copy.i] != '\'' && comm[0][copy.i] != '\"')
+			&& comm[0][copy.i] != '\'' && comm[0][copy.i] != '\"') ||
+			(comm[0][copy.i] == '\\' && ft_check_bs((*comm), copy.i)))
 			ft_no_quote(comm, &new, &copy, all);
 	}
 }
