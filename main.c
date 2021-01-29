@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/29 11:21:12 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/29 14:25:00 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	ft_command_exec(char *comm, t_all *all)
 	ft_check_quotes(&commands, all);
 	if (!ft_check_redirection(commands, all, "><"))
 		return (free_read(&commands, NULL));
-	if (res == 0 && !commands[1] &&
+	if (res == 0 && commands[0] && !commands[1] &&
 	!(command_id((ft_split_quote(commands[0], "\t\n\r\v \f")), all)))
 		res = -1;
-	if (res == 0 && commands[1])
+	if (res == 0 && commands[0] && commands[1])
 		if (!(if_pipes(commands, all, &res)))
 			return ;
 	ft_redirection_out(&g_all);
@@ -51,16 +51,24 @@ char	*read_checks(t_all *all, int *count, char ***buf, char **line)
 	}
 	*buf = ft_split_quote(line[0], ";");
 	if (*buf)
+	{
+		ft_putendl_fd("there is buf", 2);
 		ft_count_commands(count, *buf);
+	}
 	else
 	{
+		ft_putendl_fd("free", 2);
 		free_read(buf, line);
 		all->err = 1;
 		ft_malloc_error(NULL);
 		return (NULL);
 	}
-	while (i != *count)
+	while ((*buf)[i] && i != *count)
+	{
+		ft_putendl_fd("bef command exec", 2);
 		ft_command_exec((*buf)[i++], all);
+		ft_putendl_fd("after command exec", 2);
+	}
 	return ("done");
 }
 
@@ -74,13 +82,19 @@ int		read_d(t_all *all, char **line, char **buf, int n)
 		if (*line[0] == '\0')
 		{
 			ft_free((void **)line);
+			ft_putendl_fd("there is 0", 2);
 			return (0);
 		}
 		n = get_next_line(1, &line_d);
 		*line = ft_strjoin_free(*line, line_d, 3);
+		ft_putendl_fd("read d", 2);
 		if (!(read_checks(all, &count, &buf, line)))
+		{
+			ft_putendl_fd("2", 2);
 			return (2);
+		}
 	}
+	ft_putendl_fd("out read d", 2);
 	return (1);
 }
 
@@ -109,6 +123,7 @@ char	*ft_read(t_all *all)
 		free_read(&buf, &line);
 	if (all->exit->e != -1 || all->exit->d == 1)
 		return (NULL);
+	ft_putendl_fd("out ft_read", 2);
 	return ("done");
 }
 

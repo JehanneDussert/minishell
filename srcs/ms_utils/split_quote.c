@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/13 17:43:38 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/29 10:46:44 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/29 14:09:49 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ char	**tab_fill(char *str, char *charset, char **result)
 		if (!(is_a_sep(str[i - 1], charset)) && str[i - 1])
 			result[k++][l] = '\0';
 	}
+	ft_putendl_fd("out", 2);
 	return (result);
 }
 
