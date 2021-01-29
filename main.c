@@ -6,7 +6,7 @@
 /*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/29 15:00:37 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/01/29 15:03:36 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*read_checks(t_all *all, int *count, char ***buf, char **line)
 	int		i;
 
 	i = 0;
-	if ((!ft_check_sep(line) || !(ft_check_errors_line(line[0], all))))
+	if (*line && (!ft_check_sep(line) || !(ft_check_errors_line(line[0], all))))
 	{
 		free_read(buf, line);
 		return (NULL);
