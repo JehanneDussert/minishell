@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
-/*   Updated: 2021/02/01 09:20:58 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/01 10:50:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,10 +132,9 @@ int		main(void)
 		if ((tmp = ft_read(&g_all)) == NULL)
 			x = (g_all.exit->e == -1 ? -1 : 0);
 	}
-	
 	if (x == 0)
 		exit(g_all.exit->e);
 	free_all(&g_all);
 	byebye();
-	return (1);
+	return (g_all.err);
 }

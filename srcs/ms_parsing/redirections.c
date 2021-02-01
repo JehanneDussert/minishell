@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 14:21:15 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/01/27 15:36:30 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/02/01 10:35:23 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int		ft_redir_less(char **comd, t_all *all, int *i)
 		(*i)++;
 	if ((all->fd = open(file, O_RDONLY)) < 0)
 	{
+		ft_free((void **)&file);
 		if (all->redir == 1)
 			ft_redirection_out(all);
 		error_msg(file, "No such file or directory");

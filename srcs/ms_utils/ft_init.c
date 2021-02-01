@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 16:10:53 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/02/01 09:20:29 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/01 10:03:18 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	ft_init_all(t_all *all)
 	all->err = 0;
 	create_list(all);
 	all->exit->e = -1;
+	all->fd = 1;
 }
 
 void	ft_init_echo(int *i, char *opt, int *res)
