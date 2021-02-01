@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
-/*   Updated: 2021/02/01 10:50:42 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/01 10:53:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int		read_d(t_all *all, char **line, char ***buf, int n)
 	}
 	*line = ft_strjoin_free(save_if_ctrl_d, *line, 3);
 	if (!(read_checks(all, &count, buf, line)))
-			return (2);
+		return (2);
 	return (1);
 }
 
