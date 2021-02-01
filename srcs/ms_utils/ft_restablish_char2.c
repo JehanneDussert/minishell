@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_restablish_char2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 16:06:27 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/29 14:54:04 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/02/01 09:49:19 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void	ft_s_char(char **comm, char **new, int *i, int *j)
 
 void	ft_check_sep_cdt(char **comm, int *i, int *s, int *d)
 {
-	if ((*comm)[*i] == '\'' && ft_check_bs(*comm, *i - 1))
+	if ((*comm)[*i] == '\'' && *i > 0 && ft_check_bs(*comm, *i - 1))
 		(*s)++;
-	else if ((*comm)[*i] == '\"' && ft_check_bs(*comm, *i - 1))
+	else if ((*comm)[*i] == '\"' && *i > 0 && ft_check_bs(*comm, *i - 1))
 		(*d)++;
 }
 
