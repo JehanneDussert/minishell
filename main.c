@@ -70,11 +70,10 @@ int		read_d(t_all *all, char **line, char ***buf, int n)
 	char	*save_if_ctrl_d;
 
 	save_if_ctrl_d = ft_strdup("\0");
-	while ((n = get_next_line(0, line)) != 1)
+	while ((n = get_next_line(0, line)) == 0)
 	{
 		if (*line && *line[0] == '\0' && n == 0 && save_if_ctrl_d[0] == '\0')
 		{
-			//ft_putendl_fd("on va partir", 2);
 			ft_free((void **)line);
 			g_all.exit->e = -1;
 			return (0);
