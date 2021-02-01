@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_errors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:51:22 by ede-banv          #+#    #+#             */
-/*   Updated: 2021/01/29 14:54:42 by jdussert         ###   ########.fr       */
+/*   Updated: 2021/02/01 09:37:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		ft_quote_error(char *str)
 	{
 		if (str[i] == '\"' && s % 2)
 			d += 2;
-		else if (str[i] == '\"' && ft_check_bs(str, i - 1))
+		else if (str[i] == '\"' && (i == 0 || ft_check_bs(str, i - 1)))
 			d++;
 		else if (str[i] == '\'' && d % 2)
 			s += 2;
