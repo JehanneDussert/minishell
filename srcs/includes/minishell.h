@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:10:47 by jdussert          #+#    #+#             */
-/*   Updated: 2021/01/28 19:33:13 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 14:45:00 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void	ft_end_of_env(char *comm, int *i);
 void	ft_tmp(char ***new, char **tmp, t_copy *copy, int *k);
 void	ft_replace(char **comm, char **new, int *i, int *j);
 int		ft_len(char **comm);
+void	ft_ctrl_c(char **save_if_ctrl_d);
 
 /*
 **QUOTES UTILS FCTS

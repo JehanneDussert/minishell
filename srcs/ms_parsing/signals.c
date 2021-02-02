@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 17:06:21 by jehannedu         #+#    #+#             */
-/*   Updated: 2021/02/01 10:55:18 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 13:55:23 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	c_handler(int sigld)
 {
+	g_all.c = 1;
 	(void)sigld;
 	g_all.err = 130;
 	if (g_all.prog == 0)

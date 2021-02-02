@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jdussert <jdussert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 14:15:17 by jdussert          #+#    #+#             */
-/*   Updated: 2021/02/01 10:53:09 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/02 14:44:15 by jdussert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,20 @@ int		read_d(t_all *all, char **line, char ***buf, int n)
 	save_if_ctrl_d = ft_strdup("");
 	while ((n = get_next_line(0, line)) == 0)
 	{
-		if (*line && *line[0] == '\0' && n == 0 && save_if_ctrl_d[0] == '\0')
+		if (*line && (*line)[0] == '\0' && save_if_ctrl_d[0] == '\0')
 		{
 			ft_free((void **)line);
 			ft_free((void **)&save_if_ctrl_d);
 			g_all.exit->e = -1;
 			return (0);
 		}
-		else if (n == 0)
+		else
 			save_if_ctrl_d = ft_strjoin_free(save_if_ctrl_d, *line, 3);
+	}
+	if (g_all.c == 1)
+	{
+		ft_ctrl_c(&save_if_ctrl_d);
+		ft_free((void **)line);
 	}
 	*line = ft_strjoin_free(save_if_ctrl_d, *line, 3);
 	if (!(read_checks(all, &count, buf, line)))
